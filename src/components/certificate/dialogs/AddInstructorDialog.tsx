@@ -13,9 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
+import { Instructor } from "@/types/certificate";
+
 interface AddInstructorDialogProps {
   children: React.ReactNode;
-  onAdd: (instructor: { name: string; credential?: string }) => void;
+  onAdd: (instructor: Instructor) => void;
 }
 
 export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProps) => {
@@ -34,7 +36,7 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
       return;
     }
 
-    onAdd({ name, credential: credential || undefined });
+    onAdd({ nome: name, registro: credential || undefined });
     setName("");
     setCredential("");
     setOpen(false);

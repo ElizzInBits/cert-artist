@@ -14,9 +14,11 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Upload } from "lucide-react";
 
+import { Responsible } from "@/types/certificate";
+
 interface AddResponsibleDialogProps {
   children: React.ReactNode;
-  onAdd: (responsible: { name: string; credential?: string; signature?: File }) => void;
+  onAdd: (responsible: Responsible) => void;
 }
 
 export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogProps) => {
@@ -45,7 +47,7 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
       return;
     }
 
-    onAdd({ name, credential: credential || undefined, signature });
+    onAdd({ nome: name, registro: credential || undefined, assinatura: signature });
     setName("");
     setCredential("");
     setSignature(null);

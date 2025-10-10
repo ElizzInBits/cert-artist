@@ -1,21 +1,12 @@
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, Plus, Trash2 } from "lucide-react";
 import { AddInstructorDialog } from "./dialogs/AddInstructorDialog";
 import { AddResponsibleDialog } from "./dialogs/AddResponsibleDialog";
+import { useCertificateStore } from "@/hooks/useCertificateStore";
 
 export const TeamSection = () => {
-  const [instructors, setInstructors] = useState<Array<{ name: string; credential?: string }>>([]);
-  const [responsibles, setResponsibles] = useState<Array<{ name: string; credential?: string; signature?: File }>>([]);
-
-  const removeInstructor = (index: number) => {
-    setInstructors(instructors.filter((_, i) => i !== index));
-  };
-
-  const removeResponsible = (index: number) => {
-    setResponsibles(responsibles.filter((_, i) => i !== index));
-  };
+  const { instructors, responsibles, addInstructor, removeInstructor, addResponsible, removeResponsible } = useCertificateStore();
 
   return (
     <Card className="shadow-card animate-fade-in">
@@ -30,7 +21,7 @@ export const TeamSection = () => {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold">👨‍🏫 Instrutores</h3>
-            <AddInstructorDialog onAdd={(instructor) => setInstructors([...instructors, instructor])}>
+            <AddInstructorDialog onAdd={addInstructor}>
               <Button size="sm" variant="outline">
                 <Plus className="w-4 h-4 mr-1" />
                 Adicionar
@@ -49,9 +40,9 @@ export const TeamSection = () => {
                   className="flex items-center justify-between p-2 bg-muted/50 rounded hover:bg-muted transition-colors"
                 >
                   <div>
-                    <p className="text-sm font-medium">{instructor.name}</p>
-                    {instructor.credential && (
-                      <p className="text-xs text-muted-foreground">{instructor.credential}</p>
+                    <p className="text-sm font-medium">{instructor.nome}</p>
+                    {instructor.registro && (
+                      <p className="text-xs text-muted-foreground">{instructor.registro}</p>
                     )}
                   </div>
                   <Button
@@ -71,7 +62,7 @@ export const TeamSection = () => {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold">👨‍💼 Responsáveis Técnicos</h3>
-            <AddResponsibleDialog onAdd={(responsible) => setResponsibles([...responsibles, responsible])}>
+            <AddResponsibleDialog onAdd={addResponsible}>
               <Button size="sm" variant="outline">
                 <Plus className="w-4 h-4 mr-1" />
                 Adicionar
@@ -90,9 +81,9 @@ export const TeamSection = () => {
                   className="flex items-center justify-between p-2 bg-muted/50 rounded hover:bg-muted transition-colors"
                 >
                   <div>
-                    <p className="text-sm font-medium">{responsible.name}</p>
-                    {responsible.credential && (
-                      <p className="text-xs text-muted-foreground">{responsible.credential}</p>
+                    <p className="text-sm font-medium">{responsible.nome}</p>
+                    {responsible.registro && (
+                      <p className="text-xs text-muted-foreground">{responsible.registro}</p>
                     )}
                   </div>
                   <Button

@@ -3,10 +3,19 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FileText } from "lucide-react";
-import { useState } from "react";
+import { useCertificateStore } from "@/hooks/useCertificateStore";
 
 export const DetailsSection = () => {
-  const [includeObservations, setIncludeObservations] = useState(false);
+  const {
+    conformidade,
+    conteudo,
+    observacoes,
+    useObservacoes,
+    setConformidade,
+    setConteudo,
+    setObservacoes,
+    setUseObservacoes
+  } = useCertificateStore();
 
   return (
     <Card className="shadow-card animate-fade-in">
@@ -23,6 +32,8 @@ export const DetailsSection = () => {
             id="conformidade"
             placeholder="Texto de conformidade do certificado..."
             className="min-h-[100px] resize-none"
+            value={conformidade}
+            onChange={(e) => setConformidade(e.target.value)}
           />
         </div>
 
@@ -32,14 +43,16 @@ export const DetailsSection = () => {
             id="conteudo"
             placeholder="Descreva o conteúdo programático do curso..."
             className="min-h-[100px] resize-none"
+            value={conteudo}
+            onChange={(e) => setConteudo(e.target.value)}
           />
         </div>
 
         <div className="flex items-center space-x-2">
           <Checkbox
             id="add-observations"
-            checked={includeObservations}
-            onCheckedChange={(checked) => setIncludeObservations(checked as boolean)}
+            checked={useObservacoes}
+            onCheckedChange={(checked) => setUseObservacoes(checked as boolean)}
           />
           <Label
             htmlFor="add-observations"
@@ -49,13 +62,15 @@ export const DetailsSection = () => {
           </Label>
         </div>
 
-        {includeObservations && (
+        {useObservacoes && (
           <div className="space-y-2 animate-fade-in">
             <Label htmlFor="observacoes">💬 Observações</Label>
             <Textarea
               id="observacoes"
               placeholder="Observações adicionais..."
               className="min-h-[80px] resize-none"
+              value={observacoes}
+              onChange={(e) => setObservacoes(e.target.value)}
             />
           </div>
         )}

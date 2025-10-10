@@ -3,15 +3,14 @@ import { FileUploadSection } from "@/components/certificate/FileUploadSection";
 import { CourseDataSection } from "@/components/certificate/CourseDataSection";
 import { DetailsSection } from "@/components/certificate/DetailsSection";
 import { TeamSection } from "@/components/certificate/TeamSection";
-import { OutputFormatSection } from "@/components/certificate/OutputFormatSection";
+
 import { SignatureConfigSection } from "@/components/certificate/SignatureConfigSection";
 import { FontConfigSection } from "@/components/certificate/FontConfigSection";
 import { ActionButtons } from "@/components/certificate/ActionButtons";
+import { LivePreview } from "@/components/certificate/LivePreview";
 import { GraduationCap } from "lucide-react";
 
 const Index = () => {
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [pptFile, setPptFile] = useState<File | null>(null);
   const [excelFile, setExcelFile] = useState<File | null>(null);
 
   return (
@@ -25,9 +24,7 @@ const Index = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Gerador de Certificados</h1>
-              <p className="text-primary-foreground/80 text-sm mt-1">
-                Sistema profissional de geração de certificados
-              </p>
+
             </div>
           </div>
         </div>
@@ -39,10 +36,6 @@ const Index = () => {
           {/* Left Column */}
           <div className="space-y-6">
             <FileUploadSection
-              pdfFile={pdfFile}
-              setPdfFile={setPdfFile}
-              pptFile={pptFile}
-              setPptFile={setPptFile}
               excelFile={excelFile}
               setExcelFile={setExcelFile}
             />
@@ -58,9 +51,18 @@ const Index = () => {
 
         {/* Full Width Sections */}
         <div className="space-y-6">
-          <OutputFormatSection />
-          <SignatureConfigSection />
-          <FontConfigSection />
+          {/* Preview Section */}
+          <LivePreview />
+          
+          {/* Configuration Sections */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <SignatureConfigSection />
+            <FontConfigSection />
+          </div>
+        </div>
+        
+        {/* Action Buttons */}
+        <div className="mt-6">
           <ActionButtons />
         </div>
       </main>
@@ -69,7 +71,7 @@ const Index = () => {
       <footer className="bg-card border-t border-border mt-12">
         <div className="container mx-auto px-6 py-6">
           <p className="text-center text-muted-foreground text-sm">
-            Gerador de Certificados v3.0 - Sistema Profissional de Certificação
+Gerador de Certificados v4.0
           </p>
         </div>
       </footer>
