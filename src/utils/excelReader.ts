@@ -24,59 +24,83 @@ export const readExcelFile = async (file: File): Promise<Employee[]> => {
           return;
         }
         
-        // Convert to JSON with objects
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+        // Convert to raw array format to handle headers properly
+        const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1');
+        const rawData: any[][] = [];
         
-        if (jsonData.length === 0) {
-          reject(new Error('Planilha está vazia'));
+        // Read all cells as raw data
+        for (let row = range.s.r; row <= range.e.r; row++) {
+          const rowData: any[] = [];
+          for (let col = range.s.c; col <= range.e.c; col++) {
+            const cellAddress = XLSX.utils.encode_cell({ r: row, c: col });
+            const cell = worksheet[cellAddress];
+            rowData.push(cell ? String(cell.v || '').trim() : '');
+          }
+          rawData.push(rowData);
+        }
+        
+        console.log('Dados brutos da planilha:', rawData.slice(0, 5));
+        
+        // Find header row by looking for "Nome" and "CPF" patterns
+        let headerRowIndex = -1;
+        let nomeColumnIndex = -1;
+        let cpfColumnIndex = -1;
+        
+        for (let i = 0; i < rawData.length; i++) {
+          const row = rawData[i];
+          for (let j = 0; j < row.length; j++) {
+            const cellValue = String(row[j]).toLowerCase().trim();
+            
+            // Look for name column variations
+            if (cellValue.match(/^(nome|name|funcionario|funcionário)$/)) {
+              headerRowIndex = i;
+              nomeColumnIndex = j;
+            }
+            
+            // Look for CPF column variations
+            if (cellValue.match(/^(cpf|documento|doc|rg)$/)) {
+              if (headerRowIndex === -1) headerRowIndex = i;
+              cpfColumnIndex = j;
+            }
+          }
+          
+          // If we found both columns in the same row, break
+          if (nomeColumnIndex !== -1 && cpfColumnIndex !== -1 && headerRowIndex === i) {
+            break;
+          }
+        }
+        
+        console.log(`Header encontrado na linha ${headerRowIndex + 1}`);
+        console.log(`Coluna Nome: ${nomeColumnIndex + 1} (${String.fromCharCode(65 + nomeColumnIndex)})`);
+        console.log(`Coluna CPF: ${cpfColumnIndex + 1} (${String.fromCharCode(65 + cpfColumnIndex)})`);
+        
+        if (headerRowIndex === -1 || nomeColumnIndex === -1) {
+          reject(new Error('Não foi possível encontrar a coluna "Nome" na planilha. Verifique se existe uma célula com "Nome" ou "Funcionário".'));
           return;
         }
         
-        console.log('Colunas encontradas:', Object.keys(jsonData[0] || {}));
-        console.log('Dados da planilha (primeiras 3 linhas):', jsonData.slice(0, 3));
-        console.log('Total de linhas na planilha:', jsonData.length);
+        // Process data rows (after header)
+        const employees: Employee[] = [];
         
-        const employees: Employee[] = jsonData
-          .map((row: any, index: number) => {
-            console.log(`Processando linha ${index + 1}:`, row);
-            const employee: Employee = { nome: '', cpf: '' };
-            
-            // Process each property in the row
-            Object.keys(row).forEach(key => {
-              const value = row[key];
-              console.log(`  Coluna "${key}": "${value}"`);
-              
-              if (value !== null && value !== undefined && value !== '') {
-                const keyLower = key.toLowerCase().trim().replace(/\s+/g, '');
-                const valueStr = String(value).trim();
-                
-                // Mapeia as colunas da planilha (formato padrão e atual)
-                if ((key === 'Nome' || key === 'Listagem de Funcionários') && valueStr !== 'Nome') {
-                  employee.nome = valueStr;
-                  console.log(`    -> Nome definido: "${valueStr}"`);
-                } else if ((key === 'CPF' || key === '__EMPTY') && valueStr !== 'CPF') {
-                  employee.cpf = valueStr;
-                  console.log(`    -> CPF definido: "${valueStr}"`);
-                } else {
-                  employee[key] = value;
-                }
-              }
-            });
-            
-            console.log(`  Resultado final:`, employee);
-            return employee;
-          })
-          .filter((employee, index) => {
-            const isValid = employee.nome && employee.nome.trim() !== '';
-            console.log(`Funcionário ${index + 1} válido:`, isValid, employee);
-            return isValid;
-          });
+        for (let i = headerRowIndex + 1; i < rawData.length; i++) {
+          const row = rawData[i];
+          const nome = row[nomeColumnIndex] ? String(row[nomeColumnIndex]).trim() : '';
+          const cpf = cpfColumnIndex !== -1 && row[cpfColumnIndex] ? String(row[cpfColumnIndex]).trim() : '';
+          
+          console.log(`Linha ${i + 1}: Nome="${nome}", CPF="${cpf}"`);
+          
+          if (nome && nome !== '') {
+            employees.push({ nome, cpf });
+            console.log(`  -> Funcionário adicionado: ${nome}`);
+          }
+        }
         
         if (employees.length === 0) {
-          reject(new Error('Nenhum funcionário válido encontrado na planilha. Verifique se há uma coluna com "nome".'));
+          reject(new Error('Nenhum funcionário encontrado após o cabeçalho. Verifique se há dados nas linhas abaixo do cabeçalho.'));
           return;
         }
         
+        console.log(`Total de funcionários processados: ${employees.length}`);
         resolve(employees);
       } catch (error) {
         console.error('Erro ao processar planilha:', error);
