@@ -24,10 +24,19 @@ export const useTemplates = () => {
     setLoading(true)
     try {
       const response = await fetch('/api/templates')
+      if (!response.ok) {
+        console.warn('API not available, using local storage fallback')
+        const localTemplates = JSON.parse(localStorage.getItem('certificate-templates') || '[]')
+        setTemplates(localTemplates)
+        return
+      }
       const data = await response.json()
       setTemplates(data)
     } catch (error) {
       console.error('Erro ao buscar templates:', error)
+      // Fallback to localStorage
+      const localTemplates = JSON.parse(localStorage.getItem('certificate-templates') || '[]')
+      setTemplates(localTemplates)
     } finally {
       setLoading(false)
     }
@@ -50,12 +59,37 @@ export const useTemplates = () => {
           useObservacoes: config.useObservacoes
         })
       })
+      
+      if (!response.ok) {
+        throw new Error('API not available')
+      }
+      
       const template = await response.json()
       setTemplates(prev => [template, ...prev])
       return template
     } catch (error) {
-      console.error('Erro ao salvar template:', error)
-      throw error
+      console.warn('API not available, saving to localStorage:', error)
+      // Fallback to localStorage
+      const template = {
+        id: Date.now().toString(),
+        name,
+        courseData: config.courseData,
+        fontConfig: config.fontConfig,
+        instructors: config.instructors,
+        responsibles: config.responsibles,
+        conformidade: config.conformidade,
+        conteudo: config.conteudo,
+        observacoes: config.observacoes,
+        useObservacoes: config.useObservacoes,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      
+      const localTemplates = JSON.parse(localStorage.getItem('certificate-templates') || '[]')
+      localTemplates.unshift(template)
+      localStorage.setItem('certificate-templates', JSON.stringify(localTemplates))
+      setTemplates(prev => [template, ...prev])
+      return template
     }
   }
 
