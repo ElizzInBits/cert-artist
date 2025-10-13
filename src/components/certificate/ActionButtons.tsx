@@ -89,6 +89,11 @@ export const ActionButtons = () => {
   const handleGenerateAll = async () => {
     if (!validateData()) return;
     
+    console.log('=== INICIANDO GERAÇÃO DE CERTIFICADOS ===');
+    console.log('Funcionários no store:', employees);
+    console.log('Total de funcionários:', employees.length);
+    console.log('Dados do curso:', courseData);
+    
     // Verificar suporte para seleção de pasta
     if ('showDirectoryPicker' in window) {
       try {
@@ -111,7 +116,11 @@ export const ActionButtons = () => {
           conferidoA: store.conferidoA
         };
         
+        console.log('Config completa para geração:', config);
+        console.log('Funcionários que serão processados:', config.employees);
+        
         const certificates = await generateAllCertificates(config.employees, config, (current, total) => {
+          console.log(`Progresso: ${current}/${total}`);
           toast({
             title: "Gerando certificados...",
             description: `Processando ${current}/${total} certificados.`,
@@ -161,6 +170,9 @@ export const ActionButtons = () => {
   };
   
   const downloadIndividual = async () => {
+    console.log('=== DOWNLOAD INDIVIDUAL ===');
+    console.log('Funcionários disponíveis:', employees);
+    
     setIsGenerating(true);
     try {
       const config = {
@@ -178,15 +190,22 @@ export const ActionButtons = () => {
         conferidoA: store.conferidoA
       };
       
+      console.log('Config para download individual:', config);
+      console.log('Employees na config:', config.employees);
+      
       const certificates = await generateAllCertificates(config.employees, config, (current, total) => {
+        console.log(`Download individual - Progresso: ${current}/${total}`);
         toast({
           title: "Gerando certificados...",
           description: `Processando ${current}/${total} certificados.`,
         });
       });
       
+      console.log('Certificados gerados:', certificates.length);
+      
       certificates.forEach((cert, index) => {
         const employee = employees[index];
+        console.log(`Baixando certificado ${index + 1}: ${employee.nome}`);
         const fileName = `Certificado_${employee.nome.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_')}.pdf`;
         downloadCertificate(cert, fileName);
       });
