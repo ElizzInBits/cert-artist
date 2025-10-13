@@ -8,6 +8,7 @@ import { SignatureConfigSection } from "@/components/certificate/SignatureConfig
 import { FontConfigSection } from "@/components/certificate/FontConfigSection";
 import { ActionButtons } from "@/components/certificate/ActionButtons";
 import { LivePreview } from "@/components/certificate/LivePreview";
+import { TemplateManager } from "@/components/certificate/TemplateManager";
 import { GraduationCap } from "lucide-react";
 
 const Index = () => {
@@ -51,6 +52,9 @@ const Index = () => {
 
         {/* Full Width Sections */}
         <div className="space-y-6">
+          {/* Template Manager */}
+          <TemplateManager />
+          
           {/* Preview Section */}
           <LivePreview />
           
