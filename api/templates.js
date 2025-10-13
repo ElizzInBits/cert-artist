@@ -1,17 +1,10 @@
-let PrismaClient
-try {
-  PrismaClient = require('@prisma/client').PrismaClient
-} catch (error) {
-  console.error('Failed to import Prisma:', error)
-}
+import { PrismaClient } from '@prisma/client'
 
 let prisma
-if (PrismaClient) {
-  try {
-    prisma = new PrismaClient()
-  } catch (error) {
-    console.error('Failed to create Prisma client:', error)
-  }
+try {
+  prisma = new PrismaClient()
+} catch (error) {
+  console.error('Failed to create Prisma client:', error)
 }
 
 export default async function handler(req, res) {
