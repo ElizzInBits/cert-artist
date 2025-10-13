@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Plus, Trash2, Download, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useCertificateStore } from "@/hooks/useCertificateStore";
@@ -97,12 +97,15 @@ export const SpreadsheetEditor = () => {
           📝 Criar Planilha
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto" aria-describedby="spreadsheet-dialog-description">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Users className="w-5 h-5" />
             Editor de Funcionários
           </DialogTitle>
+          <DialogDescription id="spreadsheet-dialog-description">
+            Adicione, edite e gerencie a lista de funcionários para geração de certificados.
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-4">
