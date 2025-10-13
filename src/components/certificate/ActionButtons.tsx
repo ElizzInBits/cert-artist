@@ -244,12 +244,27 @@ export const ActionButtons = () => {
   const { setEmployees } = useCertificateStore();
   
   const handleTestEmployees = () => {
-    const testEmployees = [
-      { nome: "OTONIEL DORNELAS DOS SANTOS", cpf: "892.011.916-34" },
-      { nome: "Maria Santos", cpf: "987.654.321-00" },
-      { nome: "Pedro Oliveira", cpf: "456.789.123-00" }
-    ];
-    setEmployees(testEmployees);
+    // Only add test data if no employees exist
+    if (employees.length === 0) {
+      const testEmployees = [
+        { nome: "OTONIEL DORNELAS DOS SANTOS", cpf: "892.011.916-34" },
+        { nome: "Maria Santos", cpf: "987.654.321-00" },
+        { nome: "Pedro Oliveira", cpf: "456.789.123-00" }
+      ];
+      setEmployees(testEmployees);
+      
+      toast({
+        title: "Dados de teste preenchidos",
+        description: "Funcionários e dados do curso preenchidos para teste.",
+      });
+    } else {
+      toast({
+        title: "Dados já existem",
+        description: `${employees.length} funcionários já carregados. Use 'Limpar' primeiro se quiser testar.`,
+        variant: "destructive"
+      });
+      return;
+    }
     
     // Preencher dados de teste do curso
     store.setCourseData({
@@ -264,10 +279,7 @@ export const ActionButtons = () => {
     
     store.setConformidade("NR6 - EPIS E EPCS (EQUIPAMENTOS DE PROTECAO INDIVIDUAL E COLETIVA), PORTARIA MTP N.° 4.219, DE 20 DE DEZEMBRO DE 2022");
     
-    toast({
-      title: "Dados de teste preenchidos",
-      description: "Funcionários e dados do curso preenchidos para teste.",
-    });
+
   };
 
   return (
