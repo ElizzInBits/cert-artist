@@ -11,7 +11,13 @@ import { useCertificateStore } from "@/hooks/useCertificateStore"
 export const TemplateManager = () => {
   const { toast } = useToast()
   const { templates, loading, saveTemplate, loadTemplate, deleteTemplate } = useTemplates()
-  const { config, setConfig } = useCertificateStore()
+  const store = useCertificateStore()
+  const {
+    courseData, conformidade, conteudo, observacoes, useObservacoes,
+    instructors, responsibles, fontConfig, signatureConfig,
+    setCourseData, setConformidade, setConteudo, setObservacoes, setUseObservacoes,
+    setFontConfig, setSignatureConfig
+  } = store
   const [saveDialogOpen, setSaveDialogOpen] = useState(false)
   const [loadDialogOpen, setLoadDialogOpen] = useState(false)
   const [templateName, setTemplateName] = useState("")
@@ -27,6 +33,17 @@ export const TemplateManager = () => {
     }
 
     try {
+      const config = {
+        courseData,
+        fontConfig,
+        instructors,
+        responsibles,
+        conformidade,
+        conteudo,
+        observacoes,
+        useObservacoes,
+        signatureConfig
+      }
       await saveTemplate(templateName, config)
       toast({
         title: "Template salvo",
@@ -46,7 +63,14 @@ export const TemplateManager = () => {
   const handleLoad = async (id: string, name: string) => {
     try {
       const loadedConfig = await loadTemplate(id)
-      setConfig(loadedConfig)
+      setCourseData(loadedConfig.courseData)
+      setConformidade(loadedConfig.conformidade)
+      setConteudo(loadedConfig.conteudo)
+      setObservacoes(loadedConfig.observacoes || '')
+      setUseObservacoes(loadedConfig.useObservacoes)
+      setFontConfig(loadedConfig.fontConfig)
+      setSignatureConfig(loadedConfig.signatureConfig || { width: 150, height: 100, offsetY: 10 })
+      // Note: instructors and responsibles need special handling due to File objects
       toast({
         title: "Template carregado",
         description: `Template "${name}" carregado com sucesso!`
