@@ -9,24 +9,35 @@ import { FontConfigSection } from "@/components/certificate/FontConfigSection";
 import { ActionButtons } from "@/components/certificate/ActionButtons";
 import { LivePreview } from "@/components/certificate/LivePreview";
 import { TemplateManager } from "@/components/certificate/TemplateManager";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [excelFile, setExcelFile] = useState<File | null>(null);
+  const { logout } = useAuth();
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="bg-gradient-primary text-primary-foreground shadow-lg">
         <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full">
             <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
               <GraduationCap className="w-8 h-8" />
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="text-3xl font-bold tracking-tight">Gerador de Certificados</h1>
-
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              className="text-white hover:bg-white/10"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Sair
+            </Button>
           </div>
         </div>
       </header>

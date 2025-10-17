@@ -23,3 +23,13 @@ model CertificateTemplate {
 
   @@map("certificate_templates")
 }
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // Hash da senha
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admin_users")
+}
