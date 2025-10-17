@@ -1,11 +1,8 @@
 {
   "buildCommand": "npm run build",
   "functions": {
-    "app/api/**/*.js": {
+    "api/**/*.js": {
       "runtime": "nodejs18.x"
     }
-  },
-  "env": {
-    "PRISMA_GENERATE_DATAPROXY": "true"
   }
 }
