@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Lock } from 'lucide-react';
 
 export default function Login() {
-  const [username, setUsername] = useState('admin');
+  const [username, setUsername] = useState('administrador');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -80,13 +80,7 @@ export default function Login() {
               {isLoading ? 'Verificando...' : 'Entrar'}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm text-gray-500">
-            <div>Usuário: <strong>admin</strong></div>
-            <div>Senha: <strong>admin123</strong></div>
-            <div className="text-xs mt-1 text-gray-400">
-              (Credenciais padrão - altere após o primeiro acesso)
-            </div>
-          </div>
+
         </CardContent>
       </Card>
     </div>
