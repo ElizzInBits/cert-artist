@@ -33,3 +33,31 @@ model AdminUser {
 
   @@map("admin_users")
 }
+
+model Instructor {
+  id           String   @id @default(cuid())
+  nome         String
+  registro     String?
+  assinatura   String?  // Base64 da imagem da assinatura
+  mimeType     String?  // Tipo MIME da assinatura (image/png, image/jpeg)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  lastUsed     DateTime @default(now())
+
+  @@map("instructors")
+}
+
+model Responsible {
+  id           String   @id @default(cuid())
+  nome         String
+  registro     String?
+  assinatura   String?  // Base64 da imagem da assinatura
+  mimeType     String?  // Tipo MIME da assinatura (image/png, image/jpeg)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  lastUsed     DateTime @default(now())
+
+  @@map("responsibles")
+}

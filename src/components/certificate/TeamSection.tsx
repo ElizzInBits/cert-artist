@@ -1,11 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Plus, Trash2, Edit, BookOpen, Clock } from "lucide-react";
+import { Users, Plus, Trash2, Edit, BookOpen, Clock, Database } from "lucide-react";
 import { AddInstructorDialog } from "./dialogs/AddInstructorDialog";
 import { AddResponsibleDialog } from "./dialogs/AddResponsibleDialog";
 import { EditInstructorDialog } from "./dialogs/EditInstructorDialog";
 import { EditResponsibleDialog } from "./dialogs/EditResponsibleDialog";
 import { PeopleLibraryDialog } from "./dialogs/PeopleLibraryDialog";
+import { SavedPeopleDialog } from "./dialogs/SavedPeopleDialog";
 import { useCertificateStore } from "@/hooks/useCertificateStore";
 import { usePeopleLibrary } from "@/hooks/usePeopleLibrary";
 import { useState } from "react";
@@ -24,6 +25,7 @@ export const TeamSection = () => {
   const { savePerson, getRecentlyUsed } = usePeopleLibrary();
   const [editingInstructor, setEditingInstructor] = useState<{ index: number; data: Instructor } | null>(null);
   const [editingResponsible, setEditingResponsible] = useState<{ index: number; data: Responsible } | null>(null);
+  const [showSavedPeopleDialog, setShowSavedPeopleDialog] = useState(false);
 
   const handleAddInstructor = (instructor: Instructor, shouldSave: boolean = false) => {
     addInstructor(instructor);
@@ -111,6 +113,14 @@ export const TeamSection = () => {
                   </Button>
                 </PeopleLibraryDialog>
               )}
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => setShowSavedPeopleDialog(true)}
+              >
+                <Database className="w-4 h-4 mr-1" />
+                Salvos
+              </Button>
               <PeopleLibraryDialog 
                 type="instructor" 
                 onSelect={(person) => handleAddInstructor({
@@ -118,9 +128,9 @@ export const TeamSection = () => {
                   registro: person.registro
                 })}
               >
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="ghost" className="text-xs">
                   <BookOpen className="w-4 h-4 mr-1" />
-                  Biblioteca
+                  Local
                 </Button>
               </PeopleLibraryDialog>
               <AddInstructorDialog onAdd={handleAddInstructor}>
@@ -190,6 +200,14 @@ export const TeamSection = () => {
                   </Button>
                 </PeopleLibraryDialog>
               )}
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => setShowSavedPeopleDialog(true)}
+              >
+                <Database className="w-4 h-4 mr-1" />
+                Salvos
+              </Button>
               <PeopleLibraryDialog 
                 type="responsible" 
                 onSelect={(person) => handleAddResponsible({
@@ -198,9 +216,9 @@ export const TeamSection = () => {
                   assinatura: person.assinatura
                 })}
               >
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="ghost" className="text-xs">
                   <BookOpen className="w-4 h-4 mr-1" />
-                  Biblioteca
+                  Local
                 </Button>
               </PeopleLibraryDialog>
               <AddResponsibleDialog onAdd={handleAddResponsible}>
@@ -269,6 +287,14 @@ export const TeamSection = () => {
             onCancel={() => setEditingResponsible(null)}
           />
         )}
+
+        {/* Diálogo de Pessoas Salvas no Banco */}
+        <SavedPeopleDialog
+          open={showSavedPeopleDialog}
+          onOpenChange={setShowSavedPeopleDialog}
+          onSelectInstructor={(instructor) => handleAddInstructor(instructor)}
+          onSelectResponsible={(responsible) => handleAddResponsible(responsible)}
+        />
       </CardContent>
     </Card>
   );

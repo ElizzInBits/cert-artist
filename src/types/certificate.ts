@@ -32,6 +32,18 @@ export interface Responsible {
   assinatura?: File;
 }
 
+export interface SavedPerson {
+  id: string;
+  nome: string;
+  registro?: string;
+  assinatura?: string; // Base64
+  mimeType?: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  lastUsed: Date;
+}
+
 export interface Employee {
   nome: string;
   cpf: string;
