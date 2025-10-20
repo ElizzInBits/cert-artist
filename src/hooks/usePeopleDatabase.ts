@@ -31,8 +31,24 @@ export const usePeopleDatabase = () => {
         getInstructors(),
         getResponsibles()
       ]);
-      setInstructors(instructorsData);
-      setResponsibles(responsiblesData);
+      
+      // Converter strings de data para objetos Date
+      const instructorsWithDates = instructorsData.map(instructor => ({
+        ...instructor,
+        createdAt: new Date(instructor.createdAt),
+        updatedAt: new Date(instructor.updatedAt),
+        lastUsed: new Date(instructor.lastUsed)
+      }));
+      
+      const responsiblesWithDates = responsiblesData.map(responsible => ({
+        ...responsible,
+        createdAt: new Date(responsible.createdAt),
+        updatedAt: new Date(responsible.updatedAt),
+        lastUsed: new Date(responsible.lastUsed)
+      }));
+      
+      setInstructors(instructorsWithDates);
+      setResponsibles(responsiblesWithDates);
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
       toast({
@@ -52,7 +68,13 @@ export const usePeopleDatabase = () => {
   // INSTRUTORES
   const addInstructor = async (data: InstructorData) => {
     try {
-      const newInstructor = await saveInstructor(data);
+      const savedInstructor = await saveInstructor(data);
+      const newInstructor = {
+        ...savedInstructor,
+        createdAt: new Date(savedInstructor.createdAt),
+        updatedAt: new Date(savedInstructor.updatedAt),
+        lastUsed: new Date(savedInstructor.lastUsed)
+      };
       setInstructors(prev => [newInstructor, ...prev]);
       toast({
         title: "Sucesso",
@@ -72,7 +94,13 @@ export const usePeopleDatabase = () => {
 
   const editInstructor = async (id: string, data: Partial<InstructorData>) => {
     try {
-      const updatedInstructor = await updateInstructor(id, data);
+      const updated = await updateInstructor(id, data);
+      const updatedInstructor = {
+        ...updated,
+        createdAt: new Date(updated.createdAt),
+        updatedAt: new Date(updated.updatedAt),
+        lastUsed: new Date(updated.lastUsed)
+      };
       setInstructors(prev => prev.map(i => i.id === id ? updatedInstructor : i));
       toast({
         title: "Sucesso",
@@ -128,7 +156,13 @@ export const usePeopleDatabase = () => {
   // RESPONSÁVEIS
   const addResponsible = async (data: ResponsibleData) => {
     try {
-      const newResponsible = await saveResponsible(data);
+      const savedResponsible = await saveResponsible(data);
+      const newResponsible = {
+        ...savedResponsible,
+        createdAt: new Date(savedResponsible.createdAt),
+        updatedAt: new Date(savedResponsible.updatedAt),
+        lastUsed: new Date(savedResponsible.lastUsed)
+      };
       setResponsibles(prev => [newResponsible, ...prev]);
       toast({
         title: "Sucesso",
@@ -148,7 +182,13 @@ export const usePeopleDatabase = () => {
 
   const editResponsible = async (id: string, data: Partial<ResponsibleData>) => {
     try {
-      const updatedResponsible = await updateResponsible(id, data);
+      const updated = await updateResponsible(id, data);
+      const updatedResponsible = {
+        ...updated,
+        createdAt: new Date(updated.createdAt),
+        updatedAt: new Date(updated.updatedAt),
+        lastUsed: new Date(updated.lastUsed)
+      };
       setResponsibles(prev => prev.map(r => r.id === id ? updatedResponsible : r));
       toast({
         title: "Sucesso",
