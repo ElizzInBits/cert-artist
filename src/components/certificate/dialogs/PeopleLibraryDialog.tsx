@@ -68,12 +68,12 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[80vh]">
+      <DialogContent className="max-w-2xl max-h-[80vh]" aria-describedby="library-dialog-description">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             {getTypeIcon()} Biblioteca de {getTypeLabel()}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription id="library-dialog-description">
             Selecione uma pessoa salva ou gerencie sua biblioteca.
           </DialogDescription>
         </DialogHeader>

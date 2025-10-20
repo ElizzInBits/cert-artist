@@ -44,10 +44,10 @@ export const EditInstructorDialog = ({ instructor, onSave, onCancel }: EditInstr
 
   return (
     <Dialog open={true} onOpenChange={() => onCancel()}>
-      <DialogContent>
+      <DialogContent aria-describedby="edit-instructor-dialog-description">
         <DialogHeader>
           <DialogTitle>✏️ Editar Instrutor</DialogTitle>
-          <DialogDescription>
+          <DialogDescription id="edit-instructor-dialog-description">
             Altere os dados do instrutor.
           </DialogDescription>
         </DialogHeader>
