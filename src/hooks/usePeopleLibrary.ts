@@ -20,13 +20,39 @@ export const usePeopleLibrary = () => {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
+      console.log('localStorage data:', stored);
+      
       if (stored) {
         const parsed = JSON.parse(stored);
-        setSavedPeople(parsed.map((person: any) => ({
+        const peopleWithDates = parsed.map((person: any) => ({
           ...person,
           createdAt: new Date(person.createdAt),
           lastUsed: new Date(person.lastUsed)
-        })));
+        }));
+        console.log('Loaded people:', peopleWithDates);
+        setSavedPeople(peopleWithDates);
+      } else {
+        // Adicionar dados de exemplo se não houver nada
+        const exampleData: SavedPerson[] = [
+          {
+            id: '1',
+            type: 'instructor',
+            nome: 'João Silva',
+            registro: 'CREA 123456',
+            createdAt: new Date(),
+            lastUsed: new Date()
+          },
+          {
+            id: '2', 
+            type: 'responsible',
+            nome: 'Maria Santos',
+            registro: 'CRQ 789012',
+            createdAt: new Date(),
+            lastUsed: new Date()
+          }
+        ];
+        setSavedPeople(exampleData);
+        saveToStorage(exampleData);
       }
     } catch (error) {
       console.error('Erro ao carregar biblioteca de pessoas:', error);
@@ -97,6 +123,8 @@ export const usePeopleLibrary = () => {
       .sort((a, b) => b.lastUsed.getTime() - a.lastUsed.getTime())
       .slice(0, limit);
   };
+
+  console.log('Current savedPeople:', savedPeople);
 
   return {
     savedPeople,
