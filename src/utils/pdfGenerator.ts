@@ -525,57 +525,74 @@ export const generateCertificatePDF = async (
           
           // Imagem da assinatura do responsável (se disponível)
           const responsavel = config.responsibles[0];
-          if (responsavel?.assinatura && responsavel.assinatura instanceof File) {
+          if (responsavel?.assinatura) {
             try {
-              console.log('Processando assinatura:', responsavel.assinatura.name);
-              // Processar imagem com alta qualidade
-              const processedImage = await processSignatureImage(responsavel.assinatura);
-              const assinaturaBytes = await processedImage.arrayBuffer();
-              let assinaturaImage;
+              let assinaturaFile: File;
               
-              // Tentar diferentes formatos de imagem
-              try {
-                assinaturaImage = await basePdf.embedPng(assinaturaBytes);
-              } catch {
-                try {
-                  assinaturaImage = await basePdf.embedJpg(assinaturaBytes);
-                } catch {
-                  console.warn('Formato de imagem não suportado');
-                }
+              // Converter diferentes tipos para File
+              if (responsavel.assinatura instanceof File) {
+                assinaturaFile = responsavel.assinatura;
+              } else if (responsavel.assinatura instanceof Blob) {
+                assinaturaFile = new File([responsavel.assinatura], 'signature.png', { type: 'image/png' });
+              } else if (typeof responsavel.assinatura === 'string') {
+                // Se for base64 ou URL
+                const response = await fetch(responsavel.assinatura);
+                const blob = await response.blob();
+                assinaturaFile = new File([blob], 'signature.png', { type: blob.type || 'image/png' });
+              } else {
+                console.warn('Tipo de assinatura não suportado:', typeof responsavel.assinatura);
+                assinaturaFile = null;
               }
               
-              if (assinaturaImage) {
-                const maxWidth = config.signatureConfig?.width || 120;
-                const maxHeight = config.signatureConfig?.height || 40;
-                const offsetY = config.signatureConfig?.offsetY || 15;
+              if (assinaturaFile) {
+                console.log('Processando assinatura:', assinaturaFile.name);
+                // Processar imagem com alta qualidade
+                const processedImage = await processSignatureImage(assinaturaFile);
+                const assinaturaBytes = await processedImage.arrayBuffer();
+                let assinaturaImage;
                 
-                console.log('Signature config:', { maxWidth, maxHeight, offsetY });
-                
-                // Calcular dimensões mantendo proporção
-                const originalWidth = assinaturaImage.width;
-                const originalHeight = assinaturaImage.height;
-                const aspectRatio = originalWidth / originalHeight;
-                
-                let finalWidth = maxWidth;
-                let finalHeight = maxWidth / aspectRatio;
-                
-                if (finalHeight > maxHeight) {
-                  finalHeight = maxHeight;
-                  finalWidth = maxHeight * aspectRatio;
+                // Tentar diferentes formatos de imagem
+                try {
+                  assinaturaImage = await basePdf.embedPng(assinaturaBytes);
+                } catch {
+                  try {
+                    assinaturaImage = await basePdf.embedJpg(assinaturaBytes);
+                  } catch {
+                    console.warn('Formato de imagem não suportado');
+                  }
                 }
                 
-                page1.drawImage(assinaturaImage, {
-                  x: xResponsavel + (larguraAssinatura - finalWidth) / 2,
-                  y: yAssinaturaBase + offsetY,
-                  width: finalWidth,
-                  height: finalHeight,
-                });
+                if (assinaturaImage) {
+                  const maxWidth = config.signatureConfig?.width || 120;
+                  const maxHeight = config.signatureConfig?.height || 40;
+                  const offsetY = config.signatureConfig?.offsetY || 15;
+                  
+                  console.log('Signature config:', { maxWidth, maxHeight, offsetY });
+                  
+                  // Calcular dimensões mantendo proporção
+                  const originalWidth = assinaturaImage.width;
+                  const originalHeight = assinaturaImage.height;
+                  const aspectRatio = originalWidth / originalHeight;
+                  
+                  let finalWidth = maxWidth;
+                  let finalHeight = maxWidth / aspectRatio;
+                  
+                  if (finalHeight > maxHeight) {
+                    finalHeight = maxHeight;
+                    finalWidth = maxHeight * aspectRatio;
+                  }
+                  
+                  page1.drawImage(assinaturaImage, {
+                    x: xResponsavel + (larguraAssinatura - finalWidth) / 2,
+                    y: yAssinaturaBase + offsetY,
+                    width: finalWidth,
+                    height: finalHeight,
+                  });
+                }
               }
             } catch (error) {
               console.error('Erro ao carregar assinatura:', error);
             }
-          } else if (responsavel?.assinatura) {
-            console.warn('Assinatura não é um File válido:', typeof responsavel.assinatura);
           }
           
           // Texto do responsável
@@ -631,57 +648,74 @@ export const generateCertificatePDF = async (
             
             // Imagem da assinatura do responsável (se disponível)
             const responsavel = config.responsibles[i];
-            if (responsavel?.assinatura && responsavel.assinatura instanceof File) {
+            if (responsavel?.assinatura) {
               try {
-                console.log('Processando assinatura múltipla:', responsavel.assinatura.name);
-                // Processar imagem com alta qualidade
-                const processedImage = await processSignatureImage(responsavel.assinatura);
-                const assinaturaBytes = await processedImage.arrayBuffer();
-                let assinaturaImage;
+                let assinaturaFile: File;
                 
-                // Tentar diferentes formatos de imagem
-                try {
-                  assinaturaImage = await basePdf.embedPng(assinaturaBytes);
-                } catch {
-                  try {
-                    assinaturaImage = await basePdf.embedJpg(assinaturaBytes);
-                  } catch {
-                    console.warn('Formato de imagem não suportado');
-                  }
+                // Converter diferentes tipos para File
+                if (responsavel.assinatura instanceof File) {
+                  assinaturaFile = responsavel.assinatura;
+                } else if (responsavel.assinatura instanceof Blob) {
+                  assinaturaFile = new File([responsavel.assinatura], 'signature.png', { type: 'image/png' });
+                } else if (typeof responsavel.assinatura === 'string') {
+                  // Se for base64 ou URL
+                  const response = await fetch(responsavel.assinatura);
+                  const blob = await response.blob();
+                  assinaturaFile = new File([blob], 'signature.png', { type: blob.type || 'image/png' });
+                } else {
+                  console.warn('Tipo de assinatura não suportado:', typeof responsavel.assinatura);
+                  assinaturaFile = null;
                 }
                 
-                if (assinaturaImage) {
-                  const maxWidth = config.signatureConfig?.width || 100;
-                  const maxHeight = config.signatureConfig?.height || 35;
-                  const offsetY = config.signatureConfig?.offsetY || 15;
+                if (assinaturaFile) {
+                  console.log('Processando assinatura múltipla:', assinaturaFile.name);
+                  // Processar imagem com alta qualidade
+                  const processedImage = await processSignatureImage(assinaturaFile);
+                  const assinaturaBytes = await processedImage.arrayBuffer();
+                  let assinaturaImage;
                   
-                  console.log('Signature config (multiple):', { maxWidth, maxHeight, offsetY });
-                  
-                  // Calcular dimensões mantendo proporção
-                  const originalWidth = assinaturaImage.width;
-                  const originalHeight = assinaturaImage.height;
-                  const aspectRatio = originalWidth / originalHeight;
-                  
-                  let finalWidth = maxWidth;
-                  let finalHeight = maxWidth / aspectRatio;
-                  
-                  if (finalHeight > maxHeight) {
-                    finalHeight = maxHeight;
-                    finalWidth = maxHeight * aspectRatio;
+                  // Tentar diferentes formatos de imagem
+                  try {
+                    assinaturaImage = await basePdf.embedPng(assinaturaBytes);
+                  } catch {
+                    try {
+                      assinaturaImage = await basePdf.embedJpg(assinaturaBytes);
+                    } catch {
+                      console.warn('Formato de imagem não suportado');
+                    }
                   }
                   
-                  page1.drawImage(assinaturaImage, {
-                    x: xPos + (larguraAssinatura - finalWidth) / 2,
-                    y: yAssinaturaBase + offsetY,
-                    width: finalWidth,
-                    height: finalHeight,
-                  });
+                  if (assinaturaImage) {
+                    const maxWidth = config.signatureConfig?.width || 100;
+                    const maxHeight = config.signatureConfig?.height || 35;
+                    const offsetY = config.signatureConfig?.offsetY || 15;
+                    
+                    console.log('Signature config (multiple):', { maxWidth, maxHeight, offsetY });
+                    
+                    // Calcular dimensões mantendo proporção
+                    const originalWidth = assinaturaImage.width;
+                    const originalHeight = assinaturaImage.height;
+                    const aspectRatio = originalWidth / originalHeight;
+                    
+                    let finalWidth = maxWidth;
+                    let finalHeight = maxWidth / aspectRatio;
+                    
+                    if (finalHeight > maxHeight) {
+                      finalHeight = maxHeight;
+                      finalWidth = maxHeight * aspectRatio;
+                    }
+                    
+                    page1.drawImage(assinaturaImage, {
+                      x: xPos + (larguraAssinatura - finalWidth) / 2,
+                      y: yAssinaturaBase + offsetY,
+                      width: finalWidth,
+                      height: finalHeight,
+                    });
+                  }
                 }
               } catch (error) {
                 console.error('Erro ao carregar assinatura múltipla:', error);
               }
-            } else if (responsavel?.assinatura) {
-              console.warn('Assinatura múltipla não é um File válido:', typeof responsavel.assinatura);
             }
             
             // Texto do responsável
