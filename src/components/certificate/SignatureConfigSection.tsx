@@ -4,7 +4,7 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Pen, RotateCcw, Move, Maximize2, Zap, Eye, AlertCircle } from "lucide-react";
+import { Pen, RotateCcw, Move, Maximize2, Zap, Eye, AlertCircle, Settings2 } from "lucide-react";
 import { useCertificateStore } from "@/hooks/useCertificateStore";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
@@ -17,6 +17,51 @@ interface ImageAnalysis {
   recommendedHeight: number;
   quality: 'low' | 'medium' | 'high';
 }
+
+const signaturePresets = {
+  compact: { 
+    width: 100, 
+    height: 50, 
+    offsetY: 0,
+    name: 'Compacta',
+    description: 'Pequena e discreta'
+  },
+  standard: { 
+    width: 140, 
+    height: 70, 
+    offsetY: 0,
+    name: 'Padrão',
+    description: 'Equilibrada'
+  },
+  professional: { 
+    width: 180, 
+    height: 90, 
+    offsetY: -50,
+    name: 'Profissional',
+    description: 'Destacada no topo'
+  },
+  executive: { 
+    width: 200, 
+    height: 100, 
+    offsetY: 100,
+    name: 'Executiva',
+    description: 'Grande na base'
+  },
+  minimal: { 
+    width: 80, 
+    height: 40, 
+    offsetY: 0,
+    name: 'Minimalista',
+    description: 'Muito sutil'
+  },
+  signature_only: { 
+    width: 160, 
+    height: 60, 
+    offsetY: -100,
+    name: 'Só Assinatura',
+    description: 'Foco superior'
+  }
+};
 
 export const SignatureConfigSection = () => {
   const { signatureConfig, setSignatureConfig, responsibles } = useCertificateStore();
@@ -47,24 +92,16 @@ export const SignatureConfigSection = () => {
         return;
       }
 
-      // Verificar se é uma URL de dados (base64)
-      if (responsibleWithSignature.assinatura.startsWith('data:')) {
-        // Criar uma imagem temporária para análise
-        const img = new Image();
-        img.onload = () => {
-          const analysis = analyzeImage(img);
-          setImageAnalysis(analysis);
-          setIsAnalyzing(false);
-        };
-        img.onerror = () => {
-          setIsAnalyzing(false);
-          // Não mostrar erro para não incomodar o usuário
-          console.log('Não foi possível analisar a imagem de assinatura');
-        };
-        img.crossOrigin = 'anonymous';
-        img.src = responsibleWithSignature.assinatura;
+      let imageUrl: string;
+      
+      // Verificar se é um File ou uma string
+      if (responsibleWithSignature.assinatura instanceof File) {
+        // Converter File para URL
+        imageUrl = URL.createObjectURL(responsibleWithSignature.assinatura);
+      } else if (typeof responsibleWithSignature.assinatura === 'string') {
+        imageUrl = responsibleWithSignature.assinatura;
       } else {
-        // Se não for base64, usar dimensões padrão
+        // Usar análise padrão se não conseguir determinar o tipo
         const defaultAnalysis: ImageAnalysis = {
           originalWidth: 200,
           originalHeight: 100,
@@ -75,7 +112,41 @@ export const SignatureConfigSection = () => {
         };
         setImageAnalysis(defaultAnalysis);
         setIsAnalyzing(false);
+        return;
       }
+
+      // Criar uma imagem temporária para análise
+      const img = new Image();
+      img.onload = () => {
+        const analysis = analyzeImage(img);
+        setImageAnalysis(analysis);
+        setIsAnalyzing(false);
+        
+        // Limpar URL se foi criada a partir de File
+        if (responsibleWithSignature.assinatura instanceof File) {
+          URL.revokeObjectURL(imageUrl);
+        }
+      };
+      img.onerror = () => {
+        setIsAnalyzing(false);
+        // Usar análise padrão em caso de erro
+        const defaultAnalysis: ImageAnalysis = {
+          originalWidth: 200,
+          originalHeight: 100,
+          aspectRatio: 2,
+          recommendedWidth: 120,
+          recommendedHeight: 60,
+          quality: 'medium'
+        };
+        setImageAnalysis(defaultAnalysis);
+        
+        // Limpar URL se foi criada a partir de File
+        if (responsibleWithSignature.assinatura instanceof File) {
+          URL.revokeObjectURL(imageUrl);
+        }
+      };
+      img.crossOrigin = 'anonymous';
+      img.src = imageUrl;
     } catch (error) {
       setIsAnalyzing(false);
       console.log('Erro ao analisar imagem:', error);
@@ -136,6 +207,20 @@ export const SignatureConfigSection = () => {
     toast({
       title: "Configuração aplicada",
       description: `Tamanho otimizado: ${imageAnalysis.recommendedWidth}×${imageAnalysis.recommendedHeight}px`
+    });
+  };
+
+  const applyPreset = (presetKey: keyof typeof signaturePresets) => {
+    const preset = signaturePresets[presetKey];
+    setSignatureConfig({
+      width: preset.width,
+      height: preset.height,
+      offsetY: preset.offsetY
+    });
+
+    toast({
+      title: `Preset ${preset.name} aplicado`,
+      description: preset.description
     });
   };
 
@@ -247,6 +332,33 @@ export const SignatureConfigSection = () => {
             </span>
           </div>
         )}
+
+        {/* Presets Personalizados */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <Settings2 className="w-4 h-4 text-muted-foreground" />
+            <Label className="text-sm font-medium">Presets Personalizados</Label>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-2">
+            {Object.entries(signaturePresets).map(([key, preset]) => (
+              <Button
+                key={key}
+                variant="outline"
+                size="sm"
+                onClick={() => applyPreset(key as keyof typeof signaturePresets)}
+                className="flex flex-col items-start p-3 h-auto text-left"
+              >
+                <div className="font-medium text-xs">{preset.name}</div>
+                <div className="text-xs text-muted-foreground">{preset.description}</div>
+                <div className="text-xs text-blue-600 mt-1">
+                  {preset.width}×{preset.height}px
+                  {preset.offsetY !== 0 && ` (${preset.offsetY > 0 ? '+' : ''}${preset.offsetY}px)`}
+                </div>
+              </Button>
+            ))}
+          </div>
+        </div>
 
         {/* Configurações Manuais */}
         <div className="space-y-4">
