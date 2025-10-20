@@ -3,42 +3,126 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Pen, RotateCcw, Move, Maximize2, Settings2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Pen, RotateCcw, Move, Maximize2, Zap, Eye, AlertCircle } from "lucide-react";
 import { useCertificateStore } from "@/hooks/useCertificateStore";
 import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from "react";
 
-const presetSizes = {
-  small: { width: 80, height: 40 },
-  medium: { width: 120, height: 60 },
-  large: { width: 160, height: 80 },
-  xlarge: { width: 200, height: 100 }
-};
-
-const positionPresets = {
-  top: -200,
-  center: 0,
-  bottom: 200
-};
+interface ImageAnalysis {
+  originalWidth: number;
+  originalHeight: number;
+  aspectRatio: number;
+  recommendedWidth: number;
+  recommendedHeight: number;
+  quality: 'low' | 'medium' | 'high';
+}
 
 export const SignatureConfigSection = () => {
-  const { signatureConfig, setSignatureConfig } = useCertificateStore();
+  const { signatureConfig, setSignatureConfig, responsibles } = useCertificateStore();
   const { toast } = useToast();
+  const [imageAnalysis, setImageAnalysis] = useState<ImageAnalysis | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  const handlePresetSize = (preset: keyof typeof presetSizes) => {
-    const size = presetSizes[preset];
-    setSignatureConfig({ width: size.width, height: size.height });
-    toast({
-      title: "Tamanho aplicado",
-      description: `Assinatura configurada para ${preset} (${size.width}x${size.height}px)`
-    });
+  // Analisar imagens de assinatura quando responsáveis mudarem
+  useEffect(() => {
+    analyzeSignatureImages();
+  }, [responsibles]);
+
+  const analyzeSignatureImages = async () => {
+    if (!responsibles || responsibles.length === 0) {
+      setImageAnalysis(null);
+      return;
+    }
+
+    setIsAnalyzing(true);
+    
+    try {
+      // Encontrar a primeira assinatura válida
+      const responsibleWithSignature = responsibles.find(r => r.assinatura);
+      
+      if (!responsibleWithSignature?.assinatura) {
+        setImageAnalysis(null);
+        setIsAnalyzing(false);
+        return;
+      }
+
+      // Criar uma imagem temporária para análise
+      const img = new Image();
+      img.onload = () => {
+        const analysis = analyzeImage(img);
+        setImageAnalysis(analysis);
+        setIsAnalyzing(false);
+      };
+      img.onerror = () => {
+        setIsAnalyzing(false);
+        toast({
+          title: "Erro na análise",
+          description: "Não foi possível analisar a imagem de assinatura",
+          variant: "destructive"
+        });
+      };
+      img.src = responsibleWithSignature.assinatura;
+    } catch (error) {
+      setIsAnalyzing(false);
+      console.error('Erro ao analisar imagem:', error);
+    }
   };
 
-  const handlePositionPreset = (preset: keyof typeof positionPresets) => {
-    const position = positionPresets[preset];
-    setSignatureConfig({ offsetY: position });
+  const analyzeImage = (img: HTMLImageElement): ImageAnalysis => {
+    const { width, height } = img;
+    const aspectRatio = width / height;
+    
+    // Calcular tamanho recomendado baseado no tamanho original
+    let recommendedWidth: number;
+    let recommendedHeight: number;
+    let quality: 'low' | 'medium' | 'high';
+
+    // Determinar qualidade baseada na resolução
+    const totalPixels = width * height;
+    if (totalPixels > 50000) quality = 'high';
+    else if (totalPixels > 10000) quality = 'medium';
+    else quality = 'low';
+
+    // Calcular tamanho recomendado (otimizado para certificados)
+    if (width > 300) {
+      // Imagem grande - reduzir proporcionalmente
+      recommendedWidth = Math.min(200, width * 0.4);
+    } else if (width > 150) {
+      // Imagem média - ajuste moderado
+      recommendedWidth = Math.min(160, width * 0.8);
+    } else {
+      // Imagem pequena - usar tamanho próximo ao original
+      recommendedWidth = Math.max(80, width);
+    }
+
+    recommendedHeight = Math.round(recommendedWidth / aspectRatio);
+
+    // Garantir limites mínimos e máximos
+    recommendedWidth = Math.max(60, Math.min(300, recommendedWidth));
+    recommendedHeight = Math.max(30, Math.min(150, recommendedHeight));
+
+    return {
+      originalWidth: width,
+      originalHeight: height,
+      aspectRatio,
+      recommendedWidth,
+      recommendedHeight,
+      quality
+    };
+  };
+
+  const applyRecommendedSize = () => {
+    if (!imageAnalysis) return;
+    
+    setSignatureConfig({
+      width: imageAnalysis.recommendedWidth,
+      height: imageAnalysis.recommendedHeight
+    });
+
     toast({
-      title: "Posição aplicada",
-      description: `Assinatura movida para ${preset}`
+      title: "Configuração aplicada",
+      description: `Tamanho otimizado: ${imageAnalysis.recommendedWidth}×${imageAnalysis.recommendedHeight}px`
     });
   };
 
@@ -57,6 +141,24 @@ export const SignatureConfigSection = () => {
     }
   };
 
+  const getQualityColor = (quality: string) => {
+    switch (quality) {
+      case 'high': return 'bg-green-100 text-green-800';
+      case 'medium': return 'bg-yellow-100 text-yellow-800';
+      case 'low': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getQualityText = (quality: string) => {
+    switch (quality) {
+      case 'high': return 'Alta Qualidade';
+      case 'medium': return 'Qualidade Média';
+      case 'low': return 'Baixa Qualidade';
+      default: return 'Desconhecida';
+    }
+  };
+
   return (
     <Card className="shadow-card animate-fade-in">
       <CardHeader>
@@ -66,54 +168,78 @@ export const SignatureConfigSection = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Presets Rápidos */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <Settings2 className="w-4 h-4 text-muted-foreground" />
-            <Label className="text-sm font-medium">Presets Rápidos</Label>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-2">
-              <Label className="text-xs text-muted-foreground">Tamanhos</Label>
-              <div className="grid grid-cols-2 gap-1">
-                <Button size="sm" variant="outline" onClick={() => handlePresetSize('small')} className="text-xs">
-                  Pequeno
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => handlePresetSize('medium')} className="text-xs">
-                  Médio
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => handlePresetSize('large')} className="text-xs">
-                  Grande
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => handlePresetSize('xlarge')} className="text-xs">
-                  Extra
-                </Button>
-              </div>
+        {/* Análise Inteligente */}
+        {imageAnalysis && (
+          <div className="space-y-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-blue-600" />
+              <Label className="text-sm font-medium text-blue-900">Análise da Imagem</Label>
             </div>
             
-            <div className="space-y-2">
-              <Label className="text-xs text-muted-foreground">Posições</Label>
-              <div className="grid grid-cols-3 gap-1">
-                <Button size="sm" variant="outline" onClick={() => handlePositionPreset('top')} className="text-xs">
-                  Topo
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => handlePositionPreset('center')} className="text-xs">
-                  Centro
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => handlePositionPreset('bottom')} className="text-xs">
-                  Base
-                </Button>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="text-muted-foreground">Tamanho Original:</span>
+                <div className="font-medium">{imageAnalysis.originalWidth}×{imageAnalysis.originalHeight}px</div>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Qualidade:</span>
+                <div>
+                  <Badge className={getQualityColor(imageAnalysis.quality)}>
+                    {getQualityText(imageAnalysis.quality)}
+                  </Badge>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Configurações Detalhadas */}
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-sm text-muted-foreground">Tamanho Recomendado:</span>
+                <div className="font-medium text-blue-900">
+                  {imageAnalysis.recommendedWidth}×{imageAnalysis.recommendedHeight}px
+                </div>
+              </div>
+              <Button 
+                onClick={applyRecommendedSize} 
+                size="sm" 
+                className="gap-2 bg-blue-600 hover:bg-blue-700"
+              >
+                <Zap className="w-4 h-4" />
+                Aplicar
+              </Button>
+            </div>
+
+            {imageAnalysis.quality === 'low' && (
+              <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded">
+                <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                <div className="text-xs text-amber-800">
+                  <strong>Dica:</strong> Para melhor qualidade, use uma imagem com pelo menos 200×100px
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {isAnalyzing && (
+          <div className="flex items-center gap-2 p-4 bg-gray-50 rounded-lg">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+            <span className="text-sm text-muted-foreground">Analisando imagem de assinatura...</span>
+          </div>
+        )}
+
+        {!imageAnalysis && !isAnalyzing && (
+          <div className="flex items-center gap-2 p-4 bg-gray-50 rounded-lg">
+            <Eye className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">
+              Adicione uma assinatura nos responsáveis para análise automática
+            </span>
+          </div>
+        )}
+
+        {/* Configurações Manuais */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <Maximize2 className="w-4 h-4 text-muted-foreground" />
-            <Label className="text-sm font-medium">Dimensões Personalizadas</Label>
+            <Label className="text-sm font-medium">Ajuste Manual</Label>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
@@ -209,7 +335,7 @@ export const SignatureConfigSection = () => {
         {/* Preview e Reset */}
         <div className="flex items-center justify-between pt-4 border-t">
           <div className="text-sm text-muted-foreground">
-            Preview: {signatureConfig.width}×{signatureConfig.height}px
+            Atual: {signatureConfig.width}×{signatureConfig.height}px
             {signatureConfig.offsetY !== 0 && (
               <span className="ml-2">
                 ({signatureConfig.offsetY > 0 ? '+' : ''}{signatureConfig.offsetY}px)
