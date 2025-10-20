@@ -17,13 +17,14 @@ import { Instructor } from "@/types/certificate";
 
 interface AddInstructorDialogProps {
   children: React.ReactNode;
-  onAdd: (instructor: Instructor) => void;
+  onAdd: (instructor: Instructor, shouldSave?: boolean) => void;
 }
 
 export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProps) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [credential, setCredential] = useState("");
+  const [shouldSave, setShouldSave] = useState(false);
   const { toast } = useToast();
 
   const handleAdd = () => {
@@ -36,9 +37,10 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
       return;
     }
 
-    onAdd({ nome: name, registro: credential || undefined });
+    onAdd({ nome: name, registro: credential || undefined }, shouldSave);
     setName("");
     setCredential("");
+    setShouldSave(false);
     setOpen(false);
     
     toast({
@@ -75,6 +77,18 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
               onChange={(e) => setCredential(e.target.value)}
               placeholder="Ex: CREA 12345"
             />
+          </div>
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="save-instructor"
+              checked={shouldSave}
+              onChange={(e) => setShouldSave(e.target.checked)}
+              className="rounded"
+            />
+            <label htmlFor="save-instructor" className="text-sm text-muted-foreground">
+              Salvar na biblioteca para uso futuro
+            </label>
           </div>
         </div>
         <DialogFooter>

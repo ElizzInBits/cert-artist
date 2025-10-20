@@ -6,30 +6,27 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Upload } from "lucide-react";
-
 import { Responsible } from "@/types/certificate";
 
-interface AddResponsibleDialogProps {
-  children: React.ReactNode;
-  onAdd: (responsible: Responsible, shouldSave?: boolean) => void;
+interface EditResponsibleDialogProps {
+  responsible: Responsible;
+  onSave: (responsible: Responsible) => void;
+  onCancel: () => void;
 }
 
-export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogProps) => {
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [credential, setCredential] = useState("");
-  const [signature, setSignature] = useState<File | null>(null);
-  const [shouldSave, setShouldSave] = useState(false);
+export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditResponsibleDialogProps) => {
+  const [name, setName] = useState(responsible.nome);
+  const [credential, setCredential] = useState(responsible.registro || "");
+  const [signature, setSignature] = useState<File | null>(responsible.assinatura || null);
   const { toast } = useToast();
 
-  const handleAdd = () => {
+  const handleSave = () => {
     if (!name.trim()) {
       toast({
         title: "Campo obrigatório",
@@ -39,24 +36,14 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
       return;
     }
 
-    if (!signature) {
-      toast({
-        title: "Assinatura obrigatória",
-        description: "Por favor, selecione uma imagem da assinatura.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    onAdd({ nome: name, registro: credential || undefined, assinatura: signature }, shouldSave);
-    setName("");
-    setCredential("");
-    setSignature(null);
-    setShouldSave(false);
-    setOpen(false);
+    onSave({ 
+      nome: name, 
+      registro: credential || undefined, 
+      assinatura: signature || undefined 
+    });
     
     toast({
-      title: "Responsável adicionado",
+      title: "Responsável atualizado",
       description: name,
     });
   };
@@ -78,36 +65,35 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent aria-describedby="responsible-dialog-description">
+    <Dialog open={true} onOpenChange={() => onCancel()}>
+      <DialogContent aria-describedby="edit-responsible-dialog-description">
         <DialogHeader>
-          <DialogTitle>👨‍💼 Adicionar Responsável Técnico</DialogTitle>
-          <DialogDescription id="responsible-dialog-description">
-            Preencha os dados do responsável técnico e faça upload da assinatura.
+          <DialogTitle>✏️ Editar Responsável Técnico</DialogTitle>
+          <DialogDescription id="edit-responsible-dialog-description">
+            Altere os dados do responsável técnico.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="responsible-name">Nome do Responsável *</Label>
+            <Label htmlFor="edit-responsible-name">Nome do Responsável *</Label>
             <Input
-              id="responsible-name"
+              id="edit-responsible-name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Nome completo"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="responsible-credential">Registro/Credencial</Label>
+            <Label htmlFor="edit-responsible-credential">Registro/Credencial</Label>
             <Input
-              id="responsible-credential"
+              id="edit-responsible-credential"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
               placeholder="Ex: CRQ 12345"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="responsible-signature">Assinatura *</Label>
+            <Label htmlFor="edit-responsible-signature">Assinatura</Label>
             <div className="flex gap-2">
               <Input
                 type="text"
@@ -118,13 +104,13 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => document.getElementById("signature-file-input")?.click()}
+                onClick={() => document.getElementById("edit-signature-file-input")?.click()}
               >
                 <Upload className="w-4 h-4 mr-2" />
                 Upload
               </Button>
               <input
-                id="signature-file-input"
+                id="edit-signature-file-input"
                 type="file"
                 accept="image/png,image/jpeg,image/jpg"
                 className="hidden"
@@ -135,24 +121,12 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
               Formato: PNG ou JPG (fundo transparente recomendado)
             </p>
           </div>
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="save-responsible"
-              checked={shouldSave}
-              onChange={(e) => setShouldSave(e.target.checked)}
-              className="rounded"
-            />
-            <label htmlFor="save-responsible" className="text-sm text-muted-foreground">
-              Salvar na biblioteca para uso futuro
-            </label>
-          </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant="outline" onClick={onCancel}>
             Cancelar
           </Button>
-          <Button onClick={handleAdd}>Adicionar</Button>
+          <Button onClick={handleSave}>Salvar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
