@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Lock } from 'lucide-react';
 
 export default function Login() {
-  const [username, setUsername] = useState('administrador');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -42,7 +42,7 @@ export default function Login() {
             <Lock className="w-6 h-6 text-blue-600" />
           </div>
           <CardTitle className="text-2xl font-bold text-gray-900">
-            Acesso Administrativo
+            Login
           </CardTitle>
           <p className="text-gray-600">
             Digite a senha para acessar o sistema
