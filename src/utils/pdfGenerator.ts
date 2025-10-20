@@ -1,6 +1,25 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import { Employee, CertificateConfig } from '@/types/certificate';
 
+// Função para converter string em File (data URI ou URL)
+const toFileFromString = async (str: string): Promise<File> => {
+  if (str.startsWith('data:')) {
+    // data URL -> converter
+    const [meta, base64] = str.split(',');
+    const mime = meta.match(/data:([^;]+);/)?.[1] || 'image/png';
+    const bytes = atob(base64);
+    const buf = new Uint8Array(bytes.length);
+    for (let i = 0; i < bytes.length; i++) buf[i] = bytes.charCodeAt(i);
+    return new File([buf], 'signature.png', { type: mime });
+  } else {
+    // URL -> fetch (pode falhar por CORS)
+    const response = await fetch(str, { mode: 'cors' });
+    if (!response.ok) throw new Error(`Falha ao buscar assinatura por URL: ${response.status} ${response.statusText}`);
+    const blob = await response.blob();
+    return new File([blob], 'signature.png', { type: blob.type || 'image/png' });
+  }
+};
+
 // Função para processar imagem com remoção inteligente de fundo
 const processSignatureImage = async (imageFile: File): Promise<Blob> => {
   return new Promise((resolve, reject) => {
@@ -14,11 +33,12 @@ const processSignatureImage = async (imageFile: File): Promise<Blob> => {
     const ctx = canvas.getContext('2d')!;
     const img = new Image();
     
-    img.onload = () => {
-      const scale = Math.max(1, 400 / img.width);
+    const processImage = () => {
+      const scale = Math.min(1, 400 / img.width); // reduz imagens grandes, não amplia pequenas
       canvas.width = img.width * scale;
       canvas.height = img.height * scale;
       
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // evita resíduos
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -59,15 +79,27 @@ const processSignatureImage = async (imageFile: File): Promise<Blob> => {
       }
       
       ctx.putImageData(imageData, 0, 0);
-      canvas.toBlob((blob) => resolve(blob!), 'image/png', 1.0);
-    };
-    
-    img.onerror = () => {
-      reject(new Error('Erro ao carregar imagem'));
+      canvas.toBlob((blob) => {
+        if (!blob) return reject(new Error('Falha ao gerar Blob do canvas'));
+        resolve(blob);
+      }, 'image/png', 1.0);
     };
     
     try {
-      img.src = URL.createObjectURL(imageFile);
+      const objectUrl = URL.createObjectURL(imageFile);
+      img.onload = () => {
+        try {
+          URL.revokeObjectURL(objectUrl);
+          processImage();
+        } catch (e) {
+          reject(e);
+        }
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error('Erro ao carregar imagem'));
+      };
+      img.src = objectUrl;
     } catch (error) {
       reject(new Error('Erro ao criar URL da imagem'));
     }
@@ -119,13 +151,19 @@ export const generateCertificatePDF = async (
     let basePdf: PDFDocument;
     
     try {
+      console.log('Carregando modelo PDF:', modelPath);
       const modelResponse = await fetch(modelPath);
       if (!modelResponse.ok) {
-        throw new Error(`Modelo não encontrado: ${modelPath}`);
+        throw new Error(`Modelo não encontrado: ${modelPath} (${modelResponse.status})`);
       }
       const modelBytes = await modelResponse.arrayBuffer();
+      if (modelBytes.byteLength === 0) {
+        throw new Error('Arquivo de modelo está vazio');
+      }
       basePdf = await PDFDocument.load(modelBytes);
+      console.log('Modelo PDF carregado com sucesso');
     } catch (error) {
+      console.warn('Falha ao carregar modelo, usando PDF simples:', error);
       // Criar PDF simples se modelo não encontrado
       const pdfDoc = await PDFDocument.create();
       const page = pdfDoc.addPage([595.28, 841.89]);
@@ -536,11 +574,13 @@ export const generateCertificatePDF = async (
                 assinaturaFile = new File([responsavel.assinatura], 'signature.png', { type: 'image/png' });
               } else if (typeof responsavel.assinatura === 'string') {
                 // Se for base64 ou URL
-                const response = await fetch(responsavel.assinatura);
-                const blob = await response.blob();
-                assinaturaFile = new File([blob], 'signature.png', { type: blob.type || 'image/png' });
+                assinaturaFile = await toFileFromString(responsavel.assinatura);
               } else {
-                console.warn('Tipo de assinatura não suportado:', typeof responsavel.assinatura);
+                console.warn('Tipo de assinatura não suportado:', {
+                  tipo: typeof responsavel.assinatura,
+                  valor: responsavel.assinatura,
+                  constructor: responsavel.assinatura?.constructor?.name
+                });
                 assinaturaFile = null;
               }
               
@@ -548,7 +588,7 @@ export const generateCertificatePDF = async (
                 console.log('Processando assinatura:', assinaturaFile.name);
                 // Processar imagem com alta qualidade
                 const processedImage = await processSignatureImage(assinaturaFile);
-                const assinaturaBytes = await processedImage.arrayBuffer();
+                const assinaturaBytes = new Uint8Array(await new Response(processedImage).arrayBuffer());
                 let assinaturaImage;
                 
                 // Tentar diferentes formatos de imagem
@@ -591,7 +631,12 @@ export const generateCertificatePDF = async (
                 }
               }
             } catch (error) {
-              console.error('Erro ao carregar assinatura:', error);
+              console.error('Erro ao carregar assinatura (continuando geração):', {
+                erro: error,
+                funcionario: employee.nome,
+                tipoAssinatura: typeof responsavel.assinatura
+              });
+              // Continua gerando o PDF mesmo com erro na assinatura
             }
           }
           
@@ -659,11 +704,13 @@ export const generateCertificatePDF = async (
                   assinaturaFile = new File([responsavel.assinatura], 'signature.png', { type: 'image/png' });
                 } else if (typeof responsavel.assinatura === 'string') {
                   // Se for base64 ou URL
-                  const response = await fetch(responsavel.assinatura);
-                  const blob = await response.blob();
-                  assinaturaFile = new File([blob], 'signature.png', { type: blob.type || 'image/png' });
+                  assinaturaFile = await toFileFromString(responsavel.assinatura);
                 } else {
-                  console.warn('Tipo de assinatura não suportado:', typeof responsavel.assinatura);
+                  console.warn('Tipo de assinatura não suportado:', {
+                    tipo: typeof responsavel.assinatura,
+                    valor: responsavel.assinatura,
+                    constructor: responsavel.assinatura?.constructor?.name
+                  });
                   assinaturaFile = null;
                 }
                 
@@ -671,7 +718,7 @@ export const generateCertificatePDF = async (
                   console.log('Processando assinatura múltipla:', assinaturaFile.name);
                   // Processar imagem com alta qualidade
                   const processedImage = await processSignatureImage(assinaturaFile);
-                  const assinaturaBytes = await processedImage.arrayBuffer();
+                  const assinaturaBytes = new Uint8Array(await new Response(processedImage).arrayBuffer());
                   let assinaturaImage;
                   
                   // Tentar diferentes formatos de imagem
@@ -714,7 +761,13 @@ export const generateCertificatePDF = async (
                   }
                 }
               } catch (error) {
-                console.error('Erro ao carregar assinatura múltipla:', error);
+                console.error('Erro ao carregar assinatura múltipla (continuando geração):', {
+                  erro: error,
+                  funcionario: employee.nome,
+                  responsavelIndex: i,
+                  tipoAssinatura: typeof responsavel.assinatura
+                });
+                // Continua gerando o PDF mesmo com erro na assinatura
               }
             }
             
@@ -783,7 +836,8 @@ export const generateCertificatePDF = async (
   }
 };
 
-export const generateAllCertificates = async (
+// Versão sequencial (original)
+export const generateAllCertificatesSequential = async (
   employees: Employee[],
   config: CertificateConfig,
   onProgress?: (current: number, total: number) => void
@@ -802,6 +856,47 @@ export const generateAllCertificates = async (
   return certificates;
 };
 
+// Versão paralela com limite de concorrência
+export const generateAllCertificates = async (
+  employees: Employee[],
+  config: CertificateConfig,
+  onProgress?: (current: number, total: number) => void,
+  concurrency: number = 2 // Limitado para evitar problemas de memória
+): Promise<Blob[]> => {
+  // Limita concorrência máxima
+  concurrency = Math.min(concurrency, 2);
+  const certificates: Blob[] = new Array(employees.length);
+  let completed = 0;
+  
+  // Função para processar um lote com limite de concorrência
+  const processBatch = async (startIndex: number): Promise<void> => {
+    const batch = employees.slice(startIndex, startIndex + concurrency);
+    const promises = batch.map(async (employee, batchIndex) => {
+      const globalIndex = startIndex + batchIndex;
+      try {
+        const certificate = await generateCertificatePDF(employee, config);
+        certificates[globalIndex] = certificate;
+        completed++;
+        if (onProgress) {
+          onProgress(completed, employees.length);
+        }
+      } catch (error) {
+        console.error(`Erro ao gerar certificado para ${employee.nome}:`, error);
+        throw error;
+      }
+    });
+    
+    await Promise.all(promises);
+  };
+  
+  // Processar em lotes
+  for (let i = 0; i < employees.length; i += concurrency) {
+    await processBatch(i);
+  }
+  
+  return certificates;
+};
+
 export const downloadCertificate = (blob: Blob, filename: string) => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -815,6 +910,11 @@ export const downloadCertificate = (blob: Blob, filename: string) => {
 
 export const previewCertificate = (blob: Blob) => {
   const url = URL.createObjectURL(blob);
-  window.open(url, '_blank');
+  const newWindow = window.open(url, '_blank');
+  if (!newWindow) {
+    // Fallback para download em Safari/iOS
+    console.warn('Não foi possível abrir preview, fazendo download...');
+    downloadCertificate(blob, 'certificado.pdf');
+  }
   setTimeout(() => URL.revokeObjectURL(url), 10000);
 };
