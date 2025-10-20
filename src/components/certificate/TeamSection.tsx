@@ -1,14 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Plus, Trash2, Edit, BookOpen, Clock, Database } from "lucide-react";
-import { AddInstructorDialog } from "./dialogs/AddInstructorDialog";
-import { AddResponsibleDialog } from "./dialogs/AddResponsibleDialog";
+import { Users, Trash2, Edit, Database } from "lucide-react";
 import { EditInstructorDialog } from "./dialogs/EditInstructorDialog";
 import { EditResponsibleDialog } from "./dialogs/EditResponsibleDialog";
-import { PeopleLibraryDialog } from "./dialogs/PeopleLibraryDialog";
 import { SavedPeopleDialog } from "./dialogs/SavedPeopleDialog";
 import { useCertificateStore } from "@/hooks/useCertificateStore";
-import { usePeopleLibrary } from "@/hooks/usePeopleLibrary";
 import { useState } from "react";
 import { Instructor, Responsible } from "@/types/certificate";
 
@@ -22,23 +18,17 @@ export const TeamSection = () => {
     removeResponsible 
   } = useCertificateStore();
   
-  const { savePerson, getRecentlyUsed } = usePeopleLibrary();
+
   const [editingInstructor, setEditingInstructor] = useState<{ index: number; data: Instructor } | null>(null);
   const [editingResponsible, setEditingResponsible] = useState<{ index: number; data: Responsible } | null>(null);
   const [showSavedPeopleDialog, setShowSavedPeopleDialog] = useState(false);
 
-  const handleAddInstructor = (instructor: Instructor, shouldSave: boolean = false) => {
+  const handleAddInstructor = (instructor: Instructor) => {
     addInstructor(instructor);
-    if (shouldSave) {
-      savePerson(instructor, 'instructor');
-    }
   };
 
-  const handleAddResponsible = (responsible: Responsible, shouldSave: boolean = false) => {
+  const handleAddResponsible = (responsible: Responsible) => {
     addResponsible(responsible);
-    if (shouldSave) {
-      savePerson(responsible, 'responsible');
-    }
   };
 
   const handleEditInstructor = (index: number, instructor: Instructor) => {
@@ -82,8 +72,7 @@ export const TeamSection = () => {
     setEditingResponsible(null);
   };
 
-  const recentInstructors = getRecentlyUsed('instructor', 3);
-  const recentResponsibles = getRecentlyUsed('responsible', 3);
+
 
   return (
     <Card className="shadow-card animate-fade-in">
@@ -99,46 +88,14 @@ export const TeamSection = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold">👨🏫 Instrutores</h3>
             <div className="flex gap-2">
-              {recentInstructors.length > 0 && (
-                <PeopleLibraryDialog 
-                  type="instructor" 
-                  onSelect={(person) => handleAddInstructor({
-                    nome: person.nome,
-                    registro: person.registro
-                  })}
-                >
-                  <Button size="sm" variant="ghost" className="text-xs">
-                    <Clock className="w-3 h-3 mr-1" />
-                    Recentes
-                  </Button>
-                </PeopleLibraryDialog>
-              )}
               <Button 
                 size="sm" 
                 variant="outline"
                 onClick={() => setShowSavedPeopleDialog(true)}
               >
                 <Database className="w-4 h-4 mr-1" />
-                Salvos
+                Biblioteca
               </Button>
-              <PeopleLibraryDialog 
-                type="instructor" 
-                onSelect={(person) => handleAddInstructor({
-                  nome: person.nome,
-                  registro: person.registro
-                })}
-              >
-                <Button size="sm" variant="ghost" className="text-xs">
-                  <BookOpen className="w-4 h-4 mr-1" />
-                  Local
-                </Button>
-              </PeopleLibraryDialog>
-              <AddInstructorDialog onAdd={handleAddInstructor}>
-                <Button size="sm" variant="outline">
-                  <Plus className="w-4 h-4 mr-1" />
-                  Adicionar
-                </Button>
-              </AddInstructorDialog>
             </div>
           </div>
           <div className="border rounded-lg min-h-[120px] max-h-[120px] overflow-y-auto p-2 space-y-1">
@@ -185,48 +142,14 @@ export const TeamSection = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold">👨💼 Responsáveis Técnicos</h3>
             <div className="flex gap-2">
-              {recentResponsibles.length > 0 && (
-                <PeopleLibraryDialog 
-                  type="responsible" 
-                  onSelect={(person) => handleAddResponsible({
-                    nome: person.nome,
-                    registro: person.registro,
-                    assinatura: person.assinatura
-                  })}
-                >
-                  <Button size="sm" variant="ghost" className="text-xs">
-                    <Clock className="w-3 h-3 mr-1" />
-                    Recentes
-                  </Button>
-                </PeopleLibraryDialog>
-              )}
               <Button 
                 size="sm" 
                 variant="outline"
                 onClick={() => setShowSavedPeopleDialog(true)}
               >
                 <Database className="w-4 h-4 mr-1" />
-                Salvos
+                Biblioteca
               </Button>
-              <PeopleLibraryDialog 
-                type="responsible" 
-                onSelect={(person) => handleAddResponsible({
-                  nome: person.nome,
-                  registro: person.registro,
-                  assinatura: person.assinatura
-                })}
-              >
-                <Button size="sm" variant="ghost" className="text-xs">
-                  <BookOpen className="w-4 h-4 mr-1" />
-                  Local
-                </Button>
-              </PeopleLibraryDialog>
-              <AddResponsibleDialog onAdd={handleAddResponsible}>
-                <Button size="sm" variant="outline">
-                  <Plus className="w-4 h-4 mr-1" />
-                  Adicionar
-                </Button>
-              </AddResponsibleDialog>
             </div>
           </div>
           <div className="border rounded-lg min-h-[120px] max-h-[120px] overflow-y-auto p-2 space-y-1">
