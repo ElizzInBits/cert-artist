@@ -527,7 +527,7 @@ export const generateCertificatePDF = async (
           const responsavel = config.responsibles[0];
           if (responsavel?.assinatura) {
             try {
-              let assinaturaFile: File;
+              let assinaturaFile: File | null = null;
               
               // Converter diferentes tipos para File
               if (responsavel.assinatura instanceof File) {
@@ -650,7 +650,7 @@ export const generateCertificatePDF = async (
             const responsavel = config.responsibles[i];
             if (responsavel?.assinatura) {
               try {
-                let assinaturaFile: File;
+                let assinaturaFile: File | null = null;
                 
                 // Converter diferentes tipos para File
                 if (responsavel.assinatura instanceof File) {
