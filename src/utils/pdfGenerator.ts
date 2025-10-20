@@ -3,7 +3,13 @@ import { Employee, CertificateConfig } from '@/types/certificate';
 
 // Função para processar imagem com remoção inteligente de fundo
 const processSignatureImage = async (imageFile: File): Promise<Blob> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
+    // Verificar se é realmente um File
+    if (!(imageFile instanceof File)) {
+      reject(new Error('Input não é um File válido'));
+      return;
+    }
+    
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d')!;
     const img = new Image();
@@ -56,7 +62,15 @@ const processSignatureImage = async (imageFile: File): Promise<Blob> => {
       canvas.toBlob((blob) => resolve(blob!), 'image/png', 1.0);
     };
     
-    img.src = URL.createObjectURL(imageFile);
+    img.onerror = () => {
+      reject(new Error('Erro ao carregar imagem'));
+    };
+    
+    try {
+      img.src = URL.createObjectURL(imageFile);
+    } catch (error) {
+      reject(new Error('Erro ao criar URL da imagem'));
+    }
   });
 };
 
@@ -511,8 +525,9 @@ export const generateCertificatePDF = async (
           
           // Imagem da assinatura do responsável (se disponível)
           const responsavel = config.responsibles[0];
-          if (responsavel?.assinatura) {
+          if (responsavel?.assinatura && responsavel.assinatura instanceof File) {
             try {
+              console.log('Processando assinatura:', responsavel.assinatura.name);
               // Processar imagem com alta qualidade
               const processedImage = await processSignatureImage(responsavel.assinatura);
               const assinaturaBytes = await processedImage.arrayBuffer();
@@ -557,8 +572,11 @@ export const generateCertificatePDF = async (
                 });
               }
             } catch (error) {
-              console.warn('Erro ao carregar assinatura:', error);
+              console.error('Erro ao carregar assinatura:', error);
             }
+          } else if (responsavel?.assinatura) {
+            console.warn('Assinatura não é um File válido:', typeof responsavel.assinatura);
+          }
           }
           
           // Texto do responsável
@@ -614,8 +632,9 @@ export const generateCertificatePDF = async (
             
             // Imagem da assinatura do responsável (se disponível)
             const responsavel = config.responsibles[i];
-            if (responsavel?.assinatura) {
+            if (responsavel?.assinatura && responsavel.assinatura instanceof File) {
               try {
+                console.log('Processando assinatura múltipla:', responsavel.assinatura.name);
                 // Processar imagem com alta qualidade
                 const processedImage = await processSignatureImage(responsavel.assinatura);
                 const assinaturaBytes = await processedImage.arrayBuffer();
@@ -660,8 +679,11 @@ export const generateCertificatePDF = async (
                   });
                 }
               } catch (error) {
-                console.warn('Erro ao carregar assinatura:', error);
+                console.error('Erro ao carregar assinatura múltipla:', error);
               }
+            } else if (responsavel?.assinatura) {
+              console.warn('Assinatura múltipla não é um File válido:', typeof responsavel.assinatura);
+            }
             }
             
             // Texto do responsável

@@ -66,10 +66,10 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
 
   return (
     <Dialog open={true} onOpenChange={() => onCancel()}>
-      <DialogContent aria-describedby="edit-responsible-dialog-description">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>✏️ Editar Responsável Técnico</DialogTitle>
-          <DialogDescription id="edit-responsible-dialog-description">
+          <DialogDescription>
             Altere os dados do responsável técnico.
           </DialogDescription>
         </DialogHeader>
