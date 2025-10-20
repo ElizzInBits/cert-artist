@@ -1,4 +1,5 @@
-import { prisma } from './prisma';
+// Prisma não funciona no browser - usar API routes
+// import { prisma } from './prisma';
 
 export interface InstructorData {
   nome: string;
@@ -72,36 +73,36 @@ export const saveInstructor = async (data: InstructorData): Promise<SavedInstruc
       assinaturaBase64 = await fileToBase64(data.assinatura);
       mimeType = data.assinatura.type;
     } else if (typeof data.assinatura === 'string') {
-      // Se já é base64, usar diretamente
       assinaturaBase64 = data.assinatura;
-      mimeType = 'image/png'; // Assumir PNG por padrão
+      mimeType = 'image/png';
     }
   }
 
-  const instructor = await prisma.instructor.create({
-    data: {
+  const response = await fetch('/api/instructors', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       nome: data.nome,
       registro: data.registro,
       assinatura: assinaturaBase64,
       mimeType,
-    },
+    }),
   });
 
-  return instructor;
+  if (!response.ok) throw new Error('Erro ao salvar instrutor');
+  return await response.json();
 };
 
 export const getInstructors = async (activeOnly = true): Promise<SavedInstructor[]> => {
-  return await prisma.instructor.findMany({
-    where: activeOnly ? { isActive: true } : undefined,
-    orderBy: { lastUsed: 'desc' },
-  });
+  const response = await fetch(`/api/instructors?activeOnly=${activeOnly}`);
+  if (!response.ok) throw new Error('Erro ao buscar instrutores');
+  return await response.json();
 };
 
 export const updateInstructor = async (id: string, data: Partial<InstructorData>): Promise<SavedInstructor> => {
   let updateData: any = {
     nome: data.nome,
     registro: data.registro,
-    lastUsed: new Date(),
   };
 
   if (data.assinatura) {
@@ -114,24 +115,28 @@ export const updateInstructor = async (id: string, data: Partial<InstructorData>
     }
   }
 
-  return await prisma.instructor.update({
-    where: { id },
-    data: updateData,
+  const response = await fetch(`/api/instructors/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updateData),
   });
+
+  if (!response.ok) throw new Error('Erro ao atualizar instrutor');
+  return await response.json();
 };
 
 export const deleteInstructor = async (id: string): Promise<void> => {
-  await prisma.instructor.update({
-    where: { id },
-    data: { isActive: false },
+  const response = await fetch(`/api/instructors/${id}`, {
+    method: 'DELETE',
   });
+  if (!response.ok) throw new Error('Erro ao deletar instrutor');
 };
 
 export const markInstructorAsUsed = async (id: string): Promise<void> => {
-  await prisma.instructor.update({
-    where: { id },
-    data: { lastUsed: new Date() },
+  const response = await fetch(`/api/instructors/use?id=${id}`, {
+    method: 'PATCH',
   });
+  if (!response.ok) throw new Error('Erro ao marcar instrutor como usado');
 };
 
 // RESPONSÁVEIS
@@ -149,30 +154,31 @@ export const saveResponsible = async (data: ResponsibleData): Promise<SavedRespo
     }
   }
 
-  const responsible = await prisma.responsible.create({
-    data: {
+  const response = await fetch('/api/responsibles', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       nome: data.nome,
       registro: data.registro,
       assinatura: assinaturaBase64,
       mimeType,
-    },
+    }),
   });
 
-  return responsible;
+  if (!response.ok) throw new Error('Erro ao salvar responsável');
+  return await response.json();
 };
 
 export const getResponsibles = async (activeOnly = true): Promise<SavedResponsible[]> => {
-  return await prisma.responsible.findMany({
-    where: activeOnly ? { isActive: true } : undefined,
-    orderBy: { lastUsed: 'desc' },
-  });
+  const response = await fetch(`/api/responsibles?activeOnly=${activeOnly}`);
+  if (!response.ok) throw new Error('Erro ao buscar responsáveis');
+  return await response.json();
 };
 
 export const updateResponsible = async (id: string, data: Partial<ResponsibleData>): Promise<SavedResponsible> => {
   let updateData: any = {
     nome: data.nome,
     registro: data.registro,
-    lastUsed: new Date(),
   };
 
   if (data.assinatura) {
@@ -185,22 +191,26 @@ export const updateResponsible = async (id: string, data: Partial<ResponsibleDat
     }
   }
 
-  return await prisma.responsible.update({
-    where: { id },
-    data: updateData,
+  const response = await fetch(`/api/responsibles/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updateData),
   });
+
+  if (!response.ok) throw new Error('Erro ao atualizar responsável');
+  return await response.json();
 };
 
 export const deleteResponsible = async (id: string): Promise<void> => {
-  await prisma.responsible.update({
-    where: { id },
-    data: { isActive: false },
+  const response = await fetch(`/api/responsibles/${id}`, {
+    method: 'DELETE',
   });
+  if (!response.ok) throw new Error('Erro ao deletar responsável');
 };
 
 export const markResponsibleAsUsed = async (id: string): Promise<void> => {
-  await prisma.responsible.update({
-    where: { id },
-    data: { lastUsed: new Date() },
+  const response = await fetch(`/api/responsibles/use?id=${id}`, {
+    method: 'PATCH',
   });
+  if (!response.ok) throw new Error('Erro ao marcar responsável como usado');
 };
