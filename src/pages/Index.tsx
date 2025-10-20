@@ -10,6 +10,7 @@ import { ActionButtons } from "@/components/certificate/ActionButtons";
 import { LivePreview } from "@/components/certificate/LivePreview";
 import { TemplateManager } from "@/components/certificate/TemplateManager";
 import { GraduationCap, LogOut } from "lucide-react";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 
@@ -29,7 +30,9 @@ const Index = () => {
             <div className="flex-1">
               <h1 className="text-3xl font-bold tracking-tight">Gerador de Certificados</h1>
             </div>
-            <Button
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <Button
               variant="ghost"
               size="sm"
               onClick={logout}
@@ -38,6 +41,7 @@ const Index = () => {
               <LogOut className="w-4 h-4 mr-2" />
               Sair
             </Button>
+            </div>
           </div>
         </div>
       </header>
