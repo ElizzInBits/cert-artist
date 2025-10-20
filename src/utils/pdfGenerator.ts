@@ -577,7 +577,6 @@ export const generateCertificatePDF = async (
           } else if (responsavel?.assinatura) {
             console.warn('Assinatura não é um File válido:', typeof responsavel.assinatura);
           }
-          }
           
           // Texto do responsável
           const textoResponsavel = 'RESPONSÁVEL TÉCNICO';
@@ -683,7 +682,6 @@ export const generateCertificatePDF = async (
               }
             } else if (responsavel?.assinatura) {
               console.warn('Assinatura múltipla não é um File válido:', typeof responsavel.assinatura);
-            }
             }
             
             // Texto do responsável
