@@ -47,25 +47,38 @@ export const SignatureConfigSection = () => {
         return;
       }
 
-      // Criar uma imagem temporária para análise
-      const img = new Image();
-      img.onload = () => {
-        const analysis = analyzeImage(img);
-        setImageAnalysis(analysis);
+      // Verificar se é uma URL de dados (base64)
+      if (responsibleWithSignature.assinatura.startsWith('data:')) {
+        // Criar uma imagem temporária para análise
+        const img = new Image();
+        img.onload = () => {
+          const analysis = analyzeImage(img);
+          setImageAnalysis(analysis);
+          setIsAnalyzing(false);
+        };
+        img.onerror = () => {
+          setIsAnalyzing(false);
+          // Não mostrar erro para não incomodar o usuário
+          console.log('Não foi possível analisar a imagem de assinatura');
+        };
+        img.crossOrigin = 'anonymous';
+        img.src = responsibleWithSignature.assinatura;
+      } else {
+        // Se não for base64, usar dimensões padrão
+        const defaultAnalysis: ImageAnalysis = {
+          originalWidth: 200,
+          originalHeight: 100,
+          aspectRatio: 2,
+          recommendedWidth: 120,
+          recommendedHeight: 60,
+          quality: 'medium'
+        };
+        setImageAnalysis(defaultAnalysis);
         setIsAnalyzing(false);
-      };
-      img.onerror = () => {
-        setIsAnalyzing(false);
-        toast({
-          title: "Erro na análise",
-          description: "Não foi possível analisar a imagem de assinatura",
-          variant: "destructive"
-        });
-      };
-      img.src = responsibleWithSignature.assinatura;
+      }
     } catch (error) {
       setIsAnalyzing(false);
-      console.error('Erro ao analisar imagem:', error);
+      console.log('Erro ao analisar imagem:', error);
     }
   };
 

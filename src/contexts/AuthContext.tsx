@@ -14,31 +14,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log('AuthProvider - Verificando sessão ativa...');
     // Verificar se há sessão ativa
     const session = sessionStorage.getItem(AUTH_CONFIG.SESSION_KEY);
     const timestamp = sessionStorage.getItem(`${AUTH_CONFIG.SESSION_KEY}_timestamp`);
-    
-    console.log('Sessão encontrada:', session);
-    console.log('Timestamp:', timestamp);
     
     if (session === 'authenticated' && timestamp) {
       const sessionTime = parseInt(timestamp);
       const now = Date.now();
       
-      console.log('Verificando expiração da sessão...');
       // Verificar se a sessão não expirou
       if (now - sessionTime < AUTH_CONFIG.SESSION_TIMEOUT) {
-        console.log('Sessão válida, autenticando usuário');
         setIsAuthenticated(true);
       } else {
-        console.log('Sessão expirada, limpando');
         // Sessão expirada, limpar
         sessionStorage.removeItem(AUTH_CONFIG.SESSION_KEY);
         sessionStorage.removeItem(`${AUTH_CONFIG.SESSION_KEY}_timestamp`);
       }
-    } else {
-      console.log('Nenhuma sessão válida encontrada');
     }
   }, []);
 
