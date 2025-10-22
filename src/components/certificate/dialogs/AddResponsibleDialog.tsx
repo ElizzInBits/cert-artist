@@ -134,11 +134,19 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="bg-gradient-to-br from-green-100 to-green-300 border-8 border-green-600">
+        <div className="bg-green-600 text-white p-8 -m-6 mb-6 rounded-t-lg">
+          <div className="text-center">
+            <div className="text-6xl mb-4">👨💼</div>
+            <div className="text-4xl font-black mb-2">RESPONSÁVEL</div>
+            <div className="text-4xl font-black mb-4">TÉCNICO</div>
+
+          </div>
+        </div>
         <DialogHeader>
           <DialogTitle>👨‍💼 Adicionar Responsável Técnico</DialogTitle>
-          <DialogDescription className="text-center text-lg bg-green-100 border-2 border-green-400 rounded-lg p-4 text-green-900 font-bold">
-            🚨 VOCÊ ESTÁ NO PAINEL DE <span className="text-2xl">RESPONSÁVEIS TÉCNICOS</span> 🚨
+          <DialogDescription className="text-center text-lg bg-green-200 border-2 border-green-600 rounded-lg p-4 text-green-900 font-bold">
+            👨💼 PAINEL DE RESPONSÁVEIS TÉCNICOS 👨💼
             <br />
             <span className="text-sm font-normal">Pessoas que assinam os certificados</span>
           </DialogDescription>

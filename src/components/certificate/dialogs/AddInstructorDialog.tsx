@@ -126,11 +126,19 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="bg-gradient-to-br from-blue-100 to-blue-300 border-8 border-blue-600">
+        <div className="bg-blue-600 text-white p-8 -m-6 mb-6 rounded-t-lg">
+          <div className="text-center">
+            <div className="text-6xl mb-4">👨🏫</div>
+            <div className="text-4xl font-black mb-2">INSTRUTOR</div>
+            <div className="text-4xl font-black mb-4">DO CURSO</div>
+
+          </div>
+        </div>
         <DialogHeader>
           <DialogTitle>👨‍🏫 Adicionar Instrutor</DialogTitle>
-          <DialogDescription className="text-center text-lg bg-blue-100 border-2 border-blue-400 rounded-lg p-4 text-blue-900 font-bold">
-            🚨 VOCÊ ESTÁ NO PAINEL DE <span className="text-2xl">INSTRUTORES</span> 🚨
+          <DialogDescription className="text-center text-lg bg-blue-200 border-2 border-blue-600 rounded-lg p-4 text-blue-900 font-bold">
+            👨🏫 PAINEL DE INSTRUTORES 👨🏫
             <br />
             <span className="text-sm font-normal">Pessoas que ministram os cursos</span>
           </DialogDescription>
