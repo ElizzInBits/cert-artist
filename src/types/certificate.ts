@@ -24,12 +24,13 @@ export interface CertificateLabels {
 export interface Instructor {
   nome: string;
   registro?: string;
+  assinatura?: File | string;
 }
 
 export interface Responsible {
   nome: string;
   registro?: string;
-  assinatura?: File;
+  assinatura?: File | string;
 }
 
 export interface SavedPerson {

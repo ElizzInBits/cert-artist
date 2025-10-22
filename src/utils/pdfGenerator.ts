@@ -20,69 +20,51 @@ const toFileFromString = async (str: string): Promise<File> => {
   }
 };
 
-// Função para processar imagem com remoção inteligente de fundo
-const processSignatureImage = async (imageFile: File): Promise<Blob> => {
+import { optimizeForPDF } from '@/utils/imageProcessor';
+
+// Função otimizada para processar imagem de assinatura
+const processSignatureImageForPDF = async (imageFile: File): Promise<Blob> => {
+  try {
+    const processed = await optimizeForPDF(imageFile);
+    return processed.file;
+  } catch (error) {
+    console.error('Erro no processamento otimizado, usando fallback:', error);
+    // Fallback para o método anterior em caso de erro
+    return processSignatureImageLegacy(imageFile);
+  }
+};
+
+// Método legado como fallback
+const processSignatureImageLegacy = async (imageFile: File): Promise<Blob> => {
   return new Promise((resolve, reject) => {
-    // Verificar se é realmente um File
     if (!(imageFile instanceof File)) {
       reject(new Error('Input não é um File válido'));
       return;
     }
     
     const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d')!;
+    const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: false });
+    if (!ctx) {
+      reject(new Error('Não foi possível criar contexto do canvas'));
+      return;
+    }
+    
     const img = new Image();
     
     const processImage = () => {
-      const scale = Math.min(1, 400 / img.width); // reduz imagens grandes, não amplia pequenas
+      const scale = Math.min(1, 600 / img.width); // Aumentado para melhor qualidade
       canvas.width = img.width * scale;
       canvas.height = img.height * scale;
       
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // evita resíduos
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-      
-      // Detectar cor de fundo automaticamente (cantos da imagem)
-      const corners = [
-        [0, 0], [canvas.width - 1, 0], 
-        [0, canvas.height - 1], [canvas.width - 1, canvas.height - 1]
-      ];
-      
-      let bgR = 0, bgG = 0, bgB = 0;
-      corners.forEach(([x, y]) => {
-        const idx = (y * canvas.width + x) * 4;
-        bgR += data[idx];
-        bgG += data[idx + 1];
-        bgB += data[idx + 2];
-      });
-      
-      bgR /= 4; bgG /= 4; bgB /= 4;
-      
-      // Remover pixels similares ao fundo detectado
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i], g = data[i + 1], b = data[i + 2];
-        const distance = Math.sqrt(
-          Math.pow(r - bgR, 2) + Math.pow(g - bgG, 2) + Math.pow(b - bgB, 2)
-        );
-        
-        // Se muito similar ao fundo, tornar transparente
-        if (distance < 50) {
-          data[i + 3] = 0;
-        } else if (distance < 80) {
-          // Transição suave para bordas
-          data[i + 3] = Math.floor((distance - 50) * 255 / 30);
-        }
-      }
-      
-      ctx.putImageData(imageData, 0, 0);
       canvas.toBlob((blob) => {
         if (!blob) return reject(new Error('Falha ao gerar Blob do canvas'));
         resolve(blob);
-      }, 'image/png', 1.0);
+      }, 'image/png', 0.98); // Qualidade aumentada
     };
     
     try {
@@ -587,7 +569,7 @@ export const generateCertificatePDF = async (
               if (assinaturaFile) {
                 console.log('Processando assinatura:', assinaturaFile.name);
                 // Processar imagem com alta qualidade
-                const processedImage = await processSignatureImage(assinaturaFile);
+                const processedImage = await processSignatureImageForPDF(assinaturaFile);
                 const assinaturaBytes = new Uint8Array(await new Response(processedImage).arrayBuffer());
                 let assinaturaImage;
                 
@@ -717,7 +699,7 @@ export const generateCertificatePDF = async (
                 if (assinaturaFile) {
                   console.log('Processando assinatura múltipla:', assinaturaFile.name);
                   // Processar imagem com alta qualidade
-                  const processedImage = await processSignatureImage(assinaturaFile);
+                  const processedImage = await processSignatureImageForPDF(assinaturaFile);
                   const assinaturaBytes = new Uint8Array(await new Response(processedImage).arrayBuffer());
                   let assinaturaImage;
                   

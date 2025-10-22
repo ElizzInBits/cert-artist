@@ -1,5 +1,4 @@
-// Prisma não funciona no browser - usar API routes
-// import { prisma } from './prisma';
+import { processSignatureImage, validateImageFile, optimizeForPDF, base64ToFile as utilBase64ToFile } from '@/utils/imageProcessor';
 
 export interface InstructorData {
   nome: string;
@@ -37,31 +36,30 @@ export interface SavedResponsible {
   lastUsed: Date;
 }
 
-// Converter File para base64
-const fileToBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      // Remove o prefixo data:image/...;base64,
-      const base64 = result.split(',')[1];
-      resolve(base64);
+// Processar e converter File para base64 com alta qualidade
+const processAndConvertFile = async (file: File): Promise<{ base64: string; mimeType: string }> => {
+  // Validar arquivo
+  const validation = validateImageFile(file);
+  if (!validation.valid) {
+    throw new Error(validation.error);
+  }
+
+  try {
+    // Processar imagem com alta qualidade
+    const processed = await optimizeForPDF(file);
+    
+    return {
+      base64: processed.base64,
+      mimeType: processed.file.type
     };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+  } catch (error) {
+    console.error('Erro ao processar imagem:', error);
+    throw new Error(`Falha no processamento da imagem: ${error.message}`);
+  }
 };
 
-// Converter base64 para File
-export const base64ToFile = (base64: string, mimeType: string, filename: string): File => {
-  const byteCharacters = atob(base64);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  return new File([byteArray], filename, { type: mimeType });
-};
+// Converter base64 para File (usando utilitário otimizado)
+export const base64ToFile = utilBase64ToFile;
 
 // INSTRUTORES
 export const saveInstructor = async (data: InstructorData): Promise<SavedInstructor> => {
@@ -70,8 +68,9 @@ export const saveInstructor = async (data: InstructorData): Promise<SavedInstruc
 
   if (data.assinatura) {
     if (data.assinatura instanceof File) {
-      assinaturaBase64 = await fileToBase64(data.assinatura);
-      mimeType = data.assinatura.type;
+      const processed = await processAndConvertFile(data.assinatura);
+      assinaturaBase64 = processed.base64;
+      mimeType = processed.mimeType;
     } else if (typeof data.assinatura === 'string') {
       assinaturaBase64 = data.assinatura;
       mimeType = 'image/png';
@@ -107,8 +106,9 @@ export const updateInstructor = async (id: string, data: Partial<InstructorData>
 
   if (data.assinatura) {
     if (data.assinatura instanceof File) {
-      updateData.assinatura = await fileToBase64(data.assinatura);
-      updateData.mimeType = data.assinatura.type;
+      const processed = await processAndConvertFile(data.assinatura);
+      updateData.assinatura = processed.base64;
+      updateData.mimeType = processed.mimeType;
     } else if (typeof data.assinatura === 'string') {
       updateData.assinatura = data.assinatura;
       updateData.mimeType = 'image/png';
@@ -146,8 +146,9 @@ export const saveResponsible = async (data: ResponsibleData): Promise<SavedRespo
 
   if (data.assinatura) {
     if (data.assinatura instanceof File) {
-      assinaturaBase64 = await fileToBase64(data.assinatura);
-      mimeType = data.assinatura.type;
+      const processed = await processAndConvertFile(data.assinatura);
+      assinaturaBase64 = processed.base64;
+      mimeType = processed.mimeType;
     } else if (typeof data.assinatura === 'string') {
       assinaturaBase64 = data.assinatura;
       mimeType = 'image/png';
@@ -183,8 +184,9 @@ export const updateResponsible = async (id: string, data: Partial<ResponsibleDat
 
   if (data.assinatura) {
     if (data.assinatura instanceof File) {
-      updateData.assinatura = await fileToBase64(data.assinatura);
-      updateData.mimeType = data.assinatura.type;
+      const processed = await processAndConvertFile(data.assinatura);
+      updateData.assinatura = processed.base64;
+      updateData.mimeType = processed.mimeType;
     } else if (typeof data.assinatura === 'string') {
       updateData.assinatura = data.assinatura;
       updateData.mimeType = 'image/png';
