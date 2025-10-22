@@ -136,9 +136,11 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" aria-describedby="responsible-dialog-description">
         <DialogHeader>
-          <DialogTitle>👨‍💼 Adicionar Responsável Técnico</DialogTitle>
-          <DialogDescription id="responsible-dialog-description">
-            Preencha os dados do responsável técnico e faça upload da assinatura.
+          <DialogTitle>👨💼 Adicionar Responsável Técnico</DialogTitle>
+          <DialogDescription id="responsible-dialog-description" className="text-center text-lg bg-green-200 border-2 border-green-600 rounded-lg p-4 text-green-900 font-bold">
+            👨💼 PAINEL DE RESPONSÁVEIS TÉCNICOS 👨💼
+            <br />
+            <span className="text-sm font-normal">Pessoas que assinam os certificados</span>
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">

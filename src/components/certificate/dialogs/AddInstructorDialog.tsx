@@ -128,9 +128,11 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" aria-describedby="instructor-dialog-description">
         <DialogHeader>
-          <DialogTitle>👨‍🏫 Adicionar Instrutor</DialogTitle>
-          <DialogDescription id="instructor-dialog-description">
-            Preencha os dados do instrutor do curso.
+          <DialogTitle>👨🏫 Adicionar Instrutor</DialogTitle>
+          <DialogDescription id="instructor-dialog-description" className="text-center text-lg bg-blue-200 border-2 border-blue-600 rounded-lg p-4 text-blue-900 font-bold">
+            👨🏫 PAINEL DE INSTRUTORES 👨🏫
+            <br />
+            <span className="text-sm font-normal">Pessoas que ministram os cursos</span>
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">

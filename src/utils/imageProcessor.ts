@@ -59,7 +59,7 @@ export const processSignatureImage = async (
 
     const img = new Image();
     
-    img.onload = () => {
+    const processImage = () => {
       try {
         const originalWidth = img.width;
         const originalHeight = img.height;
@@ -112,6 +112,9 @@ export const processSignatureImage = async (
         // Remover fundo se solicitado
         if (removeBackground) {
           removeImageBackground(ctx, targetWidth, targetHeight);
+        } else {
+          // Melhorar contraste se não remover fundo
+          enhanceSignatureContrast(ctx, targetWidth, targetHeight);
         }
 
         // Determinar qualidade baseada na resolução final
@@ -162,16 +165,14 @@ export const processSignatureImage = async (
       }
     };
 
+    img.onload = processImage;
+
     img.onerror = () => {
       reject(new Error('Erro ao carregar imagem'));
     };
 
     // Carregar imagem
     const objectUrl = URL.createObjectURL(imageFile);
-    img.onload = () => {
-      URL.revokeObjectURL(objectUrl);
-      img.onload(); // Chamar o handler original
-    };
     img.src = objectUrl;
   });
 };
@@ -233,18 +234,42 @@ const removeImageBackground = (ctx: CanvasRenderingContext2D, width: number, hei
       Math.pow(b - avgB, 2)
     );
     
-    // Limiar para remoção de fundo
-    const threshold = 60;
-    const fadeThreshold = 100;
+      // Limiar mais conservador para preservar detalhes da assinatura
+    const threshold = 80;
+    const fadeThreshold = 120;
     
     if (distance < threshold) {
-      // Tornar completamente transparente
+      // Tornar completamente transparente apenas se muito similar
       data[i + 3] = 0;
     } else if (distance < fadeThreshold) {
-      // Transição suave nas bordas
-      const alpha = Math.round(((distance - threshold) / (fadeThreshold - threshold)) * 255);
-      data[i + 3] = Math.min(data[i + 3], alpha);
+      // Transição mais suave preservando mais detalhes
+      const alpha = Math.round(((distance - threshold) / (fadeThreshold - threshold)) * 200);
+      data[i + 3] = Math.min(data[i + 3], Math.max(alpha, 100));
     }
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+};
+
+/**
+ * Melhora o contraste da assinatura para melhor visibilidade
+ */
+const enhanceSignatureContrast = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+  const imageData = ctx.getImageData(0, 0, width, height);
+  const data = imageData.data;
+
+  // Aplicar ajuste de contraste e brilho
+  const contrast = 1.3; // Aumentar contraste
+  const brightness = -10; // Diminuir brilho ligeiramente
+  
+  for (let i = 0; i < data.length; i += 4) {
+    // Aplicar contraste e brilho em RGB
+    data[i] = Math.max(0, Math.min(255, contrast * (data[i] - 128) + 128 + brightness));
+    data[i + 1] = Math.max(0, Math.min(255, contrast * (data[i + 1] - 128) + 128 + brightness));
+    data[i + 2] = Math.max(0, Math.min(255, contrast * (data[i + 2] - 128) + 128 + brightness));
+    
+    // Manter alpha original
+    // data[i + 3] permanece inalterado
   }
 
   ctx.putImageData(imageData, 0, 0);
@@ -297,12 +322,15 @@ export const validateImageFile = (file: File): { valid: boolean; error?: string 
  * Otimiza imagem para uso em PDF
  */
 export const optimizeForPDF = async (imageFile: File): Promise<ProcessedImageResult> => {
+  // Detectar se a imagem já tem fundo transparente
+  const hasTransparency = imageFile.type === 'image/png';
+  
   return processSignatureImage(imageFile, {
     maxWidth: 600,
     maxHeight: 300,
-    quality: 0.98,
+    quality: 1.0,
     maintainAspectRatio: true,
-    removeBackground: true,
+    removeBackground: !hasTransparency, // Só remove fundo se não for PNG
     outputFormat: 'png'
   });
 };

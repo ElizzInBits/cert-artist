@@ -20,15 +20,15 @@ const toFileFromString = async (str: string): Promise<File> => {
   }
 };
 
-import { optimizeForPDF } from '@/utils/imageProcessor';
+import { processSignatureSimple } from '@/utils/simpleImageProcessor';
 
 // Função otimizada para processar imagem de assinatura
 const processSignatureImageForPDF = async (imageFile: File): Promise<Blob> => {
   try {
-    const processed = await optimizeForPDF(imageFile);
-    return processed.file;
+    const processed = await processSignatureSimple(imageFile);
+    return processed;
   } catch (error) {
-    console.error('Erro no processamento otimizado, usando fallback:', error);
+    console.error('Erro no processamento simples, usando fallback:', error);
     // Fallback para o método anterior em caso de erro
     return processSignatureImageLegacy(imageFile);
   }
