@@ -70,10 +70,29 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh]" aria-describedby="library-dialog-description">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            {getTypeIcon()} Biblioteca de {getTypeLabel()}
+          <DialogTitle className={`flex items-center gap-2 p-3 rounded-lg ${
+            type === 'instructor' 
+              ? 'bg-blue-50 border border-blue-200 text-blue-900' 
+              : 'bg-green-50 border border-green-200 text-green-900'
+          }`}>
+            <div className={`p-2 rounded-full ${
+              type === 'instructor' ? 'bg-blue-100' : 'bg-green-100'
+            }`}>
+              {getTypeIcon()}
+            </div>
+            <div>
+              <div className="font-bold text-lg">Biblioteca de {getTypeLabel()}</div>
+              <div className={`text-sm font-normal ${
+                type === 'instructor' ? 'text-blue-700' : 'text-green-700'
+              }`}>
+                {type === 'instructor' 
+                  ? 'Pessoas que ministram cursos e treinamentos' 
+                  : 'Pessoas responsáveis técnicas pelos cursos'
+                }
+              </div>
+            </div>
           </DialogTitle>
-          <DialogDescription id="library-dialog-description">
+          <DialogDescription id="library-dialog-description" className="sr-only">
             Selecione uma pessoa salva ou gerencie sua biblioteca.
           </DialogDescription>
         </DialogHeader>
@@ -81,12 +100,18 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
         <div className="space-y-4">
           {/* Busca */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 ${
+              type === 'instructor' ? 'text-blue-500' : 'text-green-500'
+            }`} />
             <Input
-              placeholder={`Buscar ${type === 'instructor' ? 'instrutores' : 'responsáveis'}...`}
+              placeholder={`🔍 Buscar ${type === 'instructor' ? 'instrutores' : 'responsáveis técnicos'}...`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className={`pl-10 border-2 ${
+                type === 'instructor' 
+                  ? 'border-blue-200 focus:border-blue-400' 
+                  : 'border-green-200 focus:border-green-400'
+              }`}
             />
           </div>
 
@@ -104,7 +129,11 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
               filteredPeople.map((person) => (
                 <div
                   key={person.id}
-                  className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+                  className={`flex items-center justify-between p-3 border-2 rounded-lg transition-colors ${
+                    type === 'instructor'
+                      ? 'border-blue-200 hover:bg-blue-50 hover:border-blue-300'
+                      : 'border-green-200 hover:bg-green-50 hover:border-green-300'
+                  }`}
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
@@ -136,9 +165,13 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
                   <div className="flex gap-2">
                     <Button
                       size="sm"
+                      className={type === 'instructor' 
+                        ? 'bg-blue-600 hover:bg-blue-700' 
+                        : 'bg-green-600 hover:bg-green-700'
+                      }
                       onClick={() => handleSelect(person)}
                     >
-                      Selecionar
+                      ✓ Selecionar
                     </Button>
                     <Button
                       size="sm"
