@@ -173,17 +173,17 @@ export const SavedPeopleDialog = ({
             </Card>
 
             {/* Lista de instrutores */}
-            <ScrollArea className="h-[200px] sm:h-[300px]">
-              <div className="space-y-2">
+            <ScrollArea className="h-[300px] sm:h-[400px] w-full">
+              <div className="space-y-2 pr-4">
                 {instructors.map((instructor) => (
                   <Card key={instructor.id} className="p-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <Avatar>
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <Avatar className="shrink-0">
                           <AvatarFallback>{instructor.nome.charAt(0)}</AvatarFallback>
                         </Avatar>
-                        <div>
-                          <h4 className="font-medium">{instructor.nome}</h4>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-medium truncate">{instructor.nome}</h4>
                           {instructor.registro && (
                             <p className="text-sm text-muted-foreground">Registro: {instructor.registro}</p>
                           )}
@@ -283,17 +283,17 @@ export const SavedPeopleDialog = ({
             </Card>
 
             {/* Lista de responsáveis */}
-            <ScrollArea className="h-[200px] sm:h-[300px]">
-              <div className="space-y-2">
+            <ScrollArea className="h-[300px] sm:h-[400px] w-full">
+              <div className="space-y-2 pr-4">
                 {responsibles.map((responsible) => (
                   <Card key={responsible.id} className="p-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <Avatar>
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <Avatar className="shrink-0">
                           <AvatarFallback>{responsible.nome.charAt(0)}</AvatarFallback>
                         </Avatar>
-                        <div>
-                          <h4 className="font-medium">{responsible.nome}</h4>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-medium truncate">{responsible.nome}</h4>
                           {responsible.registro && (
                             <p className="text-sm text-muted-foreground">Registro: {responsible.registro}</p>
                           )}
