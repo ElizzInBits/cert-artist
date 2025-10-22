@@ -198,7 +198,7 @@ export const SavedPeopleDialog = ({
                           </div>
                         </div>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2 min-w-0 shrink-0">
                         {onSelectInstructor && (
                           <Button
                             size="sm"
@@ -308,7 +308,7 @@ export const SavedPeopleDialog = ({
                           </div>
                         </div>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2 min-w-0 shrink-0">
                         {onSelectResponsible && (
                           <Button
                             size="sm"
