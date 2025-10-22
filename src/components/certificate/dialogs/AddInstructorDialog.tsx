@@ -126,7 +126,7 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent aria-describedby="instructor-dialog-description">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" aria-describedby="instructor-dialog-description">
         <DialogHeader>
           <DialogTitle>👨‍🏫 Adicionar Instrutor</DialogTitle>
           <DialogDescription id="instructor-dialog-description">
@@ -154,7 +154,7 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
           </div>
           <div className="space-y-2">
             <Label htmlFor="instructor-signature">Assinatura (Opcional)</Label>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Input
                 type="text"
                 readOnly
@@ -223,11 +223,11 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
             </label>
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+        <DialogFooter className="flex-col sm:flex-row gap-2">
+          <Button variant="outline" onClick={() => setOpen(false)} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button onClick={handleAdd}>Adicionar</Button>
+          <Button onClick={handleAdd} className="w-full sm:w-auto">Adicionar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -107,7 +107,7 @@ export const SavedPeopleDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[80vh]" aria-describedby="saved-people-dialog-description">
+      <DialogContent className="max-w-[95vw] sm:max-w-2xl lg:max-w-4xl max-h-[90vh] sm:max-h-[80vh] w-full" aria-describedby="saved-people-dialog-description">
         <DialogHeader>
           <DialogTitle>Biblioteca de Pessoas</DialogTitle>
           <DialogDescription id="saved-people-dialog-description">
@@ -137,7 +137,7 @@ export const SavedPeopleDialog = ({
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="instructor-name">Nome *</Label>
                     <Input
@@ -173,11 +173,11 @@ export const SavedPeopleDialog = ({
             </Card>
 
             {/* Lista de instrutores */}
-            <ScrollArea className="h-[300px]">
+            <ScrollArea className="h-[200px] sm:h-[300px]">
               <div className="space-y-2">
                 {instructors.map((instructor) => (
                   <Card key={instructor.id} className="p-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
                         <Avatar>
                           <AvatarFallback>{instructor.nome.charAt(0)}</AvatarFallback>
@@ -203,6 +203,7 @@ export const SavedPeopleDialog = ({
                           <Button
                             size="sm"
                             onClick={() => handleSelectInstructor(instructor)}
+                            className="w-full sm:w-auto"
                           >
                             Usar
                           </Button>
@@ -211,6 +212,7 @@ export const SavedPeopleDialog = ({
                           size="sm"
                           variant="outline"
                           onClick={() => setEditingInstructor(instructor)}
+                          className="w-full sm:w-auto"
                         >
                           <Edit className="w-4 h-4" />
                         </Button>
@@ -218,6 +220,7 @@ export const SavedPeopleDialog = ({
                           size="sm"
                           variant="destructive"
                           onClick={() => removeInstructor(instructor.id)}
+                          className="w-full sm:w-auto"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -244,7 +247,7 @@ export const SavedPeopleDialog = ({
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="responsible-name">Nome *</Label>
                     <Input
@@ -280,11 +283,11 @@ export const SavedPeopleDialog = ({
             </Card>
 
             {/* Lista de responsáveis */}
-            <ScrollArea className="h-[300px]">
+            <ScrollArea className="h-[200px] sm:h-[300px]">
               <div className="space-y-2">
                 {responsibles.map((responsible) => (
                   <Card key={responsible.id} className="p-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
                         <Avatar>
                           <AvatarFallback>{responsible.nome.charAt(0)}</AvatarFallback>
@@ -310,6 +313,7 @@ export const SavedPeopleDialog = ({
                           <Button
                             size="sm"
                             onClick={() => handleSelectResponsible(responsible)}
+                            className="w-full sm:w-auto"
                           >
                             Usar
                           </Button>
@@ -318,6 +322,7 @@ export const SavedPeopleDialog = ({
                           size="sm"
                           variant="outline"
                           onClick={() => setEditingResponsible(responsible)}
+                          className="w-full sm:w-auto"
                         >
                           <Edit className="w-4 h-4" />
                         </Button>
@@ -325,6 +330,7 @@ export const SavedPeopleDialog = ({
                           size="sm"
                           variant="destructive"
                           onClick={() => removeResponsible(responsible.id)}
+                          className="w-full sm:w-auto"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>

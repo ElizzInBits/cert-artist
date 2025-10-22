@@ -134,7 +134,7 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent aria-describedby="responsible-dialog-description">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" aria-describedby="responsible-dialog-description">
         <DialogHeader>
           <DialogTitle>👨‍💼 Adicionar Responsável Técnico</DialogTitle>
           <DialogDescription id="responsible-dialog-description">
@@ -162,7 +162,7 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
           </div>
           <div className="space-y-2">
             <Label htmlFor="responsible-signature">Assinatura *</Label>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Input
                 type="text"
                 readOnly
@@ -239,11 +239,11 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
             </label>
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+        <DialogFooter className="flex-col sm:flex-row gap-2">
+          <Button variant="outline" onClick={() => setOpen(false)} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button onClick={handleAdd}>Adicionar</Button>
+          <Button onClick={handleAdd} className="w-full sm:w-auto">Adicionar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
