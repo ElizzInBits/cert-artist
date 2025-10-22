@@ -137,8 +137,10 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
       <DialogContent>
         <DialogHeader>
           <DialogTitle>👨‍💼 Adicionar Responsável Técnico</DialogTitle>
-          <DialogDescription className="text-center text-sm bg-green-100 border border-green-300 rounded p-2 text-green-800">
-            ⚠️ Você está adicionando um <strong>RESPONSÁVEL TÉCNICO</strong> - pessoa que assina o certificado
+          <DialogDescription className="text-center text-lg bg-green-100 border-2 border-green-400 rounded-lg p-4 text-green-900 font-bold">
+            🚨 VOCÊ ESTÁ NO PAINEL DE <span className="text-2xl">RESPONSÁVEIS TÉCNICOS</span> 🚨
+            <br />
+            <span className="text-sm font-normal">Pessoas que assinam os certificados</span>
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">

@@ -129,8 +129,10 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
       <DialogContent>
         <DialogHeader>
           <DialogTitle>👨‍🏫 Adicionar Instrutor</DialogTitle>
-          <DialogDescription className="text-center text-sm bg-blue-100 border border-blue-300 rounded p-2 text-blue-800">
-            📚 Você está adicionando um <strong>INSTRUTOR</strong> - pessoa que ensina o curso
+          <DialogDescription className="text-center text-lg bg-blue-100 border-2 border-blue-400 rounded-lg p-4 text-blue-900 font-bold">
+            🚨 VOCÊ ESTÁ NO PAINEL DE <span className="text-2xl">INSTRUTORES</span> 🚨
+            <br />
+            <span className="text-sm font-normal">Pessoas que ministram os cursos</span>
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
