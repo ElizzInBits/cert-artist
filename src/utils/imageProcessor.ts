@@ -59,7 +59,7 @@ export const processSignatureImage = async (
 
     const img = new Image();
     
-    img.onload = () => {
+    const processImage = () => {
       try {
         const originalWidth = img.width;
         const originalHeight = img.height;
@@ -162,16 +162,14 @@ export const processSignatureImage = async (
       }
     };
 
+    img.onload = processImage;
+
     img.onerror = () => {
       reject(new Error('Erro ao carregar imagem'));
     };
 
     // Carregar imagem
     const objectUrl = URL.createObjectURL(imageFile);
-    img.onload = () => {
-      URL.revokeObjectURL(objectUrl);
-      img.onload(); // Chamar o handler original
-    };
     img.src = objectUrl;
   });
 };

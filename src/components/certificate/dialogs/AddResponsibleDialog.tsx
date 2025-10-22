@@ -134,10 +134,10 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent aria-describedby="responsible-dialog-description">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>👨‍💼 Adicionar Responsável Técnico</DialogTitle>
-          <DialogDescription id="responsible-dialog-description">
+          <DialogDescription>
             Preencha os dados do responsável técnico e faça upload da assinatura.
           </DialogDescription>
         </DialogHeader>

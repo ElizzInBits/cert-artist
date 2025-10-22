@@ -126,10 +126,10 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent aria-describedby="instructor-dialog-description">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>👨‍🏫 Adicionar Instrutor</DialogTitle>
-          <DialogDescription id="instructor-dialog-description">
+          <DialogDescription>
             Preencha os dados do instrutor do curso.
           </DialogDescription>
         </DialogHeader>
