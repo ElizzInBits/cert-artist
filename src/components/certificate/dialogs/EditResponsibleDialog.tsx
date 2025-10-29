@@ -66,7 +66,7 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
 
   return (
     <Dialog open={true} onOpenChange={() => onCancel()}>
-      <DialogContent aria-describedby="edit-responsible-dialog-description">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="edit-responsible-dialog-description">
         <DialogHeader>
           <DialogTitle>✏️ Editar Responsável Técnico</DialogTitle>
           <DialogDescription id="edit-responsible-dialog-description">
@@ -94,7 +94,7 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
           </div>
           <div className="space-y-2">
             <Label htmlFor="edit-responsible-signature">Assinatura</Label>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Input
                 type="text"
                 readOnly
@@ -122,11 +122,11 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
             </p>
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={onCancel}>
+        <DialogFooter className="flex-col sm:flex-row gap-2">
+          <Button variant="outline" onClick={onCancel} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button onClick={handleSave}>Salvar</Button>
+          <Button onClick={handleSave} className="w-full sm:w-auto">Salvar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

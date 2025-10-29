@@ -134,7 +134,7 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" aria-describedby="responsible-dialog-description">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="responsible-dialog-description">
         <DialogHeader>
           <DialogTitle>👨💼 Adicionar Responsável Técnico</DialogTitle>
           <DialogDescription id="responsible-dialog-description" className="text-center text-lg bg-green-200 border-2 border-green-600 rounded-lg p-4 text-green-900 font-bold">

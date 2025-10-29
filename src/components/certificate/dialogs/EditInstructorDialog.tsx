@@ -44,7 +44,7 @@ export const EditInstructorDialog = ({ instructor, onSave, onCancel }: EditInstr
 
   return (
     <Dialog open={true} onOpenChange={() => onCancel()}>
-      <DialogContent aria-describedby="edit-instructor-dialog-description">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="edit-instructor-dialog-description">
         <DialogHeader>
           <DialogTitle>✏️ Editar Instrutor</DialogTitle>
           <DialogDescription id="edit-instructor-dialog-description">
@@ -71,11 +71,11 @@ export const EditInstructorDialog = ({ instructor, onSave, onCancel }: EditInstr
             />
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={onCancel}>
+        <DialogFooter className="flex-col sm:flex-row gap-2">
+          <Button variant="outline" onClick={onCancel} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button onClick={handleSave}>Salvar</Button>
+          <Button onClick={handleSave} className="w-full sm:w-auto">Salvar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

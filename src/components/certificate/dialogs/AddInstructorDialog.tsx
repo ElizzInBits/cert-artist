@@ -126,7 +126,7 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" aria-describedby="instructor-dialog-description">
+      <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="instructor-dialog-description">
         <DialogHeader>
           <DialogTitle>👨🏫 Adicionar Instrutor</DialogTitle>
           <DialogDescription id="instructor-dialog-description" className="text-center text-lg bg-blue-200 border-2 border-blue-600 rounded-lg p-4 text-blue-900 font-bold">
