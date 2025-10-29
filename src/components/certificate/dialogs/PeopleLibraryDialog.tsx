@@ -68,7 +68,7 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] flex flex-col p-0" data-orientation="vertical" aria-describedby="library-dialog-description">
+      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] flex flex-col p-0 overflow-hidden" data-orientation="vertical" aria-describedby="library-dialog-description">
         <DialogHeader className="flex-shrink-0 p-6 pb-0">
           <DialogTitle className="text-xl font-bold mb-2 select-none">Biblioteca de Pessoas</DialogTitle>
           <DialogDescription id="library-dialog-description" className="text-muted-foreground select-none">
