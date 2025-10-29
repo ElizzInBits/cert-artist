@@ -132,4 +132,17 @@ All colors MUST be HSL.
   .text-fixed {
     user-select: none;
   }
+
+  /* Prevent text selection on placeholders */
+  input::placeholder,
+  textarea::placeholder {
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Ensure input fields themselves allow text selection */
+  input:not([readonly]),
+  textarea:not([readonly]) {
+    user-select: text;
+  }
 }
