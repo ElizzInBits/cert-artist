@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { usePeopleLibrary } from "@/hooks/usePeopleLibrary";
-import { Search, Clock, Trash2, User } from "lucide-react";
+import { Search, Clock, Trash2, User, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SavedPerson {
@@ -68,77 +68,74 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[80vh]" aria-describedby="library-dialog-description">
-        <DialogHeader>
-          <DialogTitle className={`flex items-center gap-2 p-3 rounded-lg ${
-            type === 'instructor' 
-              ? 'bg-blue-50 border border-blue-200 text-blue-900' 
-              : 'bg-green-50 border border-green-200 text-green-900'
-          }`}>
-            <div className={`p-2 rounded-full ${
-              type === 'instructor' ? 'bg-blue-100' : 'bg-green-100'
-            }`}>
-              {getTypeIcon()}
-            </div>
-            <div>
-              <div className="font-bold text-lg">Biblioteca de {getTypeLabel()}</div>
-              <div className={`text-sm font-normal ${
-                type === 'instructor' ? 'text-blue-700' : 'text-green-700'
-              }`}>
-                {type === 'instructor' 
-                  ? 'Pessoas que ministram cursos e treinamentos' 
-                  : 'Pessoas responsáveis técnicas pelos cursos'
-                }
-              </div>
-            </div>
-          </DialogTitle>
-          <DialogDescription id="library-dialog-description" className="sr-only">
-            Selecione uma pessoa salva ou gerencie sua biblioteca.
+      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] flex flex-col p-0" data-orientation="vertical" aria-describedby="library-dialog-description">
+        <DialogHeader className="flex-shrink-0 p-6 pb-0">
+          <DialogTitle className="text-xl font-bold mb-2">Biblioteca de Pessoas</DialogTitle>
+          <DialogDescription id="library-dialog-description" className="text-muted-foreground">
+            Gerencie instrutores e responsáveis salvos com suas assinaturas
           </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-4">
+        {/* Tabs */}
+        <div className="flex-shrink-0 px-6">
+          <div className="flex border-b">
+            <button 
+              className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${
+                type === 'instructor' 
+                  ? 'border-blue-500 text-blue-600 bg-blue-50' 
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <User className="w-4 h-4" />
+              Instrutores ({savedPeople.filter(p => p.type === 'instructor').length})
+            </button>
+            <button 
+              className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${
+                type === 'responsible' 
+                  ? 'border-green-500 text-green-600 bg-green-50' 
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              Responsáveis ({savedPeople.filter(p => p.type === 'responsible').length})
+            </button>
+          </div>
+        </div>
+
+        <div className="flex-1 flex flex-col px-6 pb-6 min-h-0">
           {/* Busca */}
-          <div className="relative">
-            <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 ${
-              type === 'instructor' ? 'text-blue-500' : 'text-green-500'
-            }`} />
+          <div className="relative mb-4">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder={`🔍 Buscar ${type === 'instructor' ? 'instrutores' : 'responsáveis técnicos'}...`}
+              placeholder={`Buscar ${type === 'instructor' ? 'instrutores' : 'responsáveis'}...`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className={`pl-10 border-2 ${
-                type === 'instructor' 
-                  ? 'border-blue-200 focus:border-blue-400' 
-                  : 'border-green-200 focus:border-green-400'
-              }`}
+              className="pl-10"
             />
           </div>
 
           {/* Lista de pessoas */}
-          <div className="max-h-96 overflow-y-auto space-y-2">
+          <div className="flex-1 overflow-y-auto space-y-3 pr-2">
             {filteredPeople.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                <User className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                <p>Nenhuma pessoa encontrada</p>
-                <p className="text-sm">
-                  {searchTerm ? 'Tente outro termo de busca' : `Adicione ${type === 'instructor' ? 'instrutores' : 'responsáveis'} para salvá-los aqui`}
-                </p>
+              <div className="flex-1 flex items-center justify-center">
+                <div className="text-center text-muted-foreground">
+                  <User className="w-16 h-16 mx-auto mb-4 opacity-30" />
+                  <p className="text-lg font-medium mb-2">Nenhuma pessoa encontrada</p>
+                  <p className="text-sm">
+                    {searchTerm ? 'Tente outro termo de busca' : `Adicione ${type === 'instructor' ? 'instrutores' : 'responsáveis'} para salvá-los aqui`}
+                  </p>
+                </div>
               </div>
             ) : (
               filteredPeople.map((person) => (
                 <div
                   key={person.id}
-                  className={`flex items-center justify-between p-3 border-2 rounded-lg transition-colors ${
-                    type === 'instructor'
-                      ? 'border-blue-200 hover:bg-blue-50 hover:border-blue-300'
-                      : 'border-green-200 hover:bg-green-50 hover:border-green-300'
-                  }`}
+                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
                 >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-medium">{person.nome}</h4>
-                      <div className="flex gap-1">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="font-medium truncate">{person.nome}</h4>
+                      <div className="flex gap-1 flex-shrink-0">
                         {person.registro && (
                           <Badge variant="secondary" className="text-xs">
                             {person.registro}
@@ -151,34 +148,27 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground mt-1">
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
-                        Usado: {person.lastUsed.toLocaleDateString()}
-                      </span>
-                      <span>
-                        Criado: {person.createdAt.toLocaleDateString()}
+                        {person.lastUsed.toLocaleDateString()}
                       </span>
                     </div>
                   </div>
                   
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-shrink-0 ml-4">
                     <Button
                       size="sm"
-                      className={type === 'instructor' 
-                        ? 'bg-blue-600 hover:bg-blue-700' 
-                        : 'bg-green-600 hover:bg-green-700'
-                      }
                       onClick={() => handleSelect(person)}
                     >
-                      ✓ Selecionar
+                      Selecionar
                     </Button>
                     <Button
                       size="sm"
                       variant="ghost"
                       onClick={() => handleRemove(person.id, person.nome)}
                     >
-                      <Trash2 className="w-4 h-4 text-destructive" />
+                      <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
@@ -186,10 +176,14 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
             )}
           </div>
 
-          {/* Estatísticas */}
+          </div>
+          
+          {/* Footer com estatísticas */}
           {filteredPeople.length > 0 && (
-            <div className="text-xs text-muted-foreground text-center pt-2 border-t">
-              {filteredPeople.length} {type === 'instructor' ? 'instrutor(es)' : 'responsável(is)'} na biblioteca
+            <div className="flex-shrink-0 pt-4 border-t text-center">
+              <p className="text-sm text-muted-foreground">
+                {filteredPeople.length} {type === 'instructor' ? 'instrutor(es)' : 'responsável(is)'} encontrado(s)
+              </p>
             </div>
           )}
         </div>
