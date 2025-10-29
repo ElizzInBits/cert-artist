@@ -118,4 +118,18 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Prevent text selection on UI elements */
+  .select-none {
+    user-select: none;
+  }
+
+  /* Apply to common UI elements */
+  button, .button, [role="button"],
+  .dialog-title, .dialog-description,
+  .badge, .label, .tab,
+  h1, h2, h3, h4, h5, h6,
+  .text-fixed {
+    user-select: none;
+  }
 }

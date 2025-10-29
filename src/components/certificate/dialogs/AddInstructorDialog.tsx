@@ -128,8 +128,8 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="instructor-dialog-description">
         <DialogHeader>
-          <DialogTitle>👨🏫 Adicionar Instrutor</DialogTitle>
-          <DialogDescription id="instructor-dialog-description" className="text-center text-lg bg-blue-200 border-2 border-blue-600 rounded-lg p-4 text-blue-900 font-bold">
+          <DialogTitle className="select-none">👨🏫 Adicionar Instrutor</DialogTitle>
+          <DialogDescription id="instructor-dialog-description" className="text-center text-lg bg-blue-200 border-2 border-blue-600 rounded-lg p-4 text-blue-900 font-bold select-none">
             👨🏫 PAINEL DE INSTRUTORES 👨🏫
             <br />
             <span className="text-sm font-normal">Pessoas que ministram os cursos</span>
@@ -208,7 +208,7 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
               </div>
             )}
             
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground select-none">
               Formato: PNG, JPG ou WebP (fundo transparente recomendado)
             </p>
           </div>
@@ -220,7 +220,7 @@ export const AddInstructorDialog = ({ children, onAdd }: AddInstructorDialogProp
               onChange={(e) => setShouldSave(e.target.checked)}
               className="rounded"
             />
-            <label htmlFor="save-instructor" className="text-sm text-muted-foreground">
+            <label htmlFor="save-instructor" className="text-sm text-muted-foreground select-none">
               Salvar na biblioteca para uso futuro
             </label>
           </div>

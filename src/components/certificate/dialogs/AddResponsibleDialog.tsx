@@ -136,8 +136,8 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="responsible-dialog-description">
         <DialogHeader>
-          <DialogTitle>👨💼 Adicionar Responsável Técnico</DialogTitle>
-          <DialogDescription id="responsible-dialog-description" className="text-center text-lg bg-green-200 border-2 border-green-600 rounded-lg p-4 text-green-900 font-bold">
+          <DialogTitle className="select-none">👨💼 Adicionar Responsável Técnico</DialogTitle>
+          <DialogDescription id="responsible-dialog-description" className="text-center text-lg bg-green-200 border-2 border-green-600 rounded-lg p-4 text-green-900 font-bold select-none">
             👨💼 PAINEL DE RESPONSÁVEIS TÉCNICOS 👨💼
             <br />
             <span className="text-sm font-normal">Pessoas que assinam os certificados</span>
@@ -216,7 +216,7 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
               </div>
             )}
             
-            <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded text-xs">
+            <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded text-xs select-none">
               <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
               <div className="text-blue-800">
                 <strong>Dicas para melhor qualidade:</strong>
@@ -236,7 +236,7 @@ export const AddResponsibleDialog = ({ children, onAdd }: AddResponsibleDialogPr
               onChange={(e) => setShouldSave(e.target.checked)}
               className="rounded"
             />
-            <label htmlFor="save-responsible" className="text-sm text-muted-foreground">
+            <label htmlFor="save-responsible" className="text-sm text-muted-foreground select-none">
               Salvar na biblioteca para uso futuro
             </label>
           </div>

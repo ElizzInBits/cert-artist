@@ -46,8 +46,8 @@ export const EditInstructorDialog = ({ instructor, onSave, onCancel }: EditInstr
     <Dialog open={true} onOpenChange={() => onCancel()}>
       <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="edit-instructor-dialog-description">
         <DialogHeader>
-          <DialogTitle>✏️ Editar Instrutor</DialogTitle>
-          <DialogDescription id="edit-instructor-dialog-description">
+          <DialogTitle className="select-none">✏️ Editar Instrutor</DialogTitle>
+          <DialogDescription id="edit-instructor-dialog-description" className="select-none">
             Altere os dados do instrutor.
           </DialogDescription>
         </DialogHeader>

@@ -68,8 +68,8 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
     <Dialog open={true} onOpenChange={() => onCancel()}>
       <DialogContent className="w-[95vw] max-w-md sm:max-w-lg" data-orientation="vertical" aria-describedby="edit-responsible-dialog-description">
         <DialogHeader>
-          <DialogTitle>✏️ Editar Responsável Técnico</DialogTitle>
-          <DialogDescription id="edit-responsible-dialog-description">
+          <DialogTitle className="select-none">✏️ Editar Responsável Técnico</DialogTitle>
+          <DialogDescription id="edit-responsible-dialog-description" className="select-none">
             Altere os dados do responsável técnico.
           </DialogDescription>
         </DialogHeader>
@@ -117,7 +117,7 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
                 onChange={handleFileSelect}
               />
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground select-none">
               Formato: PNG ou JPG (fundo transparente recomendado)
             </p>
           </div>

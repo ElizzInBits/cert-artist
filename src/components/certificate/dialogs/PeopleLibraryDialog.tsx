@@ -70,8 +70,8 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[95vw] max-w-4xl h-[90vh] flex flex-col p-0" data-orientation="vertical" aria-describedby="library-dialog-description">
         <DialogHeader className="flex-shrink-0 p-6 pb-0">
-          <DialogTitle className="text-xl font-bold mb-2">Biblioteca de Pessoas</DialogTitle>
-          <DialogDescription id="library-dialog-description" className="text-muted-foreground">
+          <DialogTitle className="text-xl font-bold mb-2 select-none">Biblioteca de Pessoas</DialogTitle>
+          <DialogDescription id="library-dialog-description" className="text-muted-foreground select-none">
             Gerencie instrutores e responsáveis salvos com suas assinaturas
           </DialogDescription>
         </DialogHeader>
@@ -80,7 +80,7 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
         <div className="flex-shrink-0 px-6">
           <div className="flex border-b">
             <button 
-              className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${
+              className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors select-none ${
                 type === 'instructor' 
                   ? 'border-blue-500 text-blue-600 bg-blue-50' 
                   : 'border-transparent text-muted-foreground hover:text-foreground'
@@ -90,7 +90,7 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
               Instrutores ({savedPeople.filter(p => p.type === 'instructor').length})
             </button>
             <button 
-              className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${
+              className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors select-none ${
                 type === 'responsible' 
                   ? 'border-green-500 text-green-600 bg-green-50' 
                   : 'border-transparent text-muted-foreground hover:text-foreground'
@@ -120,8 +120,8 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center text-muted-foreground">
                   <User className="w-16 h-16 mx-auto mb-4 opacity-30" />
-                  <p className="text-lg font-medium mb-2">Nenhuma pessoa encontrada</p>
-                  <p className="text-sm">
+                  <p className="text-lg font-medium mb-2 select-none">Nenhuma pessoa encontrada</p>
+                  <p className="text-sm select-none">
                     {searchTerm ? 'Tente outro termo de busca' : `Adicione ${type === 'instructor' ? 'instrutores' : 'responsáveis'} para salvá-los aqui`}
                   </p>
                 </div>
@@ -181,7 +181,7 @@ export const PeopleLibraryDialog = ({ children, type, onSelect }: PeopleLibraryD
           {/* Footer com estatísticas */}
           {filteredPeople.length > 0 && (
             <div className="flex-shrink-0 pt-4 border-t text-center">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground select-none">
                 {filteredPeople.length} {type === 'instructor' ? 'instrutor(es)' : 'responsável(is)'} encontrado(s)
               </p>
             </div>
