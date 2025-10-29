@@ -14,14 +14,14 @@ export const CourseDataSection = () => {
   return (
     <Card className="shadow-card animate-fade-in">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 select-none">
           <BookOpen className="w-5 h-5 text-primary" />
           Dados do Curso
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="empresa">🏢 Empresa</Label>
+          <Label htmlFor="empresa" className="select-none">🏢 Empresa</Label>
           <Input 
             id="empresa" 
             placeholder="Nome da empresa" 
@@ -31,7 +31,7 @@ export const CourseDataSection = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="curso">📚 Curso</Label>
+          <Label htmlFor="curso" className="select-none">📚 Curso</Label>
           <Input 
             id="curso" 
             placeholder="Nome do curso" 
@@ -42,7 +42,7 @@ export const CourseDataSection = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="modalidade">🎯 Modalidade</Label>
+            <Label htmlFor="modalidade" className="select-none">🎯 Modalidade</Label>
             <Input 
               id="modalidade" 
               placeholder="Ex: Presencial" 
@@ -52,7 +52,7 @@ export const CourseDataSection = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="tipo">📋 Tipo</Label>
+            <Label htmlFor="tipo" className="select-none">📋 Tipo</Label>
             <Input 
               id="tipo" 
               placeholder="Ex: Treinamento" 
@@ -64,7 +64,7 @@ export const CourseDataSection = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="carga-horaria">⏱️ Carga Horária</Label>
+            <Label htmlFor="carga-horaria" className="select-none">⏱️ Carga Horária</Label>
             <Input 
               id="carga-horaria" 
               placeholder="Ex: 40h" 
@@ -74,7 +74,7 @@ export const CourseDataSection = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="periodo">📅 Período</Label>
+            <Label htmlFor="periodo" className="select-none">📅 Período</Label>
             <Input 
               id="periodo" 
               placeholder="Ex: 01/01/2024 a 31/01/2024" 
@@ -85,7 +85,7 @@ export const CourseDataSection = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="aproveitamento">📈 Aproveitamento</Label>
+          <Label htmlFor="aproveitamento" className="select-none">📈 Aproveitamento</Label>
           <Input 
             id="aproveitamento" 
             placeholder="Ex: 95%" 
