@@ -12,6 +12,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { usePeopleDatabase } from '@/hooks/usePeopleDatabase';
 import { SavedInstructor, SavedResponsible, InstructorData, ResponsibleData } from '@/lib/peopleService';
 import { Instructor, Responsible } from '@/types/certificate';
+import { EditInstructorDialog } from './EditInstructorDialog';
+import { EditResponsibleDialog } from './EditResponsibleDialog';
 import { Trash2, Edit, Plus, User, FileSignature, Clock } from 'lucide-react';
 
 interface SavedPeopleDialogProps {
@@ -347,6 +349,40 @@ export const SavedPeopleDialog = ({
             </ScrollArea>
           </TabsContent>
         </Tabs>
+
+        {/* Diálogos de edição */}
+        {editingInstructor && (
+          <EditInstructorDialog
+            instructor={{
+              nome: editingInstructor.nome,
+              registro: editingInstructor.registro
+            }}
+            onSave={async (updatedInstructor) => {
+              await editInstructor(editingInstructor.id, updatedInstructor);
+              setEditingInstructor(null);
+            }}
+            onCancel={() => setEditingInstructor(null)}
+          />
+        )}
+
+        {editingResponsible && (
+          <EditResponsibleDialog
+            responsible={{
+              nome: editingResponsible.nome,
+              registro: editingResponsible.registro,
+              assinatura: editingResponsible.assinatura ? new File([], 'signature') : undefined
+            }}
+            onSave={async (updatedResponsible) => {
+              await editResponsible(editingResponsible.id, {
+                nome: updatedResponsible.nome,
+                registro: updatedResponsible.registro,
+                assinatura: updatedResponsible.assinatura
+              });
+              setEditingResponsible(null);
+            }}
+            onCancel={() => setEditingResponsible(null)}
+          />
+        )}
       </DialogContent>
     </Dialog>
   );
