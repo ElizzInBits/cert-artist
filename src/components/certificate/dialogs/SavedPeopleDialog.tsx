@@ -50,34 +50,55 @@ export const SavedPeopleDialog = ({
   const [editingResponsible, setEditingResponsible] = useState<SavedResponsible | null>(null);
   const [newInstructor, setNewInstructor] = useState<InstructorData>({ nome: '' });
   const [newResponsible, setNewResponsible] = useState<ResponsibleData>({ nome: '' });
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   const handleSelectInstructor = async (instructor: SavedInstructor) => {
-    if (onSelectInstructor) {
-      await useInstructor(instructor.id);
-      onSelectInstructor(getInstructorForCertificate(instructor));
-      onOpenChange(false);
+    if (onSelectInstructor && !actionLoading) {
+      setActionLoading(`use-instructor-${instructor.id}`);
+      try {
+        await useInstructor(instructor.id);
+        onSelectInstructor(getInstructorForCertificate(instructor));
+        onOpenChange(false);
+      } finally {
+        setActionLoading(null);
+      }
     }
   };
 
   const handleSelectResponsible = async (responsible: SavedResponsible) => {
-    if (onSelectResponsible) {
-      await useResponsible(responsible.id);
-      onSelectResponsible(getResponsibleForCertificate(responsible));
-      onOpenChange(false);
+    if (onSelectResponsible && !actionLoading) {
+      setActionLoading(`use-responsible-${responsible.id}`);
+      try {
+        await useResponsible(responsible.id);
+        onSelectResponsible(getResponsibleForCertificate(responsible));
+        onOpenChange(false);
+      } finally {
+        setActionLoading(null);
+      }
     }
   };
 
   const handleSaveInstructor = async () => {
-    if (newInstructor.nome.trim()) {
-      await addInstructor(newInstructor);
-      setNewInstructor({ nome: '' });
+    if (newInstructor.nome.trim() && !actionLoading) {
+      setActionLoading('add-instructor');
+      try {
+        await addInstructor(newInstructor);
+        setNewInstructor({ nome: '' });
+      } finally {
+        setActionLoading(null);
+      }
     }
   };
 
   const handleSaveResponsible = async () => {
-    if (newResponsible.nome.trim()) {
-      await addResponsible(newResponsible);
-      setNewResponsible({ nome: '' });
+    if (newResponsible.nome.trim() && !actionLoading) {
+      setActionLoading('add-responsible');
+      try {
+        await addResponsible(newResponsible);
+        setNewResponsible({ nome: '' });
+      } finally {
+        setActionLoading(null);
+      }
     }
   };
 
@@ -168,8 +189,11 @@ export const SavedPeopleDialog = ({
                     onChange={(e) => handleFileChange(e.target.files?.[0] || null, 'instructor')}
                   />
                 </div>
-                <Button onClick={handleSaveInstructor} disabled={!newInstructor.nome.trim()}>
-                  Salvar Instrutor
+                <Button 
+                  onClick={handleSaveInstructor} 
+                  disabled={!newInstructor.nome.trim() || actionLoading === 'add-instructor'}
+                >
+                  {actionLoading === 'add-instructor' ? 'Salvando...' : 'Salvar Instrutor'}
                 </Button>
               </CardContent>
             </Card>
@@ -205,15 +229,17 @@ export const SavedPeopleDialog = ({
                           <Button
                             size="sm"
                             onClick={() => handleSelectInstructor(instructor)}
+                            disabled={actionLoading === `use-instructor-${instructor.id}`}
                             className="w-full sm:w-auto"
                           >
-                            Usar
+                            {actionLoading === `use-instructor-${instructor.id}` ? 'Usando...' : 'Usar'}
                           </Button>
                         )}
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={() => setEditingInstructor(instructor)}
+                          disabled={!!actionLoading}
                           className="w-full sm:w-auto"
                         >
                           <Edit className="w-4 h-4" />
@@ -221,10 +247,20 @@ export const SavedPeopleDialog = ({
                         <Button
                           size="sm"
                           variant="destructive"
-                          onClick={() => removeInstructor(instructor.id)}
+                          onClick={async () => {
+                            if (!actionLoading) {
+                              setActionLoading(`remove-instructor-${instructor.id}`);
+                              try {
+                                await removeInstructor(instructor.id);
+                              } finally {
+                                setActionLoading(null);
+                              }
+                            }
+                          }}
+                          disabled={actionLoading === `remove-instructor-${instructor.id}`}
                           className="w-full sm:w-auto"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          {actionLoading === `remove-instructor-${instructor.id}` ? '...' : <Trash2 className="w-4 h-4" />}
                         </Button>
                       </div>
                     </div>
@@ -278,8 +314,11 @@ export const SavedPeopleDialog = ({
                     onChange={(e) => handleFileChange(e.target.files?.[0] || null, 'responsible')}
                   />
                 </div>
-                <Button onClick={handleSaveResponsible} disabled={!newResponsible.nome.trim()}>
-                  Salvar Responsável
+                <Button 
+                  onClick={handleSaveResponsible} 
+                  disabled={!newResponsible.nome.trim() || actionLoading === 'add-responsible'}
+                >
+                  {actionLoading === 'add-responsible' ? 'Salvando...' : 'Salvar Responsável'}
                 </Button>
               </CardContent>
             </Card>
@@ -315,15 +354,17 @@ export const SavedPeopleDialog = ({
                           <Button
                             size="sm"
                             onClick={() => handleSelectResponsible(responsible)}
+                            disabled={actionLoading === `use-responsible-${responsible.id}`}
                             className="w-full sm:w-auto"
                           >
-                            Usar
+                            {actionLoading === `use-responsible-${responsible.id}` ? 'Usando...' : 'Usar'}
                           </Button>
                         )}
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={() => setEditingResponsible(responsible)}
+                          disabled={!!actionLoading}
                           className="w-full sm:w-auto"
                         >
                           <Edit className="w-4 h-4" />
@@ -331,10 +372,20 @@ export const SavedPeopleDialog = ({
                         <Button
                           size="sm"
                           variant="destructive"
-                          onClick={() => removeResponsible(responsible.id)}
+                          onClick={async () => {
+                            if (!actionLoading) {
+                              setActionLoading(`remove-responsible-${responsible.id}`);
+                              try {
+                                await removeResponsible(responsible.id);
+                              } finally {
+                                setActionLoading(null);
+                              }
+                            }
+                          }}
+                          disabled={actionLoading === `remove-responsible-${responsible.id}`}
                           className="w-full sm:w-auto"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          {actionLoading === `remove-responsible-${responsible.id}` ? '...' : <Trash2 className="w-4 h-4" />}
                         </Button>
                       </div>
                     </div>

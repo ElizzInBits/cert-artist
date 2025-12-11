@@ -24,9 +24,10 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
   const [name, setName] = useState(responsible.nome);
   const [credential, setCredential] = useState(responsible.registro || "");
   const [signature, setSignature] = useState<File | null>(responsible.assinatura || null);
+  const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name.trim()) {
       toast({
         title: "Campo obrigatório",
@@ -36,16 +37,20 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
       return;
     }
 
-    onSave({ 
-      nome: name, 
-      registro: credential || undefined, 
-      assinatura: signature || undefined 
-    });
-    
-    toast({
-      title: "Responsável atualizado",
-      description: name,
-    });
+    setSaving(true);
+    try {
+      await onSave({ 
+        nome: name, 
+        registro: credential || undefined, 
+        assinatura: signature || undefined 
+      });
+      toast({
+        title: "Responsável atualizado",
+        description: name,
+      });
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,10 +128,12 @@ export const EditResponsibleDialog = ({ responsible, onSave, onCancel }: EditRes
           </div>
         </div>
         <DialogFooter className="flex-col sm:flex-row gap-2">
-          <Button variant="outline" onClick={onCancel} className="w-full sm:w-auto">
+          <Button variant="outline" onClick={onCancel} disabled={saving} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button onClick={handleSave} className="w-full sm:w-auto">Salvar</Button>
+          <Button onClick={handleSave} disabled={saving} className="w-full sm:w-auto">
+            {saving ? 'Salvando...' : 'Salvar'}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

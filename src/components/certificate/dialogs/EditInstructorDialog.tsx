@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -22,9 +22,10 @@ interface EditInstructorDialogProps {
 export const EditInstructorDialog = ({ instructor, onSave, onCancel }: EditInstructorDialogProps) => {
   const [name, setName] = useState(instructor.nome);
   const [credential, setCredential] = useState(instructor.registro || "");
+  const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name.trim()) {
       toast({
         title: "Campo obrigatório",
@@ -34,12 +35,16 @@ export const EditInstructorDialog = ({ instructor, onSave, onCancel }: EditInstr
       return;
     }
 
-    onSave({ nome: name, registro: credential || undefined });
-    
-    toast({
-      title: "Instrutor atualizado",
-      description: name,
-    });
+    setSaving(true);
+    try {
+      await onSave({ nome: name, registro: credential || undefined });
+      toast({
+        title: "Instrutor atualizado",
+        description: name,
+      });
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -72,10 +77,12 @@ export const EditInstructorDialog = ({ instructor, onSave, onCancel }: EditInstr
           </div>
         </div>
         <DialogFooter className="flex-col sm:flex-row gap-2">
-          <Button variant="outline" onClick={onCancel} className="w-full sm:w-auto">
+          <Button variant="outline" onClick={onCancel} disabled={saving} className="w-full sm:w-auto">
             Cancelar
           </Button>
-          <Button onClick={handleSave} className="w-full sm:w-auto">Salvar</Button>
+          <Button onClick={handleSave} disabled={saving} className="w-full sm:w-auto">
+            {saving ? 'Salvando...' : 'Salvar'}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
