@@ -3,13 +3,14 @@ import { FileUploadSection } from "@/components/certificate/FileUploadSection";
 import { CourseDataSection } from "@/components/certificate/CourseDataSection";
 import { DetailsSection } from "@/components/certificate/DetailsSection";
 import { TeamSection } from "@/components/certificate/TeamSection";
-
 import { SignatureConfigSection } from "@/components/certificate/SignatureConfigSection";
 import { FontConfigSection } from "@/components/certificate/FontConfigSection";
 import { ActionButtons } from "@/components/certificate/ActionButtons";
 import { LivePreview } from "@/components/certificate/LivePreview";
 import { TemplateManager } from "@/components/certificate/TemplateManager";
-import { GraduationCap, LogOut } from "lucide-react";
+import { FormPage } from "@/components/form/FormPage";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { GraduationCap, LogOut, FileText } from "lucide-react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,8 @@ const Index = () => {
               <GraduationCap className="w-8 h-8" />
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold tracking-tight">Gerador de Certificados</h1>
+              <h1 className="text-3xl font-bold tracking-tight">Gerador de Documentos</h1>
+              <p className="text-primary-foreground/80 text-sm mt-1">Certificados e Formulários</p>
             </div>
             <div className="flex items-center gap-2">
               <ThemeToggle />
@@ -48,49 +50,68 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          {/* Left Column */}
-          <div className="space-y-6">
-            <FileUploadSection
-              excelFile={excelFile}
-              setExcelFile={setExcelFile}
-            />
-            <CourseDataSection />
-          </div>
+        <Tabs defaultValue="certificados" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="certificados" className="flex items-center gap-2">
+              <GraduationCap className="w-4 h-4" />
+              Certificados
+            </TabsTrigger>
+            <TabsTrigger value="formularios" className="flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              Formulários
+            </TabsTrigger>
+          </TabsList>
 
-          {/* Right Column */}
-          <div className="space-y-6">
-            <DetailsSection />
-            <TeamSection />
-          </div>
-        </div>
+          <TabsContent value="certificados" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              {/* Left Column */}
+              <div className="space-y-6">
+                <FileUploadSection
+                  excelFile={excelFile}
+                  setExcelFile={setExcelFile}
+                />
+                <CourseDataSection />
+              </div>
 
-        {/* Full Width Sections */}
-        <div className="space-y-6">
-          {/* Template Manager */}
-          <TemplateManager />
-          
-          {/* Preview Section */}
-          <LivePreview />
-          
-          {/* Configuration Sections */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <SignatureConfigSection />
-            <FontConfigSection />
-          </div>
-        </div>
-        
-        {/* Action Buttons */}
-        <div className="mt-6">
-          <ActionButtons />
-        </div>
+              {/* Right Column */}
+              <div className="space-y-6">
+                <DetailsSection />
+                <TeamSection />
+              </div>
+            </div>
+
+            {/* Full Width Sections */}
+            <div className="space-y-6">
+              {/* Template Manager */}
+              <TemplateManager />
+              
+              {/* Preview Section */}
+              <LivePreview />
+              
+              {/* Configuration Sections */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <SignatureConfigSection />
+                <FontConfigSection />
+              </div>
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="mt-6">
+              <ActionButtons />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="formularios">
+            <FormPage />
+          </TabsContent>
+        </Tabs>
       </main>
 
       {/* Footer */}
       <footer className="bg-card border-t border-border mt-12">
         <div className="container mx-auto px-6 py-6">
           <p className="text-center text-muted-foreground text-sm">
-Gerador de Certificados v4.0
+Gerador de Documentos v4.1 - Certificados e Formulários
           </p>
         </div>
       </footer>

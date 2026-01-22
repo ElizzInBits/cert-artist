@@ -401,40 +401,41 @@ export const SavedPeopleDialog = ({
           </TabsContent>
         </Tabs>
 
-        {/* Diálogos de edição */}
-        {editingInstructor && (
-          <EditInstructorDialog
-            instructor={{
-              nome: editingInstructor.nome,
-              registro: editingInstructor.registro
-            }}
-            onSave={async (updatedInstructor) => {
-              await editInstructor(editingInstructor.id, updatedInstructor);
-              setEditingInstructor(null);
-            }}
-            onCancel={() => setEditingInstructor(null)}
-          />
-        )}
-
-        {editingResponsible && (
-          <EditResponsibleDialog
-            responsible={{
-              nome: editingResponsible.nome,
-              registro: editingResponsible.registro,
-              assinatura: editingResponsible.assinatura ? new File([], 'signature') : undefined
-            }}
-            onSave={async (updatedResponsible) => {
-              await editResponsible(editingResponsible.id, {
-                nome: updatedResponsible.nome,
-                registro: updatedResponsible.registro,
-                assinatura: updatedResponsible.assinatura
-              });
-              setEditingResponsible(null);
-            }}
-            onCancel={() => setEditingResponsible(null)}
-          />
-        )}
       </DialogContent>
     </Dialog>
+
+    {/* Diálogos de edição - fora do diálogo principal */}
+    {editingInstructor && (
+      <EditInstructorDialog
+        instructor={{
+          nome: editingInstructor.nome,
+          registro: editingInstructor.registro
+        }}
+        onSave={async (updatedInstructor) => {
+          await editInstructor(editingInstructor.id, updatedInstructor);
+          setEditingInstructor(null);
+        }}
+        onCancel={() => setEditingInstructor(null)}
+      />
+    )}
+
+    {editingResponsible && (
+      <EditResponsibleDialog
+        responsible={{
+          nome: editingResponsible.nome,
+          registro: editingResponsible.registro,
+          assinatura: editingResponsible.assinatura ? new File([], 'signature') : undefined
+        }}
+        onSave={async (updatedResponsible) => {
+          await editResponsible(editingResponsible.id, {
+            nome: updatedResponsible.nome,
+            registro: updatedResponsible.registro,
+            assinatura: updatedResponsible.assinatura
+          });
+          setEditingResponsible(null);
+        }}
+        onCancel={() => setEditingResponsible(null)}
+      />
+    )}
   );
 };
