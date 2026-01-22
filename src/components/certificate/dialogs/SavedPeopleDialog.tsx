@@ -129,26 +129,27 @@ export const SavedPeopleDialog = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[95vw] sm:max-w-2xl lg:max-w-4xl max-h-[90vh] sm:max-h-[80vh] w-full" aria-describedby="saved-people-dialog-description">
-        <DialogHeader>
-          <DialogTitle>Biblioteca de Pessoas</DialogTitle>
-          <DialogDescription id="saved-people-dialog-description">
-            Gerencie instrutores e responsáveis salvos com suas assinaturas
-          </DialogDescription>
-        </DialogHeader>
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="max-w-[95vw] sm:max-w-2xl lg:max-w-4xl max-h-[90vh] sm:max-h-[80vh] w-full" aria-describedby="saved-people-dialog-description">
+          <DialogHeader>
+            <DialogTitle>Biblioteca de Pessoas</DialogTitle>
+            <DialogDescription id="saved-people-dialog-description">
+              Gerencie instrutores e responsáveis salvos com suas assinaturas
+            </DialogDescription>
+          </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="instructors">
-              <User className="w-4 h-4 mr-2" />
-              Instrutores ({instructors.length})
-            </TabsTrigger>
-            <TabsTrigger value="responsibles">
-              <FileSignature className="w-4 h-4 mr-2" />
-              Responsáveis ({responsibles.length})
-            </TabsTrigger>
-          </TabsList>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="instructors">
+                <User className="w-4 h-4 mr-2" />
+                Instrutores ({instructors.length})
+              </TabsTrigger>
+              <TabsTrigger value="responsibles">
+                <FileSignature className="w-4 h-4 mr-2" />
+                Responsáveis ({responsibles.length})
+              </TabsTrigger>
+            </TabsList>
 
           <TabsContent value="instructors" className="space-y-4">
             {/* Adicionar novo instrutor */}
@@ -399,43 +400,43 @@ export const SavedPeopleDialog = ({
               </div>
             </ScrollArea>
           </TabsContent>
-        </Tabs>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
 
-      </DialogContent>
-    </Dialog>
+      {/* Diálogos de edição - fora do diálogo principal */}
+      {editingInstructor && (
+        <EditInstructorDialog
+          instructor={{
+            nome: editingInstructor.nome,
+            registro: editingInstructor.registro
+          }}
+          onSave={async (updatedInstructor) => {
+            await editInstructor(editingInstructor.id, updatedInstructor);
+            setEditingInstructor(null);
+          }}
+          onCancel={() => setEditingInstructor(null)}
+        />
+      )}
 
-    {/* Diálogos de edição - fora do diálogo principal */}
-    {editingInstructor && (
-      <EditInstructorDialog
-        instructor={{
-          nome: editingInstructor.nome,
-          registro: editingInstructor.registro
-        }}
-        onSave={async (updatedInstructor) => {
-          await editInstructor(editingInstructor.id, updatedInstructor);
-          setEditingInstructor(null);
-        }}
-        onCancel={() => setEditingInstructor(null)}
-      />
-    )}
-
-    {editingResponsible && (
-      <EditResponsibleDialog
-        responsible={{
-          nome: editingResponsible.nome,
-          registro: editingResponsible.registro,
-          assinatura: editingResponsible.assinatura ? new File([], 'signature') : undefined
-        }}
-        onSave={async (updatedResponsible) => {
-          await editResponsible(editingResponsible.id, {
-            nome: updatedResponsible.nome,
-            registro: updatedResponsible.registro,
-            assinatura: updatedResponsible.assinatura
-          });
-          setEditingResponsible(null);
-        }}
-        onCancel={() => setEditingResponsible(null)}
-      />
-    )}
+      {editingResponsible && (
+        <EditResponsibleDialog
+          responsible={{
+            nome: editingResponsible.nome,
+            registro: editingResponsible.registro,
+            assinatura: editingResponsible.assinatura ? new File([], 'signature') : undefined
+          }}
+          onSave={async (updatedResponsible) => {
+            await editResponsible(editingResponsible.id, {
+              nome: updatedResponsible.nome,
+              registro: updatedResponsible.registro,
+              assinatura: updatedResponsible.assinatura
+            });
+            setEditingResponsible(null);
+          }}
+          onCancel={() => setEditingResponsible(null)}
+        />
+      )}
+    </>
   );
 };
