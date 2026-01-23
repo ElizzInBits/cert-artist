@@ -8,6 +8,61 @@ import { Layout, Plus } from "lucide-react";
 // Templates padrão temporários - você pode personalizar depois
 const defaultTemplates: FormTemplate[] = [
   {
+    id: 'avaliacao-atividades-criticas',
+    nome: 'Avaliação de Atividades Críticas',
+    descricao: 'Formulário de avaliação médica para atividades críticas',
+    tipo: 'padrao',
+    campos: [
+      { id: 'nome', label: 'Nome', type: 'text', required: true, group: 'identificacao' },
+      { id: 'pn', label: 'PN', type: 'text', required: false, group: 'identificacao' },
+      { id: 'cargo', label: 'Cargo', type: 'text', required: true, group: 'identificacao' },
+      { id: 'setor', label: 'Setor', type: 'text', required: false, group: 'identificacao' },
+      
+      // Avaliação Médica
+      { id: 'fatores_psicossociais', label: 'Fatores Psicossociais', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'coordenacao_motora', label: 'Coordenação Motora', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'doencas_coluna', label: 'Doenças da Coluna e MMII', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'sinal_romberg', label: 'Sinal de Romberg Positivo', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'epilepsia', label: 'Epilepsia, Convulsão, Doença Neurológica', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'patologias_cronicas', label: 'Patologias Crônicas descompensadas', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'uso_medicamentos', label: 'Uso Medicamentoso que interferem no Sistema Nervoso', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'uso_continuo_alcool', label: 'Uso Contínuo ou Abusivo de Álcool', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'obesidade', label: 'Obesidade', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'doenca_pulmonar', label: 'Doença Pulmonar', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'anemia', label: 'Anemia', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'endocrinopatias', label: 'Endocrinopatias Crônicas Descompensadas', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'doenca_nefropatica', label: 'Doença Nefropática', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'pelos_deformidade', label: 'Pelos, Deformidade Facial', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      { id: 'doencas_tireoide', label: 'Doenças da Tireoide', type: 'radio', required: true, options: ['SIM', 'NÃO'], group: 'avaliacao' },
+      
+      { id: 'observacao', label: 'Observação', type: 'textarea', required: false, group: 'observacao' },
+      
+      // Dados Físicos
+      { id: 'peso', label: 'PESO', type: 'number', required: false, group: 'dados_fisicos' },
+      { id: 'altura', label: 'ALTURA', type: 'number', required: false, group: 'dados_fisicos' },
+      { id: 'imc', label: 'IMC', type: 'number', required: false, group: 'dados_fisicos' },
+      { id: 'pa', label: 'PA', type: 'text', required: false, group: 'dados_fisicos' },
+      { id: 'fc', label: 'FC', type: 'text', required: false, group: 'dados_fisicos' },
+      { id: 'fr', label: 'FR', type: 'text', required: false, group: 'dados_fisicos' },
+      
+      // Atividades Críticas
+      { id: 'trabalho_altura', label: 'Trabalho em altura', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'equipamento_guindar', label: 'Equipamento de Guindar', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'espaco_confinado', label: 'Espaço confinado', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'equipamento_moveis', label: 'Equipamento móveis', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'operacao_veiculo', label: 'Operação de veículo', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'exposicao_calor', label: 'Exposição a calor', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'espaco_confinado2', label: 'Espaço confinado', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'plataforma_elevatoria', label: 'Plataforma Elevatória', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'protecao_respiratoria', label: 'Proteção Respiratória', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+      { id: 'outros', label: 'Outros', type: 'radio', required: false, options: ['Liberado', 'Não Liberado', 'N/A'], group: 'atividades' },
+    ],
+    configuracao: {
+      fontConfig: { titulo: 16, campos: 10, labels: 11, conteudo: 10 },
+      layoutConfig: { margens: { top: 40, bottom: 40, left: 40, right: 40 }, espacamento: 8 }
+    }
+  },
+  {
     id: 'avaliacao-padrao',
     nome: 'Avaliação Padrão',
     descricao: 'Formulário básico de avaliação',
@@ -23,13 +78,13 @@ const defaultTemplates: FormTemplate[] = [
     }
   },
   {
-    id: 'feedback-padrao',
-    nome: 'Feedback Padrão',
-    descricao: 'Formulário de feedback básico',
+    id: 'documento-padrao',
+    nome: 'Documento Padrão',
+    descricao: 'Formulário básico com campos de texto',
     tipo: 'padrao',
     campos: [
       { id: 'nome', label: 'Nome', type: 'text', required: true },
-      { id: 'comentarios', label: 'Comentários', type: 'textarea', required: false }
+      { id: 'observacoes', label: 'Observações', type: 'textarea', required: false }
     ],
     configuracao: {
       fontConfig: { titulo: 18, campos: 12, labels: 14, conteudo: 12 },

@@ -8,10 +8,11 @@ export interface FormData {
 export interface FormField {
   id: string;
   label: string;
-  type: 'text' | 'number' | 'date' | 'select' | 'textarea';
+  type: 'text' | 'number' | 'date' | 'select' | 'textarea' | 'checkbox' | 'radio' | 'checkbox-group';
   required: boolean;
-  options?: string[]; // Para campos select
+  options?: string[]; // Para campos select, radio ou checkbox-group
   placeholder?: string;
+  group?: string; // Para agrupar campos relacionados
 }
 
 export interface FormTemplate {
