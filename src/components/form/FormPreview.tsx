@@ -261,32 +261,6 @@ export const FormPreview = () => {
               <p className="text-xs text-gray-500 mt-2">MOD AMS MT 001/00</p>
               <p className="text-xs text-right mt-1">Página 1 de 1</p>
             </div>
-
-            {/* Página 2 - Instruções */}
-            <div className="mt-8 pt-8 border-t-4 border-gray-300">
-              <div className="flex justify-between items-start mb-4 pb-2 border-b-2 border-gray-800">
-                <div>
-                  <h1 className="text-lg font-bold">MEDICINA DO TRABALHO</h1>
-                </div>
-                <div className="text-right">
-                  <div className="text-blue-600 font-bold text-lg">vallourec</div>
-                </div>
-              </div>
-
-              <div className="space-y-2 text-xs">
-                <p><span className="text-red-600 font-bold">(1)</span> A ENFERMAGEM DEVE PREENCHER NOME, PN, CARGO E SETOR DO EMPREGADO;</p>
-                <p><span className="text-red-600 font-bold">(2)</span> O MÉDICO DE RESPONDER A ENTREVISTA MÉDICA, MARCANDO NOS QUADROS SIM OU NÃO;</p>
-                <p><span className="text-red-600 font-bold">(3)</span> CASO TENHA ALGUMA OBSERVAÇÃO O MÉDICO DEVERÁ REGISTRAR;</p>
-                <p><span className="text-red-600 font-bold">(4)</span> O MÉDICO DEVE ESCREVER OS DADOS DO EMPREGADO, PESO, ALTURA, IMC, PA, FC E FR;</p>
-                <p><span className="text-red-600 font-bold">(5)</span> O MÉDICO DEVE ASSINALAR QUAL O TIPO DE ATIVIDADE CRÍTICA FOI SOLICITADA AO EMPREGADO E MARCAR SE FOI LIBERADO OU NÃO.</p>
-                <p><span className="text-red-600 font-bold">(6)</span> O MÉDICO DEVE ASSINAR E DATAR.</p>
-              </div>
-
-              <div className="mt-6">
-                <p className="text-xs text-gray-500">MOD AMS MT 001/00</p>
-                <p className="text-xs text-right mt-1">Página 1 de 1</p>
-              </div>
-            </div>
           </div>
         </CardContent>
       </Card>
