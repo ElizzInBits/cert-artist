@@ -1,9 +1,34 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useFormStore } from "@/hooks/useFormStore";
-import { Eye } from "lucide-react";
+import { Eye, Edit3, Type, CheckSquare, Table, Save } from "lucide-react";
+import { useState, useRef } from "react";
 
 export const FormPreview = () => {
   const { selectedTemplate, formData } = useFormStore();
+  const [isEditing, setIsEditing] = useState(false);
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  const insertCheckbox = () => {
+    if (editorRef.current) {
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'mr-1';
+      document.execCommand('insertHTML', false, checkbox.outerHTML);
+    }
+  };
+
+  const insertTable = () => {
+    const table = '<table class="w-full border-collapse border border-gray-800 text-xs my-2"><tr><td class="border border-gray-800 p-1">Célula 1</td><td class="border border-gray-800 p-1">Célula 2</td></tr></table>';
+    document.execCommand('insertHTML', false, table);
+  };
+
+  const saveContent = () => {
+    if (editorRef.current) {
+      console.log('Conteúdo salvo:', editorRef.current.innerHTML);
+      setIsEditing(false);
+    }
+  };
 
   if (!selectedTemplate) {
     return (
@@ -28,13 +53,43 @@ export const FormPreview = () => {
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Eye className="w-5 h-5" />
-            Preview do Formulário
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2">
+              <Eye className="w-5 h-5" />
+              Preview do Formulário
+            </CardTitle>
+            <div className="flex gap-2">
+              {isEditing ? (
+                <>
+                  <Button size="sm" variant="outline" onClick={insertCheckbox}>
+                    <CheckSquare className="w-4 h-4 mr-1" />
+                    Checkbox
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={insertTable}>
+                    <Table className="w-4 h-4 mr-1" />
+                    Tabela
+                  </Button>
+                  <Button size="sm" onClick={saveContent}>
+                    <Save className="w-4 h-4 mr-1" />
+                    Salvar
+                  </Button>
+                </>
+              ) : (
+                <Button size="sm" onClick={() => setIsEditing(true)}>
+                  <Edit3 className="w-4 h-4 mr-1" />
+                  Editar
+                </Button>
+              )}
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="bg-white border rounded-lg p-6 overflow-auto" style={{ maxHeight: '600px' }}>
+          <div 
+            ref={editorRef}
+            contentEditable={isEditing}
+            className="bg-white border rounded-lg p-6 overflow-auto focus:outline-none focus:ring-2 focus:ring-primary" 
+            style={{ maxHeight: '600px' }}
+          >
             {/* Cabeçalho */}
             <div className="flex justify-between items-start mb-4 pb-2 border-b-2 border-gray-800">
               <div>
