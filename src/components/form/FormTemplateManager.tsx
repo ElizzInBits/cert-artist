@@ -5,7 +5,7 @@ import { useFormStore } from "@/hooks/useFormStore";
 import { FormTemplate } from "@/types/form";
 import { Layout, Plus } from "lucide-react";
 
-// Templates padrão temporários - você pode personalizar depois
+// Templates padrão
 const defaultTemplates: FormTemplate[] = [
   {
     id: 'avaliacao-atividades-criticas',
@@ -30,35 +30,6 @@ const defaultTemplates: FormTemplate[] = [
       fontConfig: { titulo: 16, campos: 10, labels: 11, conteudo: 10 },
       layoutConfig: { margens: { top: 40, bottom: 40, left: 40, right: 40 }, espacamento: 8 }
     }
-  },
-  {
-    id: 'avaliacao-padrao',
-    nome: 'Avaliação Padrão',
-    descricao: 'Formulário básico de avaliação',
-    tipo: 'padrao',
-    campos: [
-      { id: 'nome', label: 'Nome Completo', type: 'text', required: true },
-      { id: 'email', label: 'E-mail', type: 'text', required: true },
-      { id: 'avaliacao', label: 'Avaliação', type: 'select', required: true, options: ['Excelente', 'Bom', 'Regular', 'Ruim'] }
-    ],
-    configuracao: {
-      fontConfig: { titulo: 18, campos: 12, labels: 14, conteudo: 12 },
-      layoutConfig: { margens: { top: 50, bottom: 50, left: 50, right: 50 }, espacamento: 15 }
-    }
-  },
-  {
-    id: 'documento-padrao',
-    nome: 'Documento Padrão',
-    descricao: 'Formulário básico com campos de texto',
-    tipo: 'padrao',
-    campos: [
-      { id: 'nome', label: 'Nome', type: 'text', required: true },
-      { id: 'observacoes', label: 'Observações', type: 'textarea', required: false }
-    ],
-    configuracao: {
-      fontConfig: { titulo: 18, campos: 12, labels: 14, conteudo: 12 },
-      layoutConfig: { margens: { top: 50, bottom: 50, left: 50, right: 50 }, espacamento: 15 }
-    }
   }
 ];
 
@@ -74,32 +45,18 @@ export const FormTemplateManager = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {defaultTemplates.map((template) => (
-            <div
-              key={template.id}
-              className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                selectedTemplate?.id === template.id
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              }`}
-              onClick={() => setSelectedTemplate(template)}
-            >
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="font-medium">{template.nome}</h3>
-                <Badge variant={template.tipo === 'padrao' ? 'default' : 'secondary'}>
-                  {template.tipo}
-                </Badge>
-              </div>
-              <p className="text-sm text-muted-foreground mb-2">{template.descricao}</p>
-              <p className="text-xs text-muted-foreground">
-                {template.campos.length} campos
-              </p>
-            </div>
-          ))}
+        <div className="p-4 border rounded-lg border-primary bg-primary/5">
+          <div className="flex items-start justify-between mb-2">
+            <h3 className="font-medium">{defaultTemplates[0].nome}</h3>
+            <Badge variant="default">{defaultTemplates[0].tipo}</Badge>
+          </div>
+          <p className="text-sm text-muted-foreground mb-2">{defaultTemplates[0].descricao}</p>
+          <p className="text-xs text-muted-foreground">
+            {defaultTemplates[0].campos.length} campos
+          </p>
         </div>
         
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full mt-4">
           <Plus className="w-4 h-4 mr-2" />
           Criar Template Personalizado
         </Button>

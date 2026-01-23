@@ -1,10 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useFormStore } from "@/hooks/useFormStore";
-import { Download, Eye, Trash2 } from "lucide-react";
+import { Download, Eye, Trash2, ExternalLink } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const FormActionButtons = () => {
   const { selectedTemplate, responses, clearAll } = useFormStore();
+  const navigate = useNavigate();
+
+  const handleCreateEditableForm = () => {
+    // Gerar ID único para o formulário
+    const formId = `form-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    // Abrir em nova aba
+    window.open(`/form-editor/${formId}`, '_blank');
+  };
 
   const handlePreview = () => {
     // TODO: Implementar preview dos formulários
@@ -28,6 +37,15 @@ export const FormActionButtons = () => {
     <Card>
       <CardContent className="pt-6">
         <div className="flex flex-wrap gap-3 justify-center">
+          <Button
+            onClick={handleCreateEditableForm}
+            disabled={!selectedTemplate}
+            className="flex items-center gap-2"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Criar Formulário Editável
+          </Button>
+
           <Button
             onClick={handlePreview}
             variant="outline"
@@ -57,9 +75,9 @@ export const FormActionButtons = () => {
           </Button>
         </div>
 
-        {!canGenerate && (
+        {!selectedTemplate && (
           <p className="text-center text-sm text-muted-foreground mt-3">
-            Selecione um template e carregue dados para gerar formulários
+            Selecione um template para começar
           </p>
         )}
       </CardContent>
