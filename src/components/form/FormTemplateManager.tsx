@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { useFormStore } from "@/hooks/useFormStore";
 import { FormTemplate } from "@/types/form";
 import { Layout, Plus } from "lucide-react";
+import React from "react";
 
 // Templates padrão
 const defaultTemplates: FormTemplate[] = [
@@ -36,6 +37,13 @@ const defaultTemplates: FormTemplate[] = [
 export const FormTemplateManager = () => {
   const { selectedTemplate, setSelectedTemplate } = useFormStore();
 
+  // Selecionar automaticamente o template ao carregar
+  React.useEffect(() => {
+    if (!selectedTemplate && defaultTemplates.length > 0) {
+      setSelectedTemplate(defaultTemplates[0]);
+    }
+  }, [selectedTemplate, setSelectedTemplate]);
+
   return (
     <Card>
       <CardHeader>
@@ -45,7 +53,10 @@ export const FormTemplateManager = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="p-4 border rounded-lg border-primary bg-primary/5">
+        <div 
+          className="p-4 border rounded-lg cursor-pointer transition-colors border-primary bg-primary/5"
+          onClick={() => setSelectedTemplate(defaultTemplates[0])}
+        >
           <div className="flex items-start justify-between mb-2">
             <h3 className="font-medium">{defaultTemplates[0].nome}</h3>
             <Badge variant="default">{defaultTemplates[0].tipo}</Badge>
