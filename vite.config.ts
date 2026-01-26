@@ -14,4 +14,26 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'tiptap': [
+            '@tiptap/react',
+            '@tiptap/starter-kit',
+            '@tiptap/extension-table',
+            '@tiptap/extension-table-row',
+            '@tiptap/extension-table-cell',
+            '@tiptap/extension-table-header',
+            '@tiptap/extension-text-align',
+            '@tiptap/extension-underline',
+            '@tiptap/extension-text-style',
+            '@tiptap/extension-color',
+            '@tiptap/extension-font-family',
+          ],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 });
