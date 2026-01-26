@@ -4,7 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { useFormStore } from "@/hooks/useFormStore";
 import { FormTemplate } from "@/types/form";
 import { Layout, Plus } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { CustomTemplateEditor } from "./CustomTemplateEditor";
+import { CustomTemplatesList } from "./CustomTemplatesList";
+import { useToast } from "@/hooks/use-toast";
+import "./editor-styles.css";
 
 // Templates padrão
 const defaultTemplates: FormTemplate[] = [
@@ -36,6 +40,8 @@ const defaultTemplates: FormTemplate[] = [
 
 export const FormTemplateManager = () => {
   const { selectedTemplate, setSelectedTemplate } = useFormStore();
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const { toast } = useToast();
 
   // Selecionar automaticamente o template ao carregar
   React.useEffect(() => {
@@ -45,6 +51,7 @@ export const FormTemplateManager = () => {
   }, [selectedTemplate, setSelectedTemplate]);
 
   return (
+    <>
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
@@ -67,11 +74,55 @@ export const FormTemplateManager = () => {
           </p>
         </div>
         
-        <Button variant="outline" className="w-full mt-4">
+        <Button 
+          variant="outline" 
+          className="w-full mt-4"
+          onClick={() => setIsEditorOpen(true)}
+        >
           <Plus className="w-4 h-4 mr-2" />
           Criar Template Personalizado
         </Button>
       </CardContent>
     </Card>
+    
+    <CustomTemplatesList
+      onSelectTemplate={setSelectedTemplate}
+      selectedTemplateId={selectedTemplate?.id}
+    />
+    
+    {isEditorOpen && (
+      <CustomTemplateEditor
+        onClose={() => setIsEditorOpen(false)}
+        onSave={(content, name) => {
+          // Salvar template personalizado
+          const newTemplate: FormTemplate = {
+            id: `custom-${Date.now()}`,
+            nome: name,
+            descricao: 'Template personalizado criado pelo usuário',
+            tipo: 'personalizado',
+            campos: [],
+            configuracao: {
+              fontConfig: { titulo: 16, campos: 10, labels: 11, conteudo: 10 },
+              layoutConfig: { margens: { top: 40, bottom: 40, left: 40, right: 40 }, espacamento: 8 }
+            },
+            htmlContent: content
+          };
+          
+          // Salvar no localStorage
+          const savedTemplates = JSON.parse(localStorage.getItem('customTemplates') || '[]');
+          savedTemplates.push(newTemplate);
+          localStorage.setItem('customTemplates', JSON.stringify(savedTemplates));
+          
+          setSelectedTemplate(newTemplate);
+          setIsEditorOpen(false);
+          
+          toast({
+            title: "Template salvo!",
+            description: `O template "${name}" foi criado com sucesso.`,
+          });
+        }}
+      />
+    )}
+  </>
   );
 };

@@ -22,6 +22,7 @@ export interface FormTemplate {
   tipo: 'padrao' | 'personalizado';
   campos: FormField[];
   configuracao: FormConfig;
+  htmlContent?: string; // Conteúdo HTML para templates personalizados
 }
 
 export interface FormConfig {
