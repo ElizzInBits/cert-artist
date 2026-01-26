@@ -9,129 +9,206 @@ export default function FormEditor() {
   const [formContent, setFormContent] = useState('');
 
   useEffect(() => {
-    // Carregar conteúdo do formulário do localStorage ou API
     const saved = localStorage.getItem(`form-${id}`);
     if (saved) {
       setFormContent(saved);
     } else {
-      // Template inicial
       setFormContent(getInitialTemplate());
     }
   }, [id]);
 
   const getInitialTemplate = () => {
     return `
-      <div style="padding: 40px; background: white; min-height: 100vh;">
-        <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
-          <div>
-            <h1 style="font-size: 18px; font-weight: bold;">MEDICINA DO TRABALHO</h1>
-            <p style="font-size: 10px; margin-top: 5px;">Motivo da Revisão: Emissão Inicial</p>
-            <p style="font-size: 10px;">Instrução de preenchimento:</p>
-          </div>
-          <div style="text-align: right;">
-            <div style="color: #2563eb; font-weight: bold; font-size: 18px;">vallourec</div>
-          </div>
-        </div>
-
-        <div style="border: 1px solid #333; padding: 10px; margin-bottom: 15px;">
-          <p style="text-align: center; font-size: 12px; font-weight: bold;">AVALIAÇÃO DE ATIVIDADES CRÍTICAS</p>
-          <p style="text-align: center; font-size: 10px; margin-top: 5px;">
-            Sistemática de conduta médica assistencial condicionada ao PCMSO e estabelecer exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
-          </p>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-bottom: 15px;">
-          <div style="border: 1px solid #333; padding: 5px;">
-            <span style="font-size: 10px;">Nome: <input type="text" style="border: none; border-bottom: 1px solid #999; width: 80%;" /></span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
-            <div style="border: 1px solid #333; padding: 5px;">
-              <span style="font-size: 10px;">PN: <input type="text" style="border: none; border-bottom: 1px solid #999; width: 60%;" /></span>
-            </div>
-            <div style="border: 1px solid #333; padding: 5px;">
-              <span style="font-size: 10px;">Setor: <input type="text" style="border: none; border-bottom: 1px solid #999; width: 50%;" /></span>
-            </div>
-          </div>
-        </div>
-
-        <div style="border: 1px solid #333; padding: 5px; margin-bottom: 15px;">
-          <span style="font-size: 10px;">Cargo: <input type="text" style="border: none; border-bottom: 1px solid #999; width: 90%;" /></span>
-        </div>
-
-        <table style="width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 15px;">
-          <tbody>
-            <tr>
-              <td style="border: 1px solid #333; padding: 5px;">Fatores Psicossociais 'estressores': Acrofobia, Claustrofobia, Agorafobia, Ansiedade, Fobias, Transtorno Psiquiátrico</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;">SIM <input type="checkbox" /></td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;">NÃO <input type="checkbox" /></td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #333; padding: 5px;">Coordenação Motora: Restrição de Movimentos, equilíbrio, Desorientação tempo – espaço, história de Enfermidades</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;">SIM <input type="checkbox" /></td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;">NÃO <input type="checkbox" /></td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #333; padding: 5px;">Doenças da Coluna e MMII (Desmubulação)</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;">SIM <input type="checkbox" /></td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;">NÃO <input type="checkbox" /></td>
-            </tr>
-          </tbody>
+      <div style="padding: 20px; background: white; font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+          <tr>
+            <td style="width: 70%; border: 1px solid #000; padding: 5px;">
+              <div style="font-size: 11px; font-weight: bold; text-decoration: underline;">MEDICINA DO TRABALHO</div>
+            </td>
+            <td rowspan="2" style="width: 30%; border: 1px solid #000; padding: 5px; text-align: center; vertical-align: middle;">
+              <div style="color: #0066cc; font-weight: bold; font-size: 16px;">vallourec</div>
+            </td>
+          </tr>
         </table>
 
-        <div style="border: 1px solid #333; padding: 10px; margin-bottom: 15px;">
-          <p style="font-size: 10px; font-weight: bold;">Observação:</p>
-          <textarea style="width: 100%; height: 60px; border: none; margin-top: 5px; font-size: 10px;"></textarea>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-bottom: 15px;">
-          <div style="border: 1px solid #333; padding: 5px;">
-            <span style="font-size: 10px;">PESO: <input type="text" style="width: 40px; border: none; border-bottom: 1px solid #999;" /></span>
-          </div>
-          <div style="border: 1px solid #333; padding: 5px;">
-            <span style="font-size: 10px;">ALTURA: <input type="text" style="width: 40px; border: none; border-bottom: 1px solid #999;" /></span>
-          </div>
-          <div style="border: 1px solid #333; padding: 5px;">
-            <span style="font-size: 10px;">IMC: <input type="text" style="width: 40px; border: none; border-bottom: 1px solid #999;" /></span>
-          </div>
-          <div style="border: 1px solid #333; padding: 5px;">
-            <span style="font-size: 10px;">PA: <input type="text" style="width: 40px; border: none; border-bottom: 1px solid #999;" /></span>
-          </div>
-          <div style="border: 1px solid #333; padding: 5px;">
-            <span style="font-size: 10px;">FC: <input type="text" style="width: 40px; border: none; border-bottom: 1px solid #999;" /></span>
-          </div>
-          <div style="border: 1px solid #333; padding: 5px;">
-            <span style="font-size: 10px;">FR: <input type="text" style="width: 40px; border: none; border-bottom: 1px solid #999;" /></span>
-          </div>
-        </div>
-
-        <table style="width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 15px;">
-          <tbody>
-            <tr>
-              <td style="border: 1px solid #333; padding: 5px;"><input type="checkbox" /> Trabalho em altura (Acima de 2 metros)</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;"><input type="checkbox" /> Liberado</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;"><input type="checkbox" /> Não Liberado</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;"><input type="checkbox" /> N/A</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #333; padding: 5px;"><input type="checkbox" /> Equipamento de Guindar</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;"><input type="checkbox" /> Liberado</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;"><input type="checkbox" /> Não Liberado</td>
-              <td style="border: 1px solid #333; padding: 5px; text-align: center;"><input type="checkbox" /> N/A</td>
-            </tr>
-          </tbody>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+          <tr>
+            <td style="border: 1px solid #000; padding: 8px; text-align: center;">
+              <div style="font-size: 10px; font-weight: bold;">AVALIAÇÃO DE ATIVIDADES CRÍTICAS</div>
+              <div style="font-size: 8px; margin-top: 3px;">Sistemática de conduta médica assistencial condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.</div>
+            </td>
+          </tr>
         </table>
 
-        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #999;">
-          <div style="display: flex; justify-content: space-between;">
-            <div style="flex: 1;">
-              <p style="font-size: 10px;">Assinatura do Médico Examinador: _______________________</p>
-            </div>
-            <div>
-              <p style="font-size: 10px;">Data: ____/____/____</p>
-            </div>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 0;">
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 8px; width: 50%;">Nome:</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 8px; width: 25%;">PN/Ponto:</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 8px; width: 25%;">Setor/Empresa:</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 8px;" colspan="3">Cargo:</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 0;">
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 70%;">Fatores Psicossociais 'estressores': Acrofobia, Claustrofobia, Agorafobia, Ansiedade, Fobias, Transtorno Psiquiátrico</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center; width: 15%;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center; width: 15%;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Coordenação Motora: Restrição de Movimentos, equilíbrio, Desorientação tempo – espaço, história de Enfermidades</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Doenças da Coluna e MMII (Deambulação)</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Sinal de Romberg Positivo: Desmaio, Tontura, Vertigem ou Zumbido</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Epilepsia, Convulsões, Doença Neurológica</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Patologias Cardiovasculares: Doenças cardiovasculares, Hipertensão</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Uso Medicamentos que interferem no Sistema Nervoso, Ritmo e Frequência Cardíaca</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Uso Contínuo ou Abusivo de Bebida Alcoólica, Drogas, Tabagista (Dependência Química)</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Obesidade</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Doença Pulmonar "Asma Brônquica e DPOC"</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Anemia</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Patologias Crônicas Descompensadas: Diabetes tipo I ou II; Diabético Insulinodependente.</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Doenças Nefróticas</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Peso, Deformidade Facial</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">Doenças da Tireóide</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">SIM ( )</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">NÃO ( )</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 0;">
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 8px;" colspan="6">Observação:</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 0;">
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 16.66%;">PESO:</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 16.66%;">ALTURA:</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 16.66%;">IMC:</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 16.66%;">PA:</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 16.66%;">FC:</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 16.66%;">FR:</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; width: 40%;">☐ Trabalho em altura (Acima de 2 metros)</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center; width: 15%;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center; width: 15%;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center; width: 10%;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Equipamentos de Guindar (Ponte Rolante cabine/ controlar botoneira e Empilhadeira Pá carregadeira / Retroescavadeira)</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Equipamentos de Guindar (Talha)</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Equipamentos móveis (Caminhão/ Munck/ Empilhadeira/ Pá carregadeira / Retroescavadeira)</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Eletricidade (baixa e alta tensão)</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Explosão e calor</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Plataforma Elevatória</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Proteção Respiratória</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px;">☐ Rotativo Isolante</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ Não Liberado</td>
+            <td style="border: 1px solid #000; padding: 3px; font-size: 7px; text-align: center;">☐ N/A</td>
+          </tr>
+        </table>
+
+        <div style="margin-top: 20px; font-size: 8px;">
+          <div>Assinatura do Médico Examinador: _________________________________ Data: ......./......./.......</div>
+          <div style="margin-top: 10px; display: flex; justify-content: space-between;">
+            <span>MOD AMS MT 001/00</span>
+            <span>Página 1 de 1</span>
           </div>
-          <p style="font-size: 10px; color: #666; margin-top: 10px;">MOD AMS MT 001/00</p>
-          <p style="font-size: 10px; text-align: right; margin-top: 5px;">Página 1 de 1</p>
         </div>
       </div>
     `;
@@ -172,7 +249,6 @@ export default function FormEditor() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header fixo */}
       <div className="bg-white border-b shadow-sm sticky top-0 z-10">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -197,7 +273,6 @@ export default function FormEditor() {
         </div>
       </div>
 
-      {/* Editor */}
       <div className="container mx-auto px-6 py-8">
         <div className="bg-white rounded-lg shadow-lg">
           <div
