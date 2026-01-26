@@ -413,67 +413,128 @@ export const CustomTemplateEditor = ({ onClose, onSave }: CustomTemplateEditorPr
               >
                 <TableIcon className="w-4 h-4" />
               </Button>
-              <div className="absolute top-full left-0 mt-1 hidden group-hover:block bg-popover border rounded-lg shadow-lg p-2 z-50">
-                <div className="text-xs font-medium mb-2 px-2">Inserir Tabela</div>
-                <div className="grid grid-cols-10 gap-0.5">
+              <div className="absolute top-full left-0 mt-1 hidden group-hover:block bg-popover border rounded-lg shadow-lg p-3 z-50 min-w-[280px]">
+                <div className="text-xs font-medium mb-3 px-1">Inserir Tabela</div>
+                <div className="grid grid-cols-10 gap-0.5 mb-3">
                   {Array.from({ length: 100 }, (_, i) => {
                     const row = Math.floor(i / 10) + 1;
                     const col = (i % 10) + 1;
                     return (
                       <div
                         key={i}
-                        className="w-4 h-4 border border-gray-300 hover:bg-primary/20 cursor-pointer"
-                        onClick={() => editor.chain().focus().insertTable({ rows: row, cols: col, withHeaderRow: true }).run()}
+                        className="w-5 h-5 border border-gray-300 hover:bg-primary/30 cursor-pointer transition-colors"
+                        onClick={() => {
+                          editor.chain().focus().insertTable({ rows: row, cols: col, withHeaderRow: false }).run();
+                        }}
                         title={`${row}x${col}`}
                       />
                     );
                   })}
                 </div>
+                <div className="text-xs text-muted-foreground text-center">Clique para selecionar tamanho</div>
               </div>
             </div>
             
             {editor.isActive('table') && (
               <>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => editor.chain().focus().addColumnBefore().run()}
-                  title="Adicionar coluna antes"
-                >
-                  <span className="text-xs">+Col</span>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => editor.chain().focus().addRowBefore().run()}
-                  title="Adicionar linha antes"
-                >
-                  <span className="text-xs">+Lin</span>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => editor.chain().focus().deleteColumn().run()}
-                  title="Excluir coluna"
-                >
-                  <span className="text-xs">-Col</span>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => editor.chain().focus().deleteRow().run()}
-                  title="Excluir linha"
-                >
-                  <span className="text-xs">-Lin</span>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => editor.chain().focus().deleteTable().run()}
-                  title="Excluir tabela"
-                >
-                  <span className="text-xs">Excluir</span>
-                </Button>
+                <Separator orientation="vertical" className="h-6" />
+                <div className="flex items-center gap-1 px-2 py-1 bg-muted/50 rounded">
+                  <span className="text-xs font-medium mr-1">Tabela:</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().addColumnBefore().run()}
+                    title="Adicionar coluna à esquerda"
+                    className="h-7 px-2"
+                  >
+                    <span className="text-xs">+Col ←</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().addColumnAfter().run()}
+                    title="Adicionar coluna à direita"
+                    className="h-7 px-2"
+                  >
+                    <span className="text-xs">+Col →</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().addRowBefore().run()}
+                    title="Adicionar linha acima"
+                    className="h-7 px-2"
+                  >
+                    <span className="text-xs">+Lin ↑</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().addRowAfter().run()}
+                    title="Adicionar linha abaixo"
+                    className="h-7 px-2"
+                  >
+                    <span className="text-xs">+Lin ↓</span>
+                  </Button>
+                  <Separator orientation="vertical" className="h-6 mx-1" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().deleteColumn().run()}
+                    title="Excluir coluna"
+                    className="h-7 px-2 text-destructive hover:text-destructive"
+                  >
+                    <span className="text-xs">-Col</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().deleteRow().run()}
+                    title="Excluir linha"
+                    className="h-7 px-2 text-destructive hover:text-destructive"
+                  >
+                    <span className="text-xs">-Lin</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().mergeCells().run()}
+                    title="Mesclar células"
+                    className="h-7 px-2"
+                    disabled={!editor.can().mergeCells()}
+                  >
+                    <span className="text-xs">Mesclar</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().splitCell().run()}
+                    title="Dividir célula"
+                    className="h-7 px-2"
+                    disabled={!editor.can().splitCell()}
+                  >
+                    <span className="text-xs">Dividir</span>
+                  </Button>
+                  <Separator orientation="vertical" className="h-6 mx-1" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+                    title="Alternar linha de cabeçalho"
+                    className="h-7 px-2"
+                  >
+                    <span className="text-xs">Cabeçalho</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => editor.chain().focus().deleteTable().run()}
+                    title="Excluir tabela"
+                    className="h-7 px-2 text-destructive hover:text-destructive"
+                  >
+                    <span className="text-xs font-semibold">Excluir Tabela</span>
+                  </Button>
+                </div>
               </>
             )}
 
