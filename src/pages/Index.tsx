@@ -20,25 +20,25 @@ const Index = () => {
   const { logout } = useAuth();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       {/* Header */}
-      <header className="bg-gradient-primary text-primary-foreground shadow-lg">
+      <header className="bg-gradient-to-r from-primary via-primary to-blue-600 text-primary-foreground shadow-xl border-b border-white/10">
         <div className="container mx-auto px-6 py-6">
           <div className="flex items-center gap-3 w-full">
-            <div className="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+            <div className="p-3 bg-white/15 rounded-xl backdrop-blur-sm shadow-lg">
               <GraduationCap className="w-8 h-8" />
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold tracking-tight">Gerador de Documentos</h1>
-              <p className="text-primary-foreground/80 text-sm mt-1">Certificados e Formulários</p>
+              <h1 className="text-3xl font-bold tracking-tight drop-shadow-sm">Gerador de Documentos</h1>
+              <p className="text-primary-foreground/90 text-sm mt-1 font-medium">Certificados e Formulários Profissionais</p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <ThemeToggle />
               <Button
               variant="ghost"
               size="sm"
               onClick={logout}
-              className="text-white hover:bg-white/10"
+              className="text-white hover:bg-white/20 transition-all duration-200"
             >
               <LogOut className="w-4 h-4 mr-2" />
               Sair
@@ -51,12 +51,12 @@ const Index = () => {
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
         <Tabs defaultValue="certificados" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="certificados" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-2 mb-8 h-12 bg-card shadow-md border">
+            <TabsTrigger value="certificados" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">
               <GraduationCap className="w-4 h-4" />
               Certificados
             </TabsTrigger>
-            <TabsTrigger value="formularios" className="flex items-center gap-2">
+            <TabsTrigger value="formularios" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">
               <FileText className="w-4 h-4" />
               Formulários
             </TabsTrigger>
@@ -108,11 +108,16 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border mt-12">
-        <div className="container mx-auto px-6 py-6">
-          <p className="text-center text-muted-foreground text-sm">
-Gerador de Documentos v4.1 - Certificados e Formulários
-          </p>
+      <footer className="bg-card/50 backdrop-blur-sm border-t border-border mt-16">
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-center text-muted-foreground text-sm font-medium">
+              Gerador de Documentos v4.2
+            </p>
+            <p className="text-center text-muted-foreground/70 text-xs">
+              Sistema Profissional de Certificados e Formulários
+            </p>
+          </div>
         </div>
       </footer>
     </div>

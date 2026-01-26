@@ -132,23 +132,29 @@ export const CustomTemplateEditor = ({ onClose, onSave }: CustomTemplateEditorPr
   };
 
   return (
-    <div className="fixed inset-0 bg-background z-50 flex flex-col">
+    <div className="fixed inset-0 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 z-50 flex flex-col">
       {/* Header */}
-      <div className="border-b bg-background">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between mb-3">
-            <Input
-              value={templateName}
-              onChange={(e) => setTemplateName(e.target.value)}
-              className="max-w-xs font-semibold"
-            />
+      <div className="border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg">
+                <FileText className="w-5 h-5 text-white" />
+              </div>
+              <Input
+                value={templateName}
+                onChange={(e) => setTemplateName(e.target.value)}
+                className="max-w-xs font-semibold text-lg border-none shadow-none focus-visible:ring-0"
+                placeholder="Nome do template"
+              />
+            </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={handleSave}>
-                <Save className="w-4 h-4 mr-2" />
+              <Button variant="outline" size="sm" onClick={handleSave} className="gap-2">
+                <Save className="w-4 h-4" />
                 Salvar
               </Button>
-              <Button variant="outline" size="sm" onClick={handleDownload}>
-                <Download className="w-4 h-4 mr-2" />
+              <Button variant="outline" size="sm" onClick={handleDownload} className="gap-2">
+                <Download className="w-4 h-4" />
                 Baixar
               </Button>
               <Button variant="ghost" size="sm" onClick={onClose}>
@@ -158,13 +164,13 @@ export const CustomTemplateEditor = ({ onClose, onSave }: CustomTemplateEditorPr
           </div>
 
           {/* Toolbar */}
-          <div className="flex flex-wrap items-center gap-1 bg-muted/30 p-2 rounded-lg">
+          <div className="flex flex-wrap items-center gap-1 bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-700 p-3 rounded-xl shadow-inner border">
             {/* Fonte */}
             <Select
               value={editor.getAttributes('textStyle').fontFamily || 'Arial'}
               onValueChange={(value) => editor.chain().focus().setFontFamily(value).run()}
             >
-              <SelectTrigger className="w-36 h-8 text-xs">
+              <SelectTrigger className="w-36 h-9 text-xs bg-white dark:bg-slate-800 shadow-sm">
                 <SelectValue placeholder="Fonte" />
               </SelectTrigger>
               <SelectContent>
@@ -189,7 +195,7 @@ export const CustomTemplateEditor = ({ onClose, onSave }: CustomTemplateEditorPr
                 }
               }}
             >
-              <SelectTrigger className="w-28 h-8 text-xs">
+              <SelectTrigger className="w-28 h-9 text-xs bg-white dark:bg-slate-800 shadow-sm">
                 <SelectValue placeholder="Tamanho" />
               </SelectTrigger>
               <SelectContent>
@@ -203,51 +209,58 @@ export const CustomTemplateEditor = ({ onClose, onSave }: CustomTemplateEditorPr
               </SelectContent>
             </Select>
 
-            <Separator orientation="vertical" className="h-6" />
+            <Separator orientation="vertical" className="h-7 mx-1" />
 
             {/* Formatação Básica */}
-            <Button
-              variant={editor.isActive('bold') ? 'secondary' : 'ghost'}
-              size="sm"
-              onClick={() => editor.chain().focus().toggleBold().run()}
-              title="Negrito (Ctrl+B)"
-            >
-              <Bold className="w-4 h-4" />
-            </Button>
-            <Button
-              variant={editor.isActive('italic') ? 'secondary' : 'ghost'}
-              size="sm"
-              onClick={() => editor.chain().focus().toggleItalic().run()}
-              title="Itálico (Ctrl+I)"
-            >
-              <Italic className="w-4 h-4" />
-            </Button>
-            <Button
-              variant={editor.isActive('underline') ? 'secondary' : 'ghost'}
-              size="sm"
-              onClick={() => editor.chain().focus().toggleUnderline().run()}
-              title="Sublinhado (Ctrl+U)"
-            >
-              <UnderlineIcon className="w-4 h-4" />
-            </Button>
-            <Button
-              variant={editor.isActive('strike') ? 'secondary' : 'ghost'}
-              size="sm"
-              onClick={() => editor.chain().focus().toggleStrike().run()}
-              title="Tachado"
-            >
-              <Strikethrough className="w-4 h-4" />
-            </Button>
-            <Button
-              variant={editor.isActive('code') ? 'secondary' : 'ghost'}
-              size="sm"
-              onClick={() => editor.chain().focus().toggleCode().run()}
-              title="Código"
-            >
-              <Code className="w-4 h-4" />
-            </Button>
+            <div className="flex items-center gap-0.5 bg-white dark:bg-slate-800 rounded-lg p-1 shadow-sm">
+              <Button
+                variant={editor.isActive('bold') ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => editor.chain().focus().toggleBold().run()}
+                title="Negrito (Ctrl+B)"
+                className="h-8 w-8 p-0"
+              >
+                <Bold className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={editor.isActive('italic') ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => editor.chain().focus().toggleItalic().run()}
+                title="Itálico (Ctrl+I)"
+                className="h-8 w-8 p-0"
+              >
+                <Italic className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={editor.isActive('underline') ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => editor.chain().focus().toggleUnderline().run()}
+                title="Sublinhado (Ctrl+U)"
+                className="h-8 w-8 p-0"
+              >
+                <UnderlineIcon className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={editor.isActive('strike') ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => editor.chain().focus().toggleStrike().run()}
+                title="Tachado"
+                className="h-8 w-8 p-0"
+              >
+                <Strikethrough className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={editor.isActive('code') ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => editor.chain().focus().toggleCode().run()}
+                title="Código"
+                className="h-8 w-8 p-0"
+              >
+                <Code className="w-4 h-4" />
+              </Button>
+            </div>
 
-            <Separator orientation="vertical" className="h-6" />
+            <Separator orientation="vertical" className="h-7 mx-1" />
 
             {/* Cor do Texto */}
             <Popover>
