@@ -1,4 +1,3 @@
-import { FormDataSection } from "@/components/form/FormDataSection";
 import { FormTemplateManager } from "@/components/form/FormTemplateManager";
 import { FormFontConfigSection } from "@/components/form/FormFontConfigSection";
 import { FormActionButtons } from "@/components/form/FormActionButtons";
@@ -7,11 +6,8 @@ import { FormPreview } from "@/components/form/FormPreview";
 export const FormPage = () => {
   return (
     <div className="space-y-6">
-      {/* Upload e Template */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <FormDataSection />
-        <FormTemplateManager />
-      </div>
+      {/* Template */}
+      <FormTemplateManager />
       
       {/* Preview */}
       <FormPreview />
