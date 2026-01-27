@@ -417,12 +417,12 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '24px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+          <div style={{ marginTop: '24px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
             <span>Assinatura do Médico Examinador: _____________________________</span>
             <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
             <span>MOD AMS MT 001/00</span>
             <span>Página 1 de 1</span>
           </div>
