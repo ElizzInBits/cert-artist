@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Save, Download, ArrowLeft, Printer } from 'lucide-react';
+import vallourecLogo from './vallourec.jpg';
 
 interface FormData {
   nome: string;
@@ -228,7 +229,7 @@ ${html}
           </div>
 
           <div style={{ textAlign: 'right', marginBottom: '6px' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#1f6fb2' }}>vallourec</div>
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '40px' }} />
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
