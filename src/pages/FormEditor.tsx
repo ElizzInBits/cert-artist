@@ -133,9 +133,44 @@ ${html}
   return (
     <div className="min-h-screen bg-gray-100">
       <style>{`
+        @page {
+          size: A4;
+          margin: 0;
+        }
         @media print {
-          .no-print { display: none !important; }
-          body { background: white; }
+          * {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          html, body {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            padding: 0;
+            background: white !important;
+          }
+          .no-print {
+            display: none !important;
+          }
+          .print-container {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm;
+            margin: 0;
+            background: white;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+          }
+        }
+        @media screen {
+          .print-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 10mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          }
         }
         .form-input {
           border: none;
@@ -175,8 +210,8 @@ ${html}
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="bg-white rounded-lg shadow-lg p-8" id="form-content" style={{ fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '7px' }}>
+      <div className="container mx-auto py-8">
+        <div className="print-container" id="form-content" style={{ fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '7px' }}>
           
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <tbody>
