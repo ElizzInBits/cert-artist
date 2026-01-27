@@ -131,7 +131,7 @@ ${html}
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen" style={{ background: 'white' }}>
       <style>{`
         @page {
           size: A4;
@@ -143,8 +143,6 @@ ${html}
             print-color-adjust: exact;
           }
           html, body {
-            width: 210mm;
-            height: 297mm;
             margin: 0;
             padding: 0;
             background: white !important;
@@ -154,21 +152,21 @@ ${html}
           }
           .print-container {
             width: 100%;
-            height: auto;
             padding: 0;
             margin: 0;
-            background: white;
+            background: transparent !important;
             box-shadow: none !important;
-            border-radius: 0 !important;
           }
         }
         @media screen {
+          body {
+            background: white;
+          }
           .print-container {
             width: 210mm;
-            min-height: 297mm;
             margin: 0 auto;
             padding: 8mm;
-            background: white;
+            background: transparent;
           }
         }
         .form-input {
