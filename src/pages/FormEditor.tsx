@@ -10,6 +10,7 @@ interface FormData {
   setor: string;
   cargo: string;
   respostas: Record<string, string>;
+  atividades: Record<number, string>;
   observacao: string;
   peso: string;
   altura: string;
@@ -59,6 +60,7 @@ export default function FormEditor() {
     setor: '',
     cargo: '',
     respostas: {},
+    atividades: {},
     observacao: '',
     peso: '',
     altura: '',
@@ -84,6 +86,13 @@ export default function FormEditor() {
     setFormData(prev => ({
       ...prev,
       respostas: { ...prev.respostas, [index]: value }
+    }));
+  };
+
+  const updateAtividade = (index: number, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      atividades: { ...prev.atividades, [index]: value }
     }));
   };
 
@@ -224,12 +233,12 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           
-          <div style={{ position: 'relative', marginBottom: '2px', marginTop: '-4px' }}>
+          <div style={{ position: 'relative', marginBottom: '2px', marginTop: '-6px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', position: 'absolute', right: '20px', top: '-4px' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
                 <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '5px', fontSize: '11px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
@@ -242,7 +251,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField('nome', e.target.value)} /></td>
@@ -255,7 +264,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
@@ -276,7 +285,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
@@ -289,7 +298,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>PESO: <input className="form-input" value={formData.peso} onChange={(e) => updateField('peso', e.target.value)} /></td>
@@ -302,20 +311,28 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               {atividades.map((atividade, index) => (
                 <tr key={index}>
-                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ {atividade}</td>
-                  <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
-                  <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
-                  <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>
+                    <input type="checkbox" checked={formData.atividades[index] === 'checked'} onChange={(e) => updateAtividade(index, e.target.checked ? 'checked' : '')} /> {atividade}
+                  </td>
+                  <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
+                    <input type="radio" name={`ativ${index}`} checked={formData.atividades[index] === 'liberado'} onChange={() => updateAtividade(index, 'liberado')} /> Liberado
+                  </td>
+                  <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
+                    <input type="radio" name={`ativ${index}`} checked={formData.atividades[index] === 'nao_liberado'} onChange={() => updateAtividade(index, 'nao_liberado')} /> Não Liberado
+                  </td>
+                  <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
+                    <input type="radio" name={`ativ${index}`} checked={formData.atividades[index] === 'na'} onChange={() => updateAtividade(index, 'na')} /> N/A
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '16px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+          <div style={{ marginTop: '24px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
             <span>Assinatura do Médico Examinador: _____________________________</span>
             <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
           </div>
