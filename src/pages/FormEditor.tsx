@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Save, Download, ArrowLeft, Printer } from 'lucide-react';
+import { Save, Download, ArrowLeft, Printer, Plus } from 'lucide-react';
 import vallourecLogo from './vallourec.jpg';
 
 interface FormData {
@@ -54,7 +54,7 @@ const atividades = [
 export default function FormEditor() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<FormData>({
+  const [forms, setForms] = useState<FormData[]>([{
     nome: '',
     pn: '',
     setor: '',
@@ -69,82 +69,65 @@ export default function FormEditor() {
     fc: '',
     fr: '',
     data: ''
-  });
+  }]);
 
   useEffect(() => {
     const saved = localStorage.getItem(`form-${id}`);
     if (saved) {
-      setFormData(JSON.parse(saved));
+      setForms(JSON.parse(saved));
     }
   }, [id]);
 
-  const updateField = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const addNewForm = () => {
+    setForms([...forms, {
+      nome: '',
+      pn: '',
+      setor: '',
+      cargo: '',
+      respostas: {},
+      atividades: {},
+      observacao: '',
+      peso: '',
+      altura: '',
+      imc: '',
+      pa: '',
+      fc: '',
+      fr: '',
+      data: ''
+    }]);
   };
 
-  const updateResposta = (index: number, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      respostas: { ...prev.respostas, [index]: value }
+  const updateField = (formIndex: number, field: keyof FormData, value: string) => {
+    setForms(prev => prev.map((form, idx) => 
+      idx === formIndex ? { ...form, [field]: value } : form
+    ));
+  };
+
+  const updateResposta = (formIndex: number, index: number, value: string) => {
+    setForms(prev => prev.map((form, idx) => 
+      idx === formIndex ? { ...form, respostas: { ...form.respostas, [index]: value } } : form
+    ));
+  };
+
+  const handleCheckboxAtividade = (formIndex: number, index: number, checked: boolean) => {
+    setForms(prev => prev.map((form, idx) => {
+      if (idx !== formIndex) return form;
+      if (checked) {
+        return { ...form, atividades: { ...form.atividades, [index]: 'checked' } };
+      } else {
+        return { ...form, atividades: { ...form.atividades, [index]: 'na' } };
+      }
     }));
   };
 
-  const updateAtividade = (index: number, value: string) => {
-    let newValue = value;
-    
-    // Se marcar N/A, desmarca o checkbox
-    if (value === 'na') {
-      newValue = 'na';
-    }
-    // Se desmarcar o checkbox, marca N/A automaticamente
-    else if (value === '') {
-      newValue = 'na';
-    }
-    // Se marcar o checkbox, limpa N/A
-    else if (value === 'checked') {
-      newValue = 'checked';
-    }
-    
-    setFormData(prev => ({
-      ...prev,
-      atividades: { ...prev.atividades, [index]: newValue }
-    }));
-  };
-
-  const handleCheckboxAtividade = (index: number, checked: boolean) => {
-    if (checked) {
-      // Marca checkbox, remove N/A
-      setFormData(prev => ({
-        ...prev,
-        atividades: { ...prev.atividades, [index]: 'checked' }
-      }));
-    } else {
-      // Desmarca checkbox, marca N/A automaticamente
-      setFormData(prev => ({
-        ...prev,
-        atividades: { ...prev.atividades, [index]: 'na' }
-      }));
-    }
-  };
-
-  const handleRadioAtividade = (index: number, value: string) => {
-    if (value === 'na') {
-      // Se marcar N/A, desmarca checkbox
-      setFormData(prev => ({
-        ...prev,
-        atividades: { ...prev.atividades, [index]: 'na' }
-      }));
-    } else {
-      // Se marcar Liberado ou Não Liberado, marca checkbox automaticamente
-      setFormData(prev => ({
-        ...prev,
-        atividades: { ...prev.atividades, [index]: value }
-      }));
-    }
+  const handleRadioAtividade = (formIndex: number, index: number, value: string) => {
+    setForms(prev => prev.map((form, idx) => 
+      idx === formIndex ? { ...form, atividades: { ...form.atividades, [index]: value } } : form
+    ));
   };
 
   const handleSave = () => {
-    localStorage.setItem(`form-${id}`, JSON.stringify(formData));
+    localStorage.setItem(`form-${id}`, JSON.stringify(forms));
     alert('Formulário salvo com sucesso!');
   };
 
@@ -264,6 +247,9 @@ ${html}
             <ArrowLeft className="w-4 h-4 mr-2" /> Voltar
           </Button>
           <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={addNewForm}>
+              <Plus className="w-4 h-4 mr-2" /> Adicionar Documento
+            </Button>
             <Button variant="outline" size="sm" onClick={handleSave}>
               <Save className="w-4 h-4 mr-2" /> Salvar
             </Button>
@@ -279,6 +265,8 @@ ${html}
 
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
+          {forms.map((formData, formIndex) => (
+            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto' }}>
           
           <div style={{ position: 'relative', marginBottom: '2px', marginTop: '-6px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
@@ -301,12 +289,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField('nome', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField('pn', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField('cargo', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField('setor', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -322,10 +310,10 @@ ${html}
                   )}
                   <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>{pergunta}</td>
                   <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }}>
-                    SIM <input type="radio" name={`q${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(index, 'sim')} />
+                    SIM <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(formIndex, index, 'sim')} />
                   </td>
                   <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }}>
-                    NÃO <input type="radio" name={`q${index}`} checked={formData.respostas[index] === 'nao'} onChange={() => updateResposta(index, 'nao')} />
+                    NÃO <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'nao'} onChange={() => updateResposta(formIndex, index, 'nao')} />
                   </td>
                 </tr>
               ))}
@@ -339,7 +327,7 @@ ${html}
               </tr>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '30px' }}>
-                  <textarea className="form-textarea" rows={2} value={formData.observacao} onChange={(e) => updateField('observacao', e.target.value)} />
+                  <textarea className="form-textarea" rows={2} value={formData.observacao} onChange={(e) => updateField(formIndex, 'observacao', e.target.value)} />
                 </td>
               </tr>
             </tbody>
@@ -348,12 +336,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>PESO: <input className="form-input" value={formData.peso} onChange={(e) => updateField('peso', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>ALTURA: <input className="form-input" value={formData.altura} onChange={(e) => updateField('altura', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>IMC: <input className="form-input" value={formData.imc} onChange={(e) => updateField('imc', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>PA: <input className="form-input" value={formData.pa} onChange={(e) => updateField('pa', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>FC: <input className="form-input" value={formData.fc} onChange={(e) => updateField('fc', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>FR: <input className="form-input" value={formData.fr} onChange={(e) => updateField('fr', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>PESO: <input className="form-input" value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>ALTURA: <input className="form-input" value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>IMC: <input className="form-input" value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>PA: <input className="form-input" value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>FC: <input className="form-input" value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>FR: <input className="form-input" value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -370,33 +358,33 @@ ${html}
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
-                        onChange={(e) => handleCheckboxAtividade(index, e.target.checked)} 
+                        onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)} 
                       /> {atividade}
                     </td>
                     <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
                       <input 
                         type="radio" 
-                        name={`ativ${index}`} 
+                        name={`ativ${formIndex}-${index}`} 
                         checked={formData.atividades[index] === 'liberado'} 
-                        onChange={() => handleRadioAtividade(index, 'liberado')}
+                        onChange={() => handleRadioAtividade(formIndex, index, 'liberado')}
                         disabled={isNA}
                       /> Liberado
                     </td>
                     <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
                       <input 
                         type="radio" 
-                        name={`ativ${index}`} 
+                        name={`ativ${formIndex}-${index}`} 
                         checked={formData.atividades[index] === 'nao_liberado'} 
-                        onChange={() => handleRadioAtividade(index, 'nao_liberado')}
+                        onChange={() => handleRadioAtividade(formIndex, index, 'nao_liberado')}
                         disabled={isNA}
                       /> Não Liberado
                     </td>
                     <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
                       <input 
                         type="radio" 
-                        name={`ativ${index}`} 
+                        name={`ativ${formIndex}-${index}`} 
                         checked={isNA} 
-                        onChange={() => handleRadioAtividade(index, 'na')} 
+                        onChange={() => handleRadioAtividade(formIndex, index, 'na')} 
                       /> N/A
                     </td>
                   </tr>
@@ -412,8 +400,10 @@ ${html}
 
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
             <span>MOD AMS MT 001/00</span>
-            <span>Página 1 de 1</span>
+            <span>Página {formIndex + 1} de {forms.length}</span>
           </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
