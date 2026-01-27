@@ -245,12 +245,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField('nome', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField('pn', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '15px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField('nome', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '15px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField('pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField('cargo', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField('setor', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '15px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField('cargo', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '15px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField('setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -260,8 +260,8 @@ ${html}
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
                   {index === 0 && (
-                    <td rowSpan={perguntas.length} style={{ border: '0.5px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '9px' }}>
-                      ENTREVISTA<br/>MÉDICA
+                    <td rowSpan={perguntas.length} style={{ border: '0.5px solid #000', writingMode: 'vertical-rl', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '9px' }}>
+                      ENTREVISTA MÉDICA
                     </td>
                   )}
                   <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>{pergunta}</td>
@@ -315,12 +315,12 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '6px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+          <div style={{ marginTop: '10px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
             <span>Assinatura do Médico Examinador: _____________________________</span>
             <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '12px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
             <span>MOD AMS MT 001/00</span>
             <span>Página 1 de 1</span>
           </div>
