@@ -351,7 +351,7 @@ ${html}
               </tr>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '15px' }}>
-                  <textarea className="form-textarea" rows={2} value={formData.observacao} onChange={(e) => updateField(formIndex, 'observacao', e.target.value)} />
+                  <textarea className="form-textarea" rows={1} value={formData.observacao} onChange={(e) => updateField(formIndex, 'observacao', e.target.value)} />
                 </td>
               </tr>
             </tbody>
@@ -417,7 +417,7 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '6px', pageBreakInside: 'avoid' }}>
+          <div style={{ marginTop: '10px', pageBreakInside: 'avoid' }}>
             <div style={{ fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
               <span>Assinatura do Médico Examinador: _____________________________</span>
               <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
