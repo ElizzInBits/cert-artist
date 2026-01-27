@@ -266,7 +266,7 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           {forms.map((formData, formIndex) => (
-            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto' }}>
+            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0' }}>
           
           <div style={{ position: 'relative', marginBottom: '2px', marginTop: '-6px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
@@ -400,7 +400,7 @@ ${html}
 
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
             <span>MOD AMS MT 001/00</span>
-            <span>Página {formIndex + 1} de {forms.length}</span>
+            <span>Página 1 de 1</span>
           </div>
             </div>
           ))}
