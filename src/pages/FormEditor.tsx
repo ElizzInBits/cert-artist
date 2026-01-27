@@ -226,8 +226,8 @@ ${html}
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '40px' }} />
-            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline' }}>MEDICINA DO TRABALHO</div>
-            <div style={{ width: '40px' }}></div>
+            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', flex: 1, textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
+            <div style={{ width: '40px', visibility: 'hidden' }}></div>
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
