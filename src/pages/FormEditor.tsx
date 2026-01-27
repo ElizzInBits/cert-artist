@@ -313,12 +313,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -350,7 +350,7 @@ ${html}
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '30px' }}>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '20px' }}>
                   <textarea className="form-textarea" rows={2} value={formData.observacao} onChange={(e) => updateField(formIndex, 'observacao', e.target.value)} />
                 </td>
               </tr>
@@ -417,7 +417,7 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '12px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
+          <div style={{ marginTop: '8px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
             <span>Assinatura do Médico Examinador: _____________________________</span>
             <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
           </div>
