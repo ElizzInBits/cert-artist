@@ -226,7 +226,7 @@ ${html}
           
           <div style={{ position: 'relative', marginBottom: '6px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '40px', position: 'absolute', right: 0, top: 0 }} />
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', position: 'absolute', right: 0, top: '-4px' }} />
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
