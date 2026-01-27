@@ -224,12 +224,10 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           
-          <div style={{ textAlign: 'center', marginBottom: '6px' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline' }}>MEDICINA DO TRABALHO</div>
-          </div>
-
-          <div style={{ textAlign: 'right', marginBottom: '6px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '40px' }} />
+            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline' }}>MEDICINA DO TRABALHO</div>
+            <div style={{ width: '40px' }}></div>
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
