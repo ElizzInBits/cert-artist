@@ -176,7 +176,7 @@ ${html}
           border: none;
           outline: none;
           background: transparent;
-          font-size: 7px;
+          font-size: 9px;
           font-family: Arial, Helvetica, sans-serif;
           width: 100%;
         }
@@ -184,10 +184,21 @@ ${html}
           border: none;
           outline: none;
           background: transparent;
-          font-size: 7px;
+          font-size: 9px;
           font-family: Arial, Helvetica, sans-serif;
           width: 100%;
           resize: none;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 6px;
+        }
+        td {
+          border: 1px solid #000;
+          padding: 6px 8px;
+          vertical-align: middle;
+          font-size: 9px;
         }
       `}</style>
 
@@ -211,57 +222,57 @@ ${html}
       </div>
 
       <div className="container mx-auto py-8">
-        <div className="print-container" id="form-content" style={{ fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '7px' }}>
+        <div className="print-container" id="form-content" style={{ fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '9px' }}>
           
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '11px', border: '1px solid #000', padding: '2px 3px' }}>MEDICINA DO TRABALHO</td>
-                <td style={{ textAlign: 'right', fontWeight: 'bold', fontSize: '12px', color: '#1f6fb2', border: '1px solid #000', padding: '2px 3px' }}>vallourec</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '14px', border: '1px solid #000', padding: '8px' }}>MEDICINA DO TRABALHO</td>
+                <td style={{ textAlign: 'right', fontWeight: 'bold', fontSize: '16px', color: '#1f6fb2', border: '1px solid #000', padding: '8px' }}>vallourec</td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px 3px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '8px', fontSize: '11px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
-                <td style={{ fontSize: '6px', textAlign: 'center', border: '1px solid #000', padding: '2px 3px' }}>
+                <td style={{ fontSize: '8px', textAlign: 'center', border: '1px solid #000', padding: '6px' }}>
                   Sistemática de conduta médica assistencial condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField('nome', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>PN/Ponto: <input className="form-input" value={formData.pn} onChange={(e) => updateField('pn', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField('setor', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField('nome', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>PN/Ponto: <input className="form-input" value={formData.pn} onChange={(e) => updateField('pn', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField('setor', e.target.value)} /></td>
               </tr>
               <tr>
-                <td colSpan={3} style={{ border: '1px solid #000', padding: '2px 3px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField('cargo', e.target.value)} /></td>
+                <td colSpan={3} style={{ border: '1px solid #000', padding: '8px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField('cargo', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
                   {index === 0 && (
-                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '22px' }}>
+                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '28px', fontSize: '10px' }}>
                       ENTREVISTA<br/>MÉDICA
                     </td>
                   )}
-                  <td style={{ border: '1px solid #000', padding: '2px 3px' }}>{pergunta}</td>
-                  <td style={{ border: '1px solid #000', width: '60px', textAlign: 'center' }}>
+                  <td style={{ border: '1px solid #000', padding: '8px' }}>{pergunta}</td>
+                  <td style={{ border: '1px solid #000', width: '70px', textAlign: 'center', padding: '8px' }}>
                     SIM <input type="radio" name={`q${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(index, 'sim')} />
                   </td>
-                  <td style={{ border: '1px solid #000', width: '60px', textAlign: 'center' }}>
+                  <td style={{ border: '1px solid #000', width: '70px', textAlign: 'center', padding: '8px' }}>
                     NÃO <input type="radio" name={`q${index}`} checked={formData.respostas[index] === 'nao'} onChange={() => updateResposta(index, 'nao')} />
                   </td>
                 </tr>
@@ -269,55 +280,55 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '2px 3px', fontWeight: 'bold' }}>Observação:</td>
+                <td style={{ border: '1px solid #000', padding: '8px', fontWeight: 'bold' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>
-                  <textarea className="form-textarea" rows={4} value={formData.observacao} onChange={(e) => updateField('observacao', e.target.value)} />
+                <td style={{ border: '1px solid #000', padding: '8px', height: '80px' }}>
+                  <textarea className="form-textarea" rows={5} value={formData.observacao} onChange={(e) => updateField('observacao', e.target.value)} />
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>PESO: <input className="form-input" value={formData.peso} onChange={(e) => updateField('peso', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>ALTURA: <input className="form-input" value={formData.altura} onChange={(e) => updateField('altura', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>IMC: <input className="form-input" value={formData.imc} onChange={(e) => updateField('imc', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>PA: <input className="form-input" value={formData.pa} onChange={(e) => updateField('pa', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>FC: <input className="form-input" value={formData.fc} onChange={(e) => updateField('fc', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>FR: <input className="form-input" value={formData.fr} onChange={(e) => updateField('fr', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>PESO: <input className="form-input" value={formData.peso} onChange={(e) => updateField('peso', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>ALTURA: <input className="form-input" value={formData.altura} onChange={(e) => updateField('altura', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>IMC: <input className="form-input" value={formData.imc} onChange={(e) => updateField('imc', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>PA: <input className="form-input" value={formData.pa} onChange={(e) => updateField('pa', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>FC: <input className="form-input" value={formData.fc} onChange={(e) => updateField('fc', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>FR: <input className="form-input" value={formData.fr} onChange={(e) => updateField('fr', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
               {atividades.map((atividade, index) => (
                 <tr key={index}>
-                  <td style={{ border: '1px solid #000', padding: '2px 3px' }}>☐ {atividade}</td>
-                  <td style={{ border: '1px solid #000', width: '60px', textAlign: 'center' }}>☐ Liberado</td>
-                  <td style={{ border: '1px solid #000', width: '60px', textAlign: 'center' }}>☐ Não Liberado</td>
-                  <td style={{ border: '1px solid #000', width: '60px', textAlign: 'center' }}>☐ N/A</td>
+                  <td style={{ border: '1px solid #000', padding: '8px' }}>☐ {atividade}</td>
+                  <td style={{ border: '1px solid #000', width: '80px', textAlign: 'center', padding: '8px' }}>☐ Liberado</td>
+                  <td style={{ border: '1px solid #000', width: '100px', textAlign: 'center', padding: '8px' }}>☐ Não Liberado</td>
+                  <td style={{ border: '1px solid #000', width: '70px', textAlign: 'center', padding: '8px' }}>☐ N/A</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>Assinatura do Médico Examinador: _____________________________</td>
-                <td style={{ border: '1px solid #000', padding: '2px 3px' }}>Data: <input className="form-input" value={formData.data} onChange={(e) => updateField('data', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '8px' }}>Assinatura do Médico Examinador: _____________________________</td>
+                <td style={{ border: '1px solid #000', padding: '8px', width: '200px' }}>Data: <input className="form-input" value={formData.data} onChange={(e) => updateField('data', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
 
-          <p style={{ fontSize: '6px', textAlign: 'right', marginTop: '4px' }}>Página 1 de 1</p>
+          <p style={{ fontSize: '8px', textAlign: 'right', marginTop: '8px' }}>Página 1 de 1</p>
         </div>
       </div>
     </div>
