@@ -1,27 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useFormStore } from "@/hooks/useFormStore";
-import { Eye, Edit3, Type, CheckSquare, Table, Save } from "lucide-react";
+import { Eye, Edit3, Save } from "lucide-react";
 import { useState, useRef } from "react";
+import vallourecLogo from "@/pages/vallourec.jpg";
 
 export const FormPreview = () => {
-  const { selectedTemplate, formData } = useFormStore();
+  const { selectedTemplate } = useFormStore();
   const [isEditing, setIsEditing] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
-
-  const insertCheckbox = () => {
-    if (editorRef.current) {
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.className = 'mr-1';
-      document.execCommand('insertHTML', false, checkbox.outerHTML);
-    }
-  };
-
-  const insertTable = () => {
-    const table = '<table class="w-full border-collapse border border-gray-800 text-xs my-2"><tr><td class="border border-gray-800 p-1">Célula 1</td><td class="border border-gray-800 p-1">Célula 2</td></tr></table>';
-    document.execCommand('insertHTML', false, table);
-  };
 
   const saveContent = () => {
     if (editorRef.current) {
@@ -48,7 +35,6 @@ export const FormPreview = () => {
     );
   }
 
-  // Preview específico para Avaliação de Atividades Críticas
   if (selectedTemplate.id === 'avaliacao-atividades-criticas') {
     return (
       <Card>
@@ -60,20 +46,10 @@ export const FormPreview = () => {
             </CardTitle>
             <div className="flex gap-2">
               {isEditing ? (
-                <>
-                  <Button size="sm" variant="outline" onClick={insertCheckbox}>
-                    <CheckSquare className="w-4 h-4 mr-1" />
-                    Checkbox
-                  </Button>
-                  <Button size="sm" variant="outline" onClick={insertTable}>
-                    <Table className="w-4 h-4 mr-1" />
-                    Tabela
-                  </Button>
-                  <Button size="sm" onClick={saveContent}>
-                    <Save className="w-4 h-4 mr-1" />
-                    Salvar
-                  </Button>
-                </>
+                <Button size="sm" onClick={saveContent}>
+                  <Save className="w-4 h-4 mr-1" />
+                  Salvar
+                </Button>
               ) : (
                 <Button size="sm" onClick={() => setIsEditing(true)}>
                   <Edit3 className="w-4 h-4 mr-1" />
@@ -86,235 +62,212 @@ export const FormPreview = () => {
         <CardContent>
           <div 
             ref={editorRef}
-            contentEditable={isEditing}
-            className="bg-white border rounded-lg p-6 overflow-auto focus:outline-none focus:ring-2 focus:ring-primary" 
-            style={{ maxHeight: '600px' }}
+            className="bg-white border rounded-lg p-6 overflow-auto" 
+            style={{ maxHeight: '600px', fontFamily: 'Arial MT, Arial, sans-serif', fontSize: '9pt' }}
           >
-            {/* Cabeçalho */}
-            <div className="flex justify-between items-start mb-4 pb-2 border-b-2 border-gray-800">
-              <div>
-                <h1 className="text-lg font-bold">MEDICINA DO TRABALHO</h1>
-                <p className="text-xs mt-1">Motivo da Revisão: Emissão Inicial</p>
-                <p className="text-xs">Instrução de preenchimento:</p>
-              </div>
-              <div className="text-right">
-                <div className="text-blue-600 font-bold text-lg">vallourec</div>
-              </div>
+            <div style={{ position: 'relative', marginBottom: '2px', marginTop: '-6px' }}>
+              <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
+              <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', position: 'absolute', right: '20px', top: '-4px' }} />
             </div>
 
-            {/* Título do formulário */}
-            <div className="border border-gray-800 p-2 mb-3">
-              <p className="text-center text-sm font-bold">AVALIAÇÃO DE ATIVIDADES CRÍTICAS</p>
-              <p className="text-xs text-center mt-1">
-                Sistemática de conduta médica assistencial condicionada ao PCMSO e estabelecer exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
-              </p>
-            </div>
-
-            {/* Identificação */}
-            <div className="grid grid-cols-2 gap-2 mb-3">
-              <div className="border border-gray-800 p-1">
-                <span className="text-xs">Nome: _______________</span>
-              </div>
-              <div className="grid grid-cols-2 gap-1">
-                <div className="border border-gray-800 p-1">
-                  <span className="text-xs">PN: _____</span>
-                </div>
-                <div className="border border-gray-800 p-1">
-                  <span className="text-xs">Setor: _____</span>
-                </div>
-              </div>
-            </div>
-            <div className="border border-gray-800 p-1 mb-3">
-              <span className="text-xs">Cargo: _______________</span>
-            </div>
-
-            {/* Tabela de Avaliação */}
-            <table className="w-full border-collapse border border-gray-800 text-xs mb-3">
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px', border: '0.5px solid #000' }}>
               <tbody>
                 <tr>
-                  <td className="border border-gray-800 p-1 w-3/4">Fatores Psicossociais 'estressores': Acrofobia, Claustrofobia, Agorafobia, Ansiedade, Fobias, Transtorno Psiquiátrico</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
+                  <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '5px', fontSize: '11px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
                 </tr>
                 <tr>
-                  <td className="border border-gray-800 p-1">Coordenação Motora: Restrição de Movimentos, equilíbrio, Desorientação tempo – espaço, história de Enfermidades</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Doenças da Coluna e MMII (Desmbulação)</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Sinal de Romberg Positivo: Desmais, Tontura, Vertigem ou Zumbido</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Epilepsia, Convulsão, Doença Neurológica</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Patologias Crônicas descompensadas: Doenças cardiovasculares, Hipertensão</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Uso Medicamentoso que interferem no Sistema Nervoso, Ritmo e Frequência Cardíaca</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Uso Contínuo ou Abusivo de Bebida Alcoólica, Drogas, Tabagista (Dependência Química)</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Obesidade</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Doença Pulmonar "Asma Brônquica e DPOC"</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Anemia</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Endocrinopatias Crônicas Descompensadas: Diabetes tipo I ou II, Diabético Insulinodependente</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Doença Nefropática</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Pelos, Deformidade Facial</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">Doenças da Tireoide</td>
-                  <td className="border border-gray-800 p-1 text-center">SIM ( )</td>
-                  <td className="border border-gray-800 p-1 text-center">NÃO ( )</td>
+                  <td style={{ fontSize: '9pt', textAlign: 'justify', border: '0.5px solid #000', padding: '3px' }}>
+                    Sistemática de conduta médica está condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
+                  </td>
                 </tr>
               </tbody>
             </table>
 
-            {/* Observação */}
-            <div className="border border-gray-800 p-2 mb-3">
-              <p className="text-xs font-semibold">Observação:</p>
-              <div className="h-12 mt-1"></div>
-            </div>
-
-            {/* Dados Físicos */}
-            <div className="grid grid-cols-6 gap-1 mb-3">
-              <div className="border border-gray-800 p-1">
-                <span className="text-xs">PESO: ___</span>
-              </div>
-              <div className="border border-gray-800 p-1">
-                <span className="text-xs">ALTURA: ___</span>
-              </div>
-              <div className="border border-gray-800 p-1">
-                <span className="text-xs">IMC: ___</span>
-              </div>
-              <div className="border border-gray-800 p-1">
-                <span className="text-xs">PA: ___</span>
-              </div>
-              <div className="border border-gray-800 p-1">
-                <span className="text-xs">FC: ___</span>
-              </div>
-              <div className="border border-gray-800 p-1">
-                <span className="text-xs">FR: ___</span>
-              </div>
-            </div>
-
-            {/* Atividades Críticas */}
-            <table className="w-full border-collapse border border-gray-800 text-xs mb-3">
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px', border: '0.5px solid #000' }}>
               <tbody>
                 <tr>
-                  <td className="border border-gray-800 p-1">☐ Trabalho em altura (Acima de 2 metros)</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
+                  <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px', fontSize: '9pt' }}>Nome: _______________</td>
+                  <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px', fontSize: '9pt' }}>PN/Ronda: _____</td>
                 </tr>
                 <tr>
-                  <td className="border border-gray-800 p-1">☐ Equipamento de Guindar (Ponte Rolante cabine/ controle/ botoneira e Piso cabine)</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Espaço confinado (Gaseiral / Forno)</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Equipamento móveis (Caminhão Munk/ Empilhadeira/ Pá carregadeira / Líquido de carga e passageiro)</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Operação de veículo (Motorista)</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Exposição a calor</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Espaço confinado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Plataforma Elevatória</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Proteção Respiratória</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
-                </tr>
-                <tr>
-                  <td className="border border-gray-800 p-1">☐ Outros</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ Não Liberado</td>
-                  <td className="border border-gray-800 p-1 text-center">☐ N/A</td>
+                  <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px', fontSize: '9pt' }}>Cargo: _______________</td>
+                  <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '8px', fontSize: '9pt' }}>Setor/Empresa: _____</td>
                 </tr>
               </tbody>
             </table>
 
-            {/* Assinatura */}
-            <div className="mt-6 pt-4 border-t border-gray-400">
-              <div className="flex justify-between items-end">
-                <div className="flex-1">
-                  <p className="text-xs">Assinatura do Médico Examinador: _______________________</p>
-                </div>
-                <div>
-                  <p className="text-xs">Data: ____/____/____</p>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 mt-2">MOD AMS MT 001/00</p>
-              <p className="text-xs text-right mt-1">Página 1 de 1</p>
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px', border: '0.5px solid #000' }}>
+              <tbody>
+                <tr>
+                  <td rowSpan={15} style={{ border: '0.5px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '10px' }}>ENTREVISTA MÉDICA</td>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Fatores Psicossociais 'estressores': Acrofobia, Claustrofobia, Agorafobia, Ansiedade, Insônia, Tratamento Psiquiátrico.</td>
+                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Coordenação Motora; Restrição de Movimentos, equilíbrio, Desorientação tempo – espaço, tremores de Extremidades.</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Doenças da Coluna e MMII (Deambulação)</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Sinal de Romberg Positivo; Desmaio, Tontura, Vertigem ou Zumbido</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Epilepsia, Convulsão, Doença Neurológica</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Patologias Crônicas descompensadas: Doenças cardiovasculares, Hipertensão</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Uso Medicamentoso que interferem no Sistema Nervoso, Ritmo e Frequência Cardíaca</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Uso Contínuo ou Abusivo de Bebida Alcoólica, Drogas, Tabagista (Dependência Química)</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Obesidade</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Doença Pulmonar "Asma Brônquica e DPOC"</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Anemia</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Patologias Crônicas Descompensadas: Diabetes tipo I ou II; Diabético Insulinodependente.</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Doença Nefropática</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Pelos, Deformidade Facial</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>Doenças da Tireoide</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>SIM ( )</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '9pt' }}>NÃO ( )</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px', border: '0.5px solid #000' }}>
+              <tbody>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '30px' }}></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px', border: '0.5px solid #000' }}>
+              <tbody>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>PESO: ___</td>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>ALTURA: ___</td>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>IMC: ___</td>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>PA: ___</td>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>FC: ___</td>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '9pt' }}>FR: ___</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px', border: '0.5px solid #000' }}>
+              <tbody>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Trabalho em altura (Acima de 2 metros)</td>
+                  <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Equipamentos de Guindar (Ponte Rolante cabine/ controle/ botoeira e Pórtico cabine)</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Equipamentos de Guindar (Talha)</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Equipamentos móveis (Caminhão Munck/ Empilhadeira/ Pá carregadeira / Veículo de carga e passageiro)</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Eletricidade (baixa / alta tensão) Exposição a calor</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Espaço confinado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Plataforma Elevatória</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Proteção Respiratória</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+                <tr>
+                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>☐ Radiação Ionizante</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '0.5px solid #000', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>☐ N/A</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style={{ marginTop: '24px', fontSize: '11pt', fontFamily: 'Arial MT, Arial, sans-serif' }}>
+              <span>Assinatura do Médico Examinador: _____________________________</span>
+              <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '9pt', fontFamily: 'Arial MT, Arial, sans-serif' }}>
+              <span>MOD AMS MT 001/00</span>
+              <span>Página 1 de 1</span>
             </div>
           </div>
         </CardContent>
@@ -322,7 +275,6 @@ export const FormPreview = () => {
     );
   }
 
-  // Preview genérico para outros templates
   return (
     <Card>
       <CardHeader>
@@ -334,21 +286,7 @@ export const FormPreview = () => {
       <CardContent>
         <div className="bg-white border rounded-lg p-6 min-h-[400px]">
           <div className="text-center mb-6">
-            <h1 className="text-xl font-bold">{formData.titulo || 'Título do Formulário'}</h1>
-            {formData.empresa && <p className="text-gray-600 mt-2">{formData.empresa}</p>}
-          </div>
-          <div className="space-y-4">
-            {selectedTemplate.campos.map((campo) => (
-              <div key={campo.id} className="space-y-1">
-                <label className="block font-medium text-sm">
-                  {campo.label}
-                  {campo.required && <span className="text-red-500 ml-1">*</span>}
-                </label>
-                <div className="w-full p-2 border rounded bg-gray-50 text-sm text-gray-400">
-                  {campo.placeholder || `Digite ${campo.label.toLowerCase()}`}
-                </div>
-              </div>
-            ))}
+            <h1 className="text-xl font-bold">Título do Formulário</h1>
           </div>
         </div>
       </CardContent>
