@@ -241,7 +241,7 @@ ${html}
         table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 1px;
+          margin-top: 0px;
         }
         td {
           border: 0.5px solid #000;
