@@ -20,32 +20,33 @@ interface FormData {
 }
 
 const perguntas = [
-  'Fatores Psicossociais estressores: Acrofobia, Claustrofobia, Agorafobia, Ansiedade, Fobias, Transtorno Psiquiátrico',
-  'Coordenação Motora: Restrição de Movimentos, equilíbrio, Desorientação tempo – espaço, tremores de Extremidades',
+  'Fatores Psicossociais \'estressores\': Acrofobia, Claustrofobia, Agorafobia, Ansiedade, Insônia, Tratamento Psiquiátrico.',
+  'Coordenação Motora; Restrição de Movimentos, equilíbrio, Desorientação tempo – espaço, tremores de Extremidades.',
   'Doenças da Coluna e MMII (Deambulação)',
-  'Sinal de Romberg Positivo: Desmaio, Tontura, Vertigem ou Zumbido',
-  'Epilepsia, Convulsões, Doença Neurológica',
-  'Patologias Cardiovasculares: Doenças cardiovasculares, Hipertensão',
-  'Uso Medicamentos que interferem no Sistema Nervoso, Ritmo e Frequência Cardíaca',
+  'Sinal de Romberg Positivo; Desmaio, Tontura, Vertigem ou Zumbido',
+  'Epilepsia, Convulsão, Doença Neurológica',
+  'Patologias Crônicas descompensadas: Doenças cardiovasculares, Hipertensão',
+  'Uso Medicamentoso que interferem no Sistema Nervoso, Ritmo e Frequência Cardíaca',
   'Uso Contínuo ou Abusivo de Bebida Alcoólica, Drogas, Tabagista (Dependência Química)',
   'Obesidade',
   'Doença Pulmonar "Asma Brônquica e DPOC"',
   'Anemia',
-  'Patologias Crônicas Descompensadas: Diabetes tipo I ou II; Diabético Insulinodependente',
+  'Patologias Crônicas Descompensadas: Diabetes tipo I ou II; Diabético Insulinodependente.',
   'Doença Nefropática',
   'Pelos, Deformidade Facial',
-  'Doenças da Tireóide'
+  'Doenças da Tireoide'
 ];
 
 const atividades = [
   'Trabalho em altura (Acima de 2 metros)',
-  'Equipamentos de Guindar (Ponte Rolante / Talha)',
-  'Equipamentos móveis (Caminhão / Munck / Empilhadeira)',
-  'Eletricidade (baixa e alta tensão)',
-  'Explosão e calor',
+  'Equipamentos de Guindar (Ponte Rolante cabine/ controle/ botoeira e Pórtico cabine)',
+  'Equipamentos de Guindar (Talha)',
+  'Equipamentos móveis (Caminhão Munck/ Empilhadeira/ Pá carregadeira / Veículo de carga e passageiro)',
+  'Eletricidade (baixa / alta tensão) Exposição a calor',
+  'Espaço confinado',
   'Plataforma Elevatória',
   'Proteção Respiratória',
-  'Radiação ionizante'
+  'Radiação Ionizante'
 ];
 
 export default function FormEditor() {
@@ -173,16 +174,16 @@ ${html}
           border: none;
           outline: none;
           background: transparent;
-          font-size: 9px;
-          font-family: Arial, Helvetica, sans-serif;
+          font-size: 9pt;
+          font-family: 'Arial MT', Arial, sans-serif;
           width: 100%;
         }
         .form-textarea {
           border: none;
           outline: none;
           background: transparent;
-          font-size: 9px;
-          font-family: Arial, Helvetica, sans-serif;
+          font-size: 9pt;
+          font-family: 'Arial MT', Arial, sans-serif;
           width: 100%;
           resize: none;
         }
@@ -195,7 +196,8 @@ ${html}
           border: 1px solid #000;
           padding: 4px 6px;
           vertical-align: middle;
-          font-size: 9px;
+          font-size: 9pt;
+          font-family: 'Arial MT', Arial, sans-serif;
         }
       `}</style>
 
@@ -219,16 +221,14 @@ ${html}
       </div>
 
       <div className="container mx-auto py-8">
-        <div className="print-container" id="form-content" style={{ fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '9px' }}>
+        <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <tbody>
-              <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '13px', border: '1px solid #000', padding: '6px' }}>MEDICINA DO TRABALHO</td>
-                <td style={{ textAlign: 'right', fontWeight: 'bold', fontSize: '15px', color: '#1f6fb2', border: '1px solid #000', padding: '6px' }}>vallourec</td>
-              </tr>
-            </tbody>
-          </table>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '13px' }}>MEDICINA DO TRABALHO</div>
+            <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#1f6fb2' }}>vallourec</div>
+          </div>
+
+          <hr style={{ border: '0', borderTop: '1px solid #000', margin: '4px 0' }} />
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '3px' }}>
             <tbody>
@@ -236,8 +236,8 @@ ${html}
                 <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '5px', fontSize: '11px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
-                <td style={{ fontSize: '8px', textAlign: 'center', border: '1px solid #000', padding: '4px' }}>
-                  Sistemática de conduta médica assistencial condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
+                <td style={{ fontSize: '9pt', textAlign: 'center', border: '1px solid #000', padding: '4px' }}>
+                  Sistemática de conduta médica está condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
                 </td>
               </tr>
             </tbody>
@@ -247,11 +247,11 @@ ${html}
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '4px 6px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField('nome', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '4px 6px' }}>PN/Ponto: <input className="form-input" value={formData.pn} onChange={(e) => updateField('pn', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '4px 6px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField('setor', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '4px 6px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField('pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td colSpan={3} style={{ border: '1px solid #000', padding: '4px 6px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField('cargo', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '4px 6px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField('cargo', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '4px 6px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField('setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -307,25 +307,24 @@ ${html}
             <tbody>
               {atividades.map((atividade, index) => (
                 <tr key={index}>
-                  <td style={{ border: '1px solid #000', padding: '4px 6px' }}>☐ {atividade}</td>
-                  <td style={{ border: '1px solid #000', width: '80px', textAlign: 'center', padding: '4px' }}>☐ Liberado</td>
-                  <td style={{ border: '1px solid #000', width: '95px', textAlign: 'center', padding: '4px' }}>☐ Não Liberado</td>
-                  <td style={{ border: '1px solid #000', width: '65px', textAlign: 'center', padding: '4px' }}>☐ N/A</td>
+                  <td style={{ border: '1px solid #000', padding: '4px 6px', fontSize: '8pt' }}>☐ {atividade}</td>
+                  <td style={{ border: '1px solid #000', width: '80px', textAlign: 'center', padding: '4px', fontSize: '8pt' }}>☐ Liberado</td>
+                  <td style={{ border: '1px solid #000', width: '95px', textAlign: 'center', padding: '4px', fontSize: '8pt' }}>☐ Não Liberado</td>
+                  <td style={{ border: '1px solid #000', width: '65px', textAlign: 'center', padding: '4px', fontSize: '8pt' }}>☐ N/A</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '3px' }}>
-            <tbody>
-              <tr>
-                <td style={{ border: '1px solid #000', padding: '4px 6px' }}>Assinatura do Médico Examinador: _____________________________</td>
-                <td style={{ border: '1px solid #000', padding: '4px 6px', width: '190px' }}>Data: <input className="form-input" value={formData.data} onChange={(e) => updateField('data', e.target.value)} /></td>
-              </tr>
-            </tbody>
-          </table>
+          <div style={{ marginTop: '8px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+            <span>Assinatura do Médico Examinador: _____________________________</span>
+            <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
+          </div>
 
-          <p style={{ fontSize: '8px', textAlign: 'right', marginTop: '3px' }}>Página 1 de 1</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+            <span>MOD AMS MT 001/00</span>
+            <span>Página 1 de 1</span>
+          </div>
         </div>
       </div>
     </div>
