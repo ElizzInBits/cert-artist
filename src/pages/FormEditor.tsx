@@ -204,6 +204,11 @@ ${html}
             background: transparent !important;
             box-shadow: none !important;
           }
+          .print-container > div {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
         }
         @media screen {
           body {
@@ -253,22 +258,14 @@ ${html}
             <ArrowLeft className="w-4 h-4 mr-2" /> Voltar
           </Button>
           <div className="flex gap-2">
-            <div className="flex items-center gap-2 border rounded px-2">
-              <span className="text-sm">Documentos: {forms.length}</span>
-              <Button variant="ghost" size="sm" onClick={addNewForm}>
-                <Plus className="w-4 h-4" />
-              </Button>
-              {forms.length > 1 && (
-                <Button variant="ghost" size="sm" onClick={() => removeForm(forms.length - 1)}>
-                  <Minus className="w-4 h-4" />
-                </Button>
-              )}
-            </div>
+            <Button variant="outline" size="sm" onClick={addNewForm}>
+              <Plus className="w-4 h-4 mr-2" /> Novo Documento
+            </Button>
             <Button variant="outline" size="sm" onClick={handleSave}>
               <Save className="w-4 h-4 mr-2" /> Salvar
             </Button>
             <Button variant="outline" size="sm" onClick={handlePrint}>
-              <Printer className="w-4 h-4 mr-2" /> Imprimir
+              <Printer className="w-4 h-4 mr-2" /> Imprimir Todos ({forms.length})
             </Button>
             <Button size="sm" onClick={handleDownload}>
               <Download className="w-4 h-4 mr-2" /> Baixar
@@ -280,19 +277,20 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           {forms.map((formData, formIndex) => (
-            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative' }}>
+            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '20px', borderRadius: '8px' }}>
           
-          {forms.length > 1 && (
-            <Button 
-              variant="destructive" 
-              size="sm" 
-              className="no-print" 
-              style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10 }}
-              onClick={() => removeForm(formIndex)}
-            >
-              <Trash2 className="w-4 h-4 mr-1" /> Remover
-            </Button>
-          )}
+          <div className="no-print" style={{ position: 'absolute', top: '10px', right: '10px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#6b7280' }}>Documento {formIndex + 1}</span>
+            {forms.length > 1 && (
+              <Button 
+                variant="destructive" 
+                size="sm" 
+                onClick={() => removeForm(formIndex)}
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px', marginTop: '-6px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', flex: 1 }}>MEDICINA DO TRABALHO</div>
