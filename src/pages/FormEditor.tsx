@@ -268,9 +268,9 @@ ${html}
           {forms.map((formData, formIndex) => (
             <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0' }}>
           
-          <div style={{ position: 'relative', marginBottom: '2px', marginTop: '-6px' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', position: 'absolute', right: '20px', top: '-4px' }} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px', marginTop: '-6px' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', flex: 1 }}>MEDICINA DO TRABALHO</div>
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', marginLeft: '20px' }} />
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
