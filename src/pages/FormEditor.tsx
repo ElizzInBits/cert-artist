@@ -90,10 +90,57 @@ export default function FormEditor() {
   };
 
   const updateAtividade = (index: number, value: string) => {
+    let newValue = value;
+    
+    // Se marcar N/A, desmarca o checkbox
+    if (value === 'na') {
+      newValue = 'na';
+    }
+    // Se desmarcar o checkbox, marca N/A automaticamente
+    else if (value === '') {
+      newValue = 'na';
+    }
+    // Se marcar o checkbox, limpa N/A
+    else if (value === 'checked') {
+      newValue = 'checked';
+    }
+    
     setFormData(prev => ({
       ...prev,
-      atividades: { ...prev.atividades, [index]: value }
+      atividades: { ...prev.atividades, [index]: newValue }
     }));
+  };
+
+  const handleCheckboxAtividade = (index: number, checked: boolean) => {
+    if (checked) {
+      // Marca checkbox, remove N/A
+      setFormData(prev => ({
+        ...prev,
+        atividades: { ...prev.atividades, [index]: 'checked' }
+      }));
+    } else {
+      // Desmarca checkbox, marca N/A automaticamente
+      setFormData(prev => ({
+        ...prev,
+        atividades: { ...prev.atividades, [index]: 'na' }
+      }));
+    }
+  };
+
+  const handleRadioAtividade = (index: number, value: string) => {
+    if (value === 'na') {
+      // Se marcar N/A, desmarca checkbox
+      setFormData(prev => ({
+        ...prev,
+        atividades: { ...prev.atividades, [index]: 'na' }
+      }));
+    } else {
+      // Se marcar Liberado ou Não Liberado, marca checkbox automaticamente
+      setFormData(prev => ({
+        ...prev,
+        atividades: { ...prev.atividades, [index]: value }
+      }));
+    }
   };
 
   const handleSave = () => {
@@ -313,22 +360,48 @@ ${html}
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
-              {atividades.map((atividade, index) => (
-                <tr key={index}>
-                  <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>
-                    <input type="checkbox" checked={formData.atividades[index] === 'checked'} onChange={(e) => updateAtividade(index, e.target.checked ? 'checked' : '')} /> {atividade}
-                  </td>
-                  <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
-                    <input type="radio" name={`ativ${index}`} checked={formData.atividades[index] === 'liberado'} onChange={() => updateAtividade(index, 'liberado')} /> Liberado
-                  </td>
-                  <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
-                    <input type="radio" name={`ativ${index}`} checked={formData.atividades[index] === 'nao_liberado'} onChange={() => updateAtividade(index, 'nao_liberado')} /> Não Liberado
-                  </td>
-                  <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
-                    <input type="radio" name={`ativ${index}`} checked={formData.atividades[index] === 'na'} onChange={() => updateAtividade(index, 'na')} /> N/A
-                  </td>
-                </tr>
-              ))}
+              {atividades.map((atividade, index) => {
+                const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
+                const isNA = formData.atividades[index] === 'na' || formData.atividades[index] === undefined;
+                
+                return (
+                  <tr key={index}>
+                    <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>
+                      <input 
+                        type="checkbox" 
+                        checked={isChecked} 
+                        onChange={(e) => handleCheckboxAtividade(index, e.target.checked)} 
+                      /> {atividade}
+                    </td>
+                    <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
+                      <input 
+                        type="radio" 
+                        name={`ativ${index}`} 
+                        checked={formData.atividades[index] === 'liberado'} 
+                        onChange={() => handleRadioAtividade(index, 'liberado')}
+                        disabled={isNA}
+                      /> Liberado
+                    </td>
+                    <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
+                      <input 
+                        type="radio" 
+                        name={`ativ${index}`} 
+                        checked={formData.atividades[index] === 'nao_liberado'} 
+                        onChange={() => handleRadioAtividade(index, 'nao_liberado')}
+                        disabled={isNA}
+                      /> Não Liberado
+                    </td>
+                    <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '2px', fontSize: '8pt' }}>
+                      <input 
+                        type="radio" 
+                        name={`ativ${index}`} 
+                        checked={isNA} 
+                        onChange={() => handleRadioAtividade(index, 'na')} 
+                      /> N/A
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
 
