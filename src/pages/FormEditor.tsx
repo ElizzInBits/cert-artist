@@ -313,12 +313,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '4px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '4px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '0px 4px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '0px 4px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '4px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '4px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '0px 4px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '0px 4px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
