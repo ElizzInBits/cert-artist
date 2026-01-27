@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Save, Download, ArrowLeft, Printer, Plus } from 'lucide-react';
+import { Save, Download, ArrowLeft, Printer, Plus, Minus, Trash2 } from 'lucide-react';
 import vallourecLogo from './vallourec.jpg';
 
 interface FormData {
@@ -126,6 +126,12 @@ export default function FormEditor() {
     ));
   };
 
+  const removeForm = (index: number) => {
+    if (forms.length > 1) {
+      setForms(forms.filter((_, idx) => idx !== index));
+    }
+  };
+
   const handleSave = () => {
     localStorage.setItem(`form-${id}`, JSON.stringify(forms));
     alert('Formulário salvo com sucesso!');
@@ -247,9 +253,17 @@ ${html}
             <ArrowLeft className="w-4 h-4 mr-2" /> Voltar
           </Button>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={addNewForm}>
-              <Plus className="w-4 h-4 mr-2" /> Adicionar Documento
-            </Button>
+            <div className="flex items-center gap-2 border rounded px-2">
+              <span className="text-sm">Documentos: {forms.length}</span>
+              <Button variant="ghost" size="sm" onClick={addNewForm}>
+                <Plus className="w-4 h-4" />
+              </Button>
+              {forms.length > 1 && (
+                <Button variant="ghost" size="sm" onClick={() => removeForm(forms.length - 1)}>
+                  <Minus className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
             <Button variant="outline" size="sm" onClick={handleSave}>
               <Save className="w-4 h-4 mr-2" /> Salvar
             </Button>
@@ -266,7 +280,19 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           {forms.map((formData, formIndex) => (
-            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0' }}>
+            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative' }}>
+          
+          {forms.length > 1 && (
+            <Button 
+              variant="destructive" 
+              size="sm" 
+              className="no-print" 
+              style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10 }}
+              onClick={() => removeForm(formIndex)}
+            >
+              <Trash2 className="w-4 h-4 mr-1" /> Remover
+            </Button>
+          )}
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px', marginTop: '-6px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', flex: 1 }}>MEDICINA DO TRABALHO</div>
