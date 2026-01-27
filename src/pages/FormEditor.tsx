@@ -292,9 +292,9 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px', marginTop: '10px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', flex: 1 }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', marginLeft: '20px' }} />
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '4px', marginTop: '10px', pageBreakInside: 'avoid', position: 'relative' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', marginLeft: 'auto' }} />
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
