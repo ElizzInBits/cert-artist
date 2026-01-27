@@ -241,7 +241,7 @@ ${html}
         table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 2px;
+          margin-top: 1px;
         }
         td {
           border: 0.5px solid #000;
@@ -292,7 +292,7 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '4px', marginTop: '10px', pageBreakInside: 'avoid', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1px', marginTop: '5px', pageBreakInside: 'avoid', position: 'relative' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', marginLeft: 'auto' }} />
           </div>
@@ -417,12 +417,12 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '24px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
+          <div style={{ marginTop: '16px', fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
             <span>Assinatura do Médico Examinador: _____________________________</span>
             <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', pageBreakInside: 'avoid' }}>
             <span>MOD AMS MT 001/00</span>
             <span>Página 1 de 1</span>
           </div>
