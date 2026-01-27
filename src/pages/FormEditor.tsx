@@ -191,7 +191,7 @@ ${html}
         table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 2px;
+          margin-top: 1px;
         }
         td {
           border: 0.5px solid #000;
@@ -224,9 +224,9 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           
-          <div style={{ position: 'relative', marginBottom: '6px' }}>
+          <div style={{ position: 'relative', marginBottom: '2px', marginTop: '-4px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center' }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', position: 'absolute', right: 0, top: '-4px' }} />
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', position: 'absolute', right: '20px', top: '-4px' }} />
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
