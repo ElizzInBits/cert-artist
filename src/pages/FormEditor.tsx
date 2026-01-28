@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Save, Download, ArrowLeft, Printer, Plus, Minus, Trash2 } from 'lucide-react';
 import vallourecLogo from './vallourec.jpg';
+import filipeAssinatura from './filipe_assinatura.jpg';
 
 interface FormData {
   nome: string;
@@ -19,6 +20,7 @@ interface FormData {
   fc: string;
   fr: string;
   data: string;
+  assinatura: boolean;
 }
 
 const perguntas = [
@@ -68,7 +70,8 @@ export default function FormEditor() {
     pa: '',
     fc: '',
     fr: '',
-    data: ''
+    data: new Date().toLocaleDateString('pt-BR'),
+    assinatura: false
   }]);
 
   useEffect(() => {
@@ -93,8 +96,19 @@ export default function FormEditor() {
       pa: '',
       fc: '',
       fr: '',
-      data: ''
+      data: new Date().toLocaleDateString('pt-BR'),
+      assinatura: false
     }]);
+  };
+
+  const addSignatureToAll = () => {
+    setForms(prev => prev.map(form => ({ ...form, assinatura: true })));
+  };
+
+  const toggleSignature = (formIndex: number) => {
+    setForms(prev => prev.map((form, idx) => 
+      idx === formIndex ? { ...form, assinatura: !form.assinatura } : form
+    ));
   };
 
   const updateField = (formIndex: number, field: keyof FormData, value: string) => {
@@ -124,6 +138,35 @@ export default function FormEditor() {
     setForms(prev => prev.map((form, idx) => 
       idx === formIndex ? { ...form, atividades: { ...form.atividades, [index]: value } } : form
     ));
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, formIndex: number, type: 'resposta' | 'atividade', index: number) => {
+    if (type === 'resposta') {
+      if (e.key === 'ArrowLeft' || e.key === '1') {
+        e.preventDefault();
+        updateResposta(formIndex, index, 'sim');
+      } else if (e.key === 'ArrowRight' || e.key === '2') {
+        e.preventDefault();
+        updateResposta(formIndex, index, 'nao');
+      }
+    } else if (type === 'atividade') {
+      const isNA = formData.atividades[index] === 'na' || formData.atividades[index] === undefined;
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        handleCheckboxAtividade(formIndex, index, isNA);
+      } else if (!isNA) {
+        if (e.key === 'ArrowLeft' || e.key === '1') {
+          e.preventDefault();
+          handleRadioAtividade(formIndex, index, 'liberado');
+        } else if (e.key === 'ArrowRight' || e.key === '2') {
+          e.preventDefault();
+          handleRadioAtividade(formIndex, index, 'nao_liberado');
+        } else if (e.key === 'ArrowDown' || e.key === '3') {
+          e.preventDefault();
+          handleRadioAtividade(formIndex, index, 'na');
+        }
+      }
+    }
   };
 
   const removeForm = (index: number) => {
@@ -261,6 +304,9 @@ ${html}
             <Button variant="outline" size="sm" onClick={addNewForm}>
               <Plus className="w-4 h-4 mr-2" /> Novo Documento
             </Button>
+            <Button variant="outline" size="sm" onClick={addSignatureToAll}>
+              Adicionar Assinatura em Todos
+            </Button>
             <Button variant="outline" size="sm" onClick={handleSave}>
               <Save className="w-4 h-4 mr-2" /> Salvar
             </Button>
@@ -279,13 +325,25 @@ ${html}
           {forms.map((formData, formIndex) => (
             <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '20px', borderRadius: '8px', pageBreakInside: 'avoid' }}>
           
-          <div className="no-print" style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <div className="no-print" style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '8px', alignItems: 'center', zIndex: 1000 }}>
             <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#6b7280' }}>Documento {formIndex + 1}</span>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px' }}>
+              <input 
+                type="checkbox" 
+                checked={formData.assinatura} 
+                onChange={() => toggleSignature(formIndex)}
+              />
+              Assinatura
+            </label>
             {forms.length > 1 && (
               <Button 
                 variant="destructive" 
                 size="sm" 
-                onClick={() => removeForm(formIndex)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeForm(formIndex);
+                }}
+                style={{ pointerEvents: 'auto', cursor: 'pointer' }}
               >
                 <Trash2 className="w-4 h-4" />
               </Button>
@@ -333,10 +391,10 @@ ${html}
                     </td>
                   )}
                   <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>{pergunta}</td>
-                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }}>
+                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }} tabIndex={0} onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}>
                     SIM <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(formIndex, index, 'sim')} />
                   </td>
-                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }}>
+                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }} tabIndex={0} onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}>
                     NÃO <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'nao'} onChange={() => updateResposta(formIndex, index, 'nao')} />
                   </td>
                 </tr>
@@ -350,8 +408,8 @@ ${html}
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '15px' }}>
-                  <textarea className="form-textarea" rows={1} value={formData.observacao} onChange={(e) => updateField(formIndex, 'observacao', e.target.value)} />
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '60px' }}>
+                  <textarea className="form-textarea" rows={3} value={formData.observacao} onChange={(e) => updateField(formIndex, 'observacao', e.target.value)} />
                 </td>
               </tr>
             </tbody>
@@ -377,7 +435,7 @@ ${html}
                 const isNA = formData.atividades[index] === 'na' || formData.atividades[index] === undefined;
                 
                 return (
-                  <tr key={index}>
+                  <tr key={index} tabIndex={0} onKeyDown={(e) => handleKeyDown(e, formIndex, 'atividade', index)}>
                     <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>
                       <input 
                         type="checkbox" 
@@ -418,9 +476,14 @@ ${html}
           </table>
 
           <div style={{ marginTop: '10px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
-              <span>Assinatura do Médico Examinador: _____________________________</span>
-              <span style={{ marginLeft: '40px' }}>Data: ......../......../........</span>
+            <div style={{ fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span>Assinatura do Médico Examinador:</span>
+              {formData.assinatura ? (
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '40px', marginLeft: '10px' }} />
+              ) : (
+                <span>_____________________________</span>
+              )}
+              <span style={{ marginLeft: '40px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
