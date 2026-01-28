@@ -433,7 +433,7 @@ ${html}
                       ENTREVISTA MÉDICA
                     </td>
                   )}
-                  <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '6.5pt' }}>{pergunta}</td>
+                  <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>{pergunta}</td>
                   <td 
                     style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
                     tabIndex={0} 
@@ -500,14 +500,14 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '6.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
                         onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)} 
                       /> {atividade}
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '6.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -516,7 +516,7 @@ ${html}
                         disabled={isNA}
                       /> Liberado
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '6.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -525,7 +525,7 @@ ${html}
                         disabled={isNA}
                       /> Não Liberado
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '6.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
