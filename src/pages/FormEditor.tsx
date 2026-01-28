@@ -433,7 +433,7 @@ ${html}
                       ENTREVISTA MÉDICA
                     </td>
                   )}
-                  <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '7.5pt' }}>{pergunta}</td>
+                  <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '6.5pt' }}>{pergunta}</td>
                   <td 
                     style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
                     tabIndex={0} 
@@ -500,14 +500,14 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '6.5pt' }}>
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
                         onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)} 
                       /> {atividade}
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '6.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -516,7 +516,7 @@ ${html}
                         disabled={isNA}
                       /> Liberado
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '6.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -525,7 +525,7 @@ ${html}
                         disabled={isNA}
                       /> Não Liberado
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '6.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -540,16 +540,14 @@ ${html}
           </table>
 
           <div style={{ marginTop: '4px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'flex-end', gap: '10px', position: 'relative' }}>
-              <span style={{ marginBottom: '3px' }}>Assinatura do Médico Examinador:</span>
+            <div style={{ fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <div style={{ position: 'relative', display: 'inline-block' }}>
-                  <img src={filipeAssinatura} alt="Assinatura" style={{ height: '160px', display: 'block', position: 'relative', zIndex: 1 }} />
-                </div>
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '100px' }} />
               ) : (
-                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '250px', marginBottom: '3px' }}></span>
+                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '250px' }}></span>
               )}
-              <span style={{ marginLeft: '20px', marginBottom: '3px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
+              <span style={{ marginLeft: '20px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
