@@ -457,13 +457,13 @@ ${html}
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '50px' }}>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '40px' }}>
                   <textarea 
                     className="form-textarea" 
-                    rows={3} 
+                    rows={2} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '45px' }}
+                    style={{ minHeight: '35px' }}
                   />
                 </td>
               </tr>
@@ -536,11 +536,11 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '20px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ marginTop: '8px', pageBreakInside: 'avoid' }}>
+            <div style={{ fontSize: '10pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '50px', marginLeft: '10px' }} />
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '55px', marginLeft: '10px' }} />
               ) : (
                 <span>_____________________________</span>
               )}
