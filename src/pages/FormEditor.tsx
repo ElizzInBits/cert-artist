@@ -541,7 +541,7 @@ ${html}
               <span style={{ marginBottom: '5px' }}>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
                 <div style={{ position: 'relative', display: 'inline-block' }}>
-                  <img src={filipeAssinatura} alt="Assinatura" style={{ height: '70px', display: 'block', position: 'relative', zIndex: 1 }} />
+                  <img src={filipeAssinatura} alt="Assinatura" style={{ height: '150px', display: 'block', position: 'relative', zIndex: 1 }} />
                   <div style={{ borderBottom: '1px solid #000', width: '250px', position: 'absolute', bottom: '0', left: '0', zIndex: 0 }}></div>
                 </div>
               ) : (
