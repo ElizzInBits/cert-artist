@@ -245,7 +245,7 @@ ${html}
       <style>{`
         @page {
           size: A4;
-          margin: 4mm 8mm 8mm 8mm;
+          margin: 3mm 8mm 8mm 8mm;
         }
         @media print {
           * {
@@ -393,18 +393,18 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '14pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '28px', marginLeft: 'auto' }} />
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '13pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '26px', marginLeft: 'auto' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '3px', fontSize: '10px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '2px', fontSize: '9px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
-                <td style={{ fontSize: '8pt', textAlign: 'justify', border: '0.5px solid #000', padding: '2px' }}>
+                <td style={{ fontSize: '7.5pt', textAlign: 'justify', border: '0.5px solid #000', padding: '1px' }}>
                   Sistemática de conduta médica está condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
                 </td>
               </tr>
@@ -539,7 +539,7 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '4px', pageBreakInside: 'avoid' }}>
+          <div style={{ marginTop: '2px', pageBreakInside: 'avoid' }}>
             <div style={{ fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
