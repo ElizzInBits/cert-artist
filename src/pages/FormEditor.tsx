@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Save, Download, ArrowLeft, Printer, Plus, Minus, Trash2 } from 'lucide-react';
+import { Save, Download, ArrowLeft, Printer, Plus, Trash2 } from 'lucide-react';
 import vallourecLogo from './vallourec.jpg';
 import filipeAssinatura from './filipe_assinatura.jpg';
 
@@ -148,6 +148,14 @@ export default function FormEditor() {
       } else if (e.key === 'ArrowRight' || e.key === '2') {
         e.preventDefault();
         updateResposta(formIndex, index, 'nao');
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        // Navegar entre perguntas
+        const nextIndex = e.key === 'ArrowDown' ? index + 1 : index - 1;
+        if (nextIndex >= 0 && nextIndex < perguntas.length) {
+          const nextElement = document.querySelector(`[data-resposta="${formIndex}-${nextIndex}"]`) as HTMLElement;
+          nextElement?.focus();
+        }
+        e.preventDefault();
       }
     } else if (type === 'atividade') {
       const isNA = forms[formIndex].atividades[index] === 'na' || forms[formIndex].atividades[index] === undefined;
@@ -166,12 +174,24 @@ export default function FormEditor() {
           handleRadioAtividade(formIndex, index, 'na');
         }
       }
+      
+      // Navegar entre atividades
+      if (e.key === 'Tab') {
+        const nextIndex = e.shiftKey ? index - 1 : index + 1;
+        if (nextIndex >= 0 && nextIndex < atividades.length) {
+          e.preventDefault();
+          const nextElement = document.querySelector(`[data-atividade="${formIndex}-${nextIndex}"]`) as HTMLElement;
+          nextElement?.focus();
+        }
+      }
     }
   };
 
   const removeForm = (index: number) => {
     if (forms.length > 1) {
-      setForms(forms.filter((_, idx) => idx !== index));
+      if (confirm(`Deseja realmente excluir o documento ${index + 1}?`)) {
+        setForms(forms.filter((_, idx) => idx !== index));
+      }
     }
   };
 
@@ -293,6 +313,15 @@ ${html}
           font-size: 9pt;
           font-family: 'Arial MT', Arial, sans-serif;
         }
+        .delete-button {
+          pointer-events: auto !important;
+          cursor: pointer !important;
+          z-index: 9999 !important;
+          position: relative !important;
+        }
+        .delete-button:hover {
+          opacity: 0.8;
+        }
       `}</style>
 
       <div className="bg-white border-b shadow-sm sticky top-0 z-10 no-print">
@@ -325,28 +354,39 @@ ${html}
           {forms.map((formData, formIndex) => (
             <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '20px', borderRadius: '8px', pageBreakInside: 'avoid' }}>
           
-          <div className="no-print" style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '8px', alignItems: 'center', zIndex: 1000 }}>
+          <div className="no-print" style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '8px', alignItems: 'center', zIndex: 9999, background: 'white', padding: '4px 8px', borderRadius: '4px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
             <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#6b7280' }}>Documento {formIndex + 1}</span>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', cursor: 'pointer' }}>
               <input 
                 type="checkbox" 
                 checked={formData.assinatura} 
                 onChange={() => toggleSignature(formIndex)}
+                style={{ cursor: 'pointer' }}
               />
               Assinatura
             </label>
             {forms.length > 1 && (
-              <Button 
-                variant="destructive" 
-                size="sm" 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  removeForm(formIndex);
+              <button
+                className="delete-button"
+                onClick={() => removeForm(formIndex)}
+                style={{
+                  pointerEvents: 'auto',
+                  cursor: 'pointer',
+                  background: '#ef4444',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  padding: '4px 8px',
+                  fontSize: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  fontWeight: '500'
                 }}
-                style={{ pointerEvents: 'auto', cursor: 'pointer' }}
               >
-                <Trash2 className="w-4 h-4" />
-              </Button>
+                <Trash2 style={{ width: '14px', height: '14px' }} />
+                Excluir
+              </button>
             )}
           </div>
           
@@ -391,10 +431,19 @@ ${html}
                     </td>
                   )}
                   <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>{pergunta}</td>
-                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }} tabIndex={0} onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}>
+                  <td 
+                    style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    tabIndex={0} 
+                    onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
+                    data-resposta={`${formIndex}-${index}`}
+                  >
                     SIM <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(formIndex, index, 'sim')} />
                   </td>
-                  <td style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px' }} tabIndex={0} onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}>
+                  <td 
+                    style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    tabIndex={0} 
+                    onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
+                  >
                     NÃO <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'nao'} onChange={() => updateResposta(formIndex, index, 'nao')} />
                   </td>
                 </tr>
@@ -408,8 +457,14 @@ ${html}
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '60px' }}>
-                  <textarea className="form-textarea" rows={3} value={formData.observacao} onChange={(e) => updateField(formIndex, 'observacao', e.target.value)} />
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '100px' }}>
+                  <textarea 
+                    className="form-textarea" 
+                    rows={6} 
+                    value={formData.observacao} 
+                    onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
+                    style={{ minHeight: '90px' }}
+                  />
                 </td>
               </tr>
             </tbody>
@@ -435,7 +490,13 @@ ${html}
                 const isNA = formData.atividades[index] === 'na' || formData.atividades[index] === undefined;
                 
                 return (
-                  <tr key={index} tabIndex={0} onKeyDown={(e) => handleKeyDown(e, formIndex, 'atividade', index)}>
+                  <tr 
+                    key={index} 
+                    tabIndex={0} 
+                    onKeyDown={(e) => handleKeyDown(e, formIndex, 'atividade', index)}
+                    data-atividade={`${formIndex}-${index}`}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontSize: '8pt' }}>
                       <input 
                         type="checkbox" 
@@ -498,4 +559,3 @@ ${html}
     </div>
   );
 }
-
