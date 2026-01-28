@@ -150,7 +150,7 @@ export default function FormEditor() {
         updateResposta(formIndex, index, 'nao');
       }
     } else if (type === 'atividade') {
-      const isNA = formData.atividades[index] === 'na' || formData.atividades[index] === undefined;
+      const isNA = forms[formIndex].atividades[index] === 'na' || forms[formIndex].atividades[index] === undefined;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         handleCheckboxAtividade(formIndex, index, isNA);
