@@ -245,7 +245,7 @@ ${html}
       <style>{`
         @page {
           size: A4;
-          margin: 5mm 8mm 15mm 8mm;
+          margin: 4mm 8mm 8mm 8mm;
         }
         @media print {
           * {
@@ -312,6 +312,9 @@ ${html}
           vertical-align: middle;
           font-size: 9pt;
           font-family: 'Arial MT', Arial, sans-serif;
+        }
+        a {
+          display: none !important;
         }
         .delete-button {
           pointer-events: auto !important;
@@ -457,13 +460,13 @@ ${html}
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '40px' }}>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '25px' }}>
                   <textarea 
                     className="form-textarea" 
-                    rows={2} 
+                    rows={1} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '35px' }}
+                    style={{ minHeight: '20px' }}
                   />
                 </td>
               </tr>
@@ -536,21 +539,21 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '8px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '10pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'flex-end', gap: '10px', position: 'relative' }}>
-              <span style={{ marginBottom: '5px' }}>Assinatura do Médico Examinador:</span>
+          <div style={{ marginTop: '4px', pageBreakInside: 'avoid' }}>
+            <div style={{ fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'flex-end', gap: '10px', position: 'relative' }}>
+              <span style={{ marginBottom: '3px' }}>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
                 <div style={{ position: 'relative', display: 'inline-block' }}>
-                  <img src={filipeAssinatura} alt="Assinatura" style={{ height: '150px', display: 'block', position: 'relative', zIndex: 1 }} />
+                  <img src={filipeAssinatura} alt="Assinatura" style={{ height: '80px', display: 'block', position: 'relative', zIndex: 1 }} />
                   <div style={{ borderBottom: '1px solid #000', width: '250px', position: 'absolute', bottom: '0', left: '0', zIndex: 0 }}></div>
                 </div>
               ) : (
-                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '250px', marginBottom: '5px' }}></span>
+                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '250px', marginBottom: '3px' }}></span>
               )}
-              <span style={{ marginLeft: '20px', marginBottom: '5px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
+              <span style={{ marginLeft: '20px', marginBottom: '3px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
               <span>MOD AMS MT 001/00</span>
               <span>Página 1 de 1</span>
             </div>
