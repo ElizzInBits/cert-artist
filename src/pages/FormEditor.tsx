@@ -149,7 +149,6 @@ export default function FormEditor() {
         e.preventDefault();
         updateResposta(formIndex, index, 'nao');
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        // Navegar entre perguntas
         const nextIndex = e.key === 'ArrowDown' ? index + 1 : index - 1;
         if (nextIndex >= 0 && nextIndex < perguntas.length) {
           const nextElement = document.querySelector(`[data-resposta="${formIndex}-${nextIndex}"]`) as HTMLElement;
@@ -175,7 +174,6 @@ export default function FormEditor() {
         }
       }
       
-      // Navegar entre atividades
       if (e.key === 'Tab') {
         const nextIndex = e.shiftKey ? index - 1 : index + 1;
         if (nextIndex >= 0 && nextIndex < atividades.length) {
@@ -213,10 +211,10 @@ export default function FormEditor() {
 <meta charset="UTF-8">
 <title>Avaliação de Atividades Críticas</title>
 <style>
-  @page { size: A4; margin: 10mm; }
+  @page { size: A4; margin: 3mm 8mm 20mm 8mm; }
   body { font-family: Arial, Helvetica, sans-serif; font-size: 7px; }
-  table { border-collapse: collapse; width: 100%; margin-top: 4px; }
-  td { border: 1px solid #000; padding: 2px 3px; vertical-align: middle; }
+  table { border-collapse: collapse; width: 100%; margin-top: 1px; }
+  td { border: 1px solid #000; padding: 1px 2px; vertical-align: middle; }
   input, textarea { border: none; outline: none; width: 100%; font-size: 7px; font-family: inherit; }
   .center { text-align: center; }
   .right { text-align: right; }
@@ -224,7 +222,6 @@ export default function FormEditor() {
   .small { font-size: 6px; }
   .vertical { writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; font-weight: bold; width: 22px; }
   .checkbox { width: 60px; text-align: center; }
-  .brand { font-size: 12px; color: #1f6fb2; }
 </style>
 </head>
 <body>
@@ -245,7 +242,7 @@ ${html}
       <style>{`
         @page {
           size: A4;
-          margin: 5mm 8mm 15mm 8mm;
+          margin: 3mm 8mm 20mm 8mm;
         }
         @media print {
           * {
@@ -288,7 +285,7 @@ ${html}
           border: none;
           outline: none;
           background: transparent;
-          font-size: 9pt;
+          font-size: 7.5pt;
           font-family: 'Arial MT', Arial, sans-serif;
           width: 100%;
         }
@@ -296,7 +293,7 @@ ${html}
           border: none;
           outline: none;
           background: transparent;
-          font-size: 9pt;
+          font-size: 7.5pt;
           font-family: 'Arial MT', Arial, sans-serif;
           width: 100%;
           resize: none;
@@ -308,9 +305,9 @@ ${html}
         }
         td {
           border: 0.5px solid #000;
-          padding: 2px 4px;
+          padding: 1px 3px;
           vertical-align: middle;
-          font-size: 9pt;
+          font-size: 7.5pt;
           font-family: 'Arial MT', Arial, sans-serif;
         }
         .delete-button {
@@ -350,7 +347,7 @@ ${html}
       </div>
 
       <div className="container mx-auto py-8">
-        <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
+        <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '7.5pt' }}>
           {forms.map((formData, formIndex) => (
             <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '20px', borderRadius: '8px', pageBreakInside: 'avoid' }}>
           
@@ -390,49 +387,49 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '14pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '28px', marginLeft: 'auto' }} />
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '13pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '26px', marginLeft: 'auto' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '3px', fontSize: '10px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '2px', fontSize: '9px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
-                <td style={{ fontSize: '8pt', textAlign: 'justify', border: '0.5px solid #000', padding: '2px' }}>
+                <td style={{ fontSize: '7pt', textAlign: 'justify', border: '0.5px solid #000', padding: '1px 2px' }}>
                   Sistemática de conduta médica está condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>Nome: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PN/Ronda: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>Nome: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>PN/Ronda: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>Cargo: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>Setor/Empresa: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>Cargo: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>Setor/Empresa: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
                   {index === 0 && (
-                    <td rowSpan={perguntas.length} style={{ border: '0.5px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '10px' }}>
+                    <td rowSpan={perguntas.length} style={{ border: '0.5px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '22px', fontSize: '9px' }}>
                       ENTREVISTA MÉDICA
                     </td>
                   )}
-                  <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '7.5pt' }}>{pergunta}</td>
+                  <td style={{ border: '0.5px solid #000', padding: '1px 2px', fontSize: '7pt' }}>{pergunta}</td>
                   <td 
-                    style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '1px', cursor: 'pointer', fontSize: '7pt' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     data-resposta={`${formIndex}-${index}`}
@@ -440,7 +437,7 @@ ${html}
                     SIM <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(formIndex, index, 'sim')} />
                   </td>
                   <td 
-                    style={{ border: '0.5px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '1px', cursor: 'pointer', fontSize: '7pt' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                   >
@@ -451,39 +448,39 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 2px', fontWeight: 'bold', fontSize: '7pt' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '40px' }}>
+                <td style={{ border: '0.5px solid #000', padding: '1px 2px', height: '32px' }}>
                   <textarea 
                     className="form-textarea" 
                     rows={2} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '35px' }}
+                    style={{ minHeight: '28px', fontSize: '7pt' }}
                   />
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PESO: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>ALTURA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>IMC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FR: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>PESO: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>ALTURA: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>IMC: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>PA: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>FC: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 3px', height: '14px', fontSize: '7pt' }}>FR: <input className="form-input" style={{ fontSize: '7pt' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               {atividades.map((atividade, index) => {
                 const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
@@ -497,14 +494,14 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '0.5px solid #000', padding: '1px 3px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', padding: '1px 2px', fontSize: '7pt' }}>
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
                         onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)} 
                       /> {atividade}
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '70px', textAlign: 'center', padding: '1px', fontSize: '7pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -513,7 +510,7 @@ ${html}
                         disabled={isNA}
                       /> Liberado
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '85px', textAlign: 'center', padding: '1px', fontSize: '7pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -522,7 +519,7 @@ ${html}
                         disabled={isNA}
                       /> Não Liberado
                     </td>
-                    <td style={{ border: '0.5px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '7.5pt' }}>
+                    <td style={{ border: '0.5px solid #000', width: '55px', textAlign: 'center', padding: '1px', fontSize: '7pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -536,18 +533,18 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '8px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '10pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ marginTop: '4px', pageBreakInside: 'avoid' }}>
+            <div style={{ fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '55px', marginLeft: '10px' }} />
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '45px', marginLeft: '8px' }} />
               ) : (
                 <span>_____________________________</span>
               )}
-              <span style={{ marginLeft: '40px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
+              <span style={{ marginLeft: '30px' }}>Data: <input className="form-input" style={{ width: '90px', display: 'inline-block', borderBottom: '1px solid #000', fontSize: '9pt' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1px', fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
               <span>MOD AMS MT 001/00</span>
               <span>Página 1 de 1</span>
             </div>
