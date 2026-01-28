@@ -537,14 +537,17 @@ ${html}
           </table>
 
           <div style={{ marginTop: '8px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '10pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span>Assinatura do Médico Examinador:</span>
+            <div style={{ fontSize: '10pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'flex-end', gap: '10px', position: 'relative' }}>
+              <span style={{ marginBottom: '5px' }}>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '55px', marginLeft: '10px' }} />
+                <div style={{ position: 'relative', display: 'inline-block' }}>
+                  <img src={filipeAssinatura} alt="Assinatura" style={{ height: '70px', display: 'block', position: 'relative', zIndex: 1 }} />
+                  <div style={{ borderBottom: '1px solid #000', width: '250px', position: 'absolute', bottom: '0', left: '0', zIndex: 0 }}></div>
+                </div>
               ) : (
-                <span>_____________________________</span>
+                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '250px', marginBottom: '5px' }}></span>
               )}
-              <span style={{ marginLeft: '40px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
+              <span style={{ marginLeft: '20px', marginBottom: '5px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
