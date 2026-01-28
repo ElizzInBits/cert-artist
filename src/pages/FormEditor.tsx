@@ -395,7 +395,7 @@ ${html}
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '32px', marginLeft: 'auto' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
                 <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '5px', fontSize: '11px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
@@ -408,20 +408,20 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>Nome: <input className="form-input" value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>PN/Ronda: <input className="form-input" value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>Nome: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>PN/Ronda: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>Cargo: <input className="form-input" value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '6px' }}>Setor/Empresa: <input className="form-input" value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>Cargo: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>Setor/Empresa: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
@@ -451,39 +451,39 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '100px' }}>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '70px' }}>
                   <textarea 
                     className="form-textarea" 
-                    rows={6} 
+                    rows={4} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '90px' }}
+                    style={{ minHeight: '60px' }}
                   />
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>PESO: <input className="form-input" value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>ALTURA: <input className="form-input" value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>IMC: <input className="form-input" value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>PA: <input className="form-input" value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>FC: <input className="form-input" value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px' }}>FR: <input className="form-input" value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>PESO: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>ALTURA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>IMC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>PA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>FC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
+                <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '18px', fontSize: '8pt' }}>FR: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               {atividades.map((atividade, index) => {
                 const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
@@ -536,11 +536,11 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '10px', pageBreakInside: 'avoid' }}>
+          <div style={{ marginTop: '6px', pageBreakInside: 'avoid' }}>
             <div style={{ fontSize: '11pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '40px', marginLeft: '10px' }} />
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '60px', marginLeft: '10px' }} />
               ) : (
                 <span>_____________________________</span>
               )}
