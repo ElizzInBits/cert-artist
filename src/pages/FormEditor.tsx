@@ -439,8 +439,24 @@ ${html}
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
                   {index === 0 && (
-                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '10px' }}>
-                      ENTREVISTA MÉDICA
+                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '10px', padding: '4px 2px', lineHeight: '1.2' }}>
+                      <div>E</div>
+                      <div>N</div>
+                      <div>T</div>
+                      <div>R</div>
+                      <div>E</div>
+                      <div>V</div>
+                      <div>I</div>
+                      <div>S</div>
+                      <div>T</div>
+                      <div>A</div>
+                      <div style={{ height: '12px' }}></div>
+                      <div>M</div>
+                      <div>É</div>
+                      <div>D</div>
+                      <div>I</div>
+                      <div>C</div>
+                      <div>A</div>
                     </td>
                   )}
                   <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '7pt' }}>{pergunta}</td>
@@ -523,7 +539,7 @@ ${html}
                     <td style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '7pt' }}>
                       <span 
                         onClick={() => handleCheckboxAtividade(formIndex, index, !isChecked)}
-                        style={{ cursor: 'pointer', userSelect: 'none' }}
+                        style={{ cursor: 'pointer', userSelect: 'none', fontSize: '12pt', display: 'inline-block', marginRight: '4px' }}
                       >
                         {isChecked ? '☒' : '☐'}
                       </span> {atividade}
@@ -532,19 +548,19 @@ ${html}
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'liberado')}
                     >
-                      Liberado {formData.atividades[index] === 'liberado' ? '☒' : '☐'}
+                      <span style={{ fontSize: '12pt' }}>{formData.atividades[index] === 'liberado' ? '☒' : '☐'}</span> Liberado
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'nao_liberado')}
                     >
-                      Não Liberado {formData.atividades[index] === 'nao_liberado' ? '☒' : '☐'}
+                      <span style={{ fontSize: '12pt' }}>{formData.atividades[index] === 'nao_liberado' ? '☒' : '☐'}</span> Não Liberado
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => handleRadioAtividade(formIndex, index, 'na')}
                     >
-                      N/A {isNA ? '☒' : '☐'}
+                      <span style={{ fontSize: '12pt' }}>{isNA ? '☒' : '☐'}</span> N/A
                     </td>
                   </tr>
                 );
