@@ -275,9 +275,12 @@ ${html}
             padding: 0 !important;
             margin: 0 !important;
             border-radius: 0 !important;
+            box-shadow: none !important;
           }
           .print-page {
             padding: 5mm !important;
+            border: none !important;
+            border-radius: 0 !important;
           }
         }
         @media screen {
@@ -295,33 +298,35 @@ ${html}
           border: none;
           outline: none;
           background: transparent;
-          font-size: 9pt;
-          font-family: 'Arial MT', Arial, sans-serif;
+          font-size: 7pt;
+          font-family: 'Arial', Arial, sans-serif;
           width: 100%;
+          line-height: 1.1;
         }
         .form-textarea {
           border: none;
           outline: none;
           background: transparent;
-          font-size: 8pt;
-          font-family: 'Arial MT', Arial, sans-serif;
+          font-size: 7pt;
+          font-family: 'Arial', Arial, sans-serif;
           width: 100%;
           resize: vertical;
-          line-height: 1.3;
+          line-height: 1.1;
           overflow-wrap: break-word;
           word-wrap: break-word;
         }
         table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 4px;
+          margin-top: 3px;
         }
         td {
           border: 1px solid #000;
-          padding: 2px 4px;
+          padding: 1px 3px;
           vertical-align: middle;
-          font-size: 9pt;
-          font-family: 'Arial MT', Arial, sans-serif;
+          font-size: 7pt;
+          font-family: 'Arial', Arial, sans-serif;
+          line-height: 1.1;
         }
         a {
           display: none !important;
@@ -403,18 +408,24 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '4px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '14pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '30px', marginLeft: 'auto' }} />
-          </div>
-
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '3px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '0px', border: 'none' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '14 pt' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
+                <td style={{ border: 'none', textAlign: 'center', fontWeight: 'bold', fontSize: '12pt', padding: '2px' }}>MEDICINA DO TRABALHO</td>
+                <td style={{ border: 'none', width: '120px', textAlign: 'right', padding: '2px' }}>
+                  <img src={vallourecLogo} alt="Vallourec" style={{ height: '28px' }} />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+            <tbody>
+              <tr>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '9pt' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
-                <td style={{ fontSize: '10 pt', textAlign: 'justify', border: '1px solid #000', padding: '1px' }}>
+                <td style={{ fontSize: '7pt', textAlign: 'justify', border: '1px solid #000', padding: '2px' }}>
                   Sistemática de conduta médica está condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
                 </td>
               </tr>
