@@ -403,12 +403,12 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '13pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '4px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
+            <div style={{ fontWeight: 'bold', fontSize: '14pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '26px', marginLeft: 'auto' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '0px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '3px' }}>
             <tbody>
               <tr>
                 <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '14 pt' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
@@ -550,17 +550,20 @@ ${html}
           </table>
 
           <div style={{ marginTop: '1px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>Assinatura do Médico Examinador:</span>
+            <div style={{ fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
+              <span style={{ marginBottom: '2px' }}>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '130px' }} />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <img src={filipeAssinatura} alt="Assinatura" style={{ height: '130px', marginBottom: '-10px' }} />
+                  <div style={{ borderBottom: '1px solid #000', width: '200px' }}></div>
+                </div>
               ) : (
-                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '200px' }}></span>
+                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '200px', marginBottom: '2px' }}></span>
               )}
-              <span style={{ marginLeft: '15px' }}>Data: <input className="form-input" style={{ width: '80px', display: 'inline-block', borderBottom: '1px solid #000', fontSize: '8pt' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
+              <span style={{ marginLeft: '15px', marginBottom: '2px' }}>Data: <input className="form-input" style={{ width: '80px', display: 'inline-block', borderBottom: '1px solid #000', fontSize: '9pt' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1px', fontSize: '7pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
               <span>MOD AMS MT 001/00</span>
               <span>Página 1 de 1</span>
             </div>
