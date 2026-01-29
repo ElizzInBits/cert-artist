@@ -245,11 +245,11 @@ ${html}
       <style>{`
         @page {
           size: A4 portrait;
-          margin: 0;
+          margin: 5mm;
         }
         @media print {
           @page {
-            margin: 0;
+            margin: 5mm;
           }
           * {
             -webkit-print-color-adjust: exact;
@@ -272,7 +272,7 @@ ${html}
           }
           .print-container > div {
             border: none !important;
-            padding: 8mm !important;
+            padding: 5mm !important;
             margin: 0 !important;
           }
         }
@@ -283,7 +283,7 @@ ${html}
           .print-container {
             width: 210mm;
             margin: 0 auto;
-            padding: 0;
+            padding: 5mm;
             background: transparent;
           }
         }
@@ -361,7 +361,7 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           {forms.map((formData, formIndex) => (
-            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '20px', borderRadius: '8px', pageBreakInside: 'avoid' }}>
+            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '10px', borderRadius: '8px', pageBreakInside: 'avoid' }}>
           
           <div className="no-print" style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '8px', alignItems: 'center', zIndex: 9999, background: 'white', padding: '4px 8px', borderRadius: '4px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
             <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#6b7280' }}>Documento {formIndex + 1}</span>
@@ -404,7 +404,7 @@ ${html}
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '26px', marginLeft: 'auto' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '0px' }}>
             <tbody>
               <tr>
                 <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.5px solid #000', padding: '2px', fontSize: '9px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
@@ -417,7 +417,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
@@ -430,7 +430,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
@@ -460,26 +460,26 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '8pt' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '4px', height: 'auto', minHeight: '50px' }}>
+                <td style={{ border: '0.5px solid #000', padding: '2px', height: 'auto', minHeight: '30px' }}>
                   <textarea 
                     className="form-textarea" 
-                    rows={3} 
+                    rows={2} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '45px', fontSize: '8pt', lineHeight: '1.3' }}
+                    style={{ minHeight: '25px', fontSize: '8pt', lineHeight: '1.2' }}
                   />
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '0.5px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PESO: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
@@ -492,7 +492,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               {atividades.map((atividade, index) => {
                 const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
@@ -545,18 +545,18 @@ ${html}
             </tbody>
           </table>
 
-          <div style={{ marginTop: '2px', pageBreakInside: 'avoid' }}>
-            <div style={{ fontSize: '9pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ marginTop: '1px', pageBreakInside: 'avoid' }}>
+            <div style={{ fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '140px' }} />
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '100px' }} />
               ) : (
-                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '250px' }}></span>
+                <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '200px' }}></span>
               )}
-              <span style={{ marginLeft: '20px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
+              <span style={{ marginLeft: '15px' }}>Data: <input className="form-input" style={{ width: '80px', display: 'inline-block', borderBottom: '1px solid #000', fontSize: '8pt' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1px', fontSize: '7pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
               <span>MOD AMS MT 001/00</span>
               <span>Página 1 de 1</span>
             </div>
