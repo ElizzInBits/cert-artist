@@ -421,7 +421,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
@@ -434,7 +434,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
@@ -464,7 +464,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '8pt' }}>Observação:</td>
@@ -483,7 +483,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PESO: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
@@ -496,7 +496,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               {atividades.map((atividade, index) => {
                 const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
