@@ -317,7 +317,7 @@ ${html}
           margin-top: 0px;
         }
         td {
-          border: 0.5px solid #000;
+          border: 0.3px solid #000;
           padding: 2px 4px;
           vertical-align: middle;
           font-size: 9pt;
@@ -553,7 +553,7 @@ ${html}
             <div style={{ fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '120px' }} />
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '130px' }} />
               ) : (
                 <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '200px' }}></span>
               )}
