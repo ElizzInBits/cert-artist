@@ -521,30 +521,30 @@ ${html}
                     style={{ cursor: 'pointer' }}
                   >
                     <td style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '7pt' }}>
-                      <input 
-                        type="checkbox" 
-                        checked={isChecked} 
-                        onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)}
-                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
-                      /> {atividade}
+                      <span 
+                        onClick={() => handleCheckboxAtividade(formIndex, index, !isChecked)}
+                        style={{ cursor: 'pointer', userSelect: 'none' }}
+                      >
+                        {isChecked ? '☒' : '☐'}
+                      </span> {atividade}
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'liberado')}
                     >
-                      Liberado ( {formData.atividades[index] === 'liberado' ? 'X' : ' '} )
+                      Liberado {formData.atividades[index] === 'liberado' ? '☒' : '☐'}
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'nao_liberado')}
                     >
-                      Não Liberado ( {formData.atividades[index] === 'nao_liberado' ? 'X' : ' '} )
+                      Não Liberado {formData.atividades[index] === 'nao_liberado' ? '☒' : '☐'}
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => handleRadioAtividade(formIndex, index, 'na')}
                     >
-                      N/A ( {isNA ? 'X' : ' '} )
+                      N/A {isNA ? '☒' : '☐'}
                     </td>
                   </tr>
                 );
