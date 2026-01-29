@@ -317,7 +317,7 @@ ${html}
           margin-top: 0px;
         }
         td {
-          border: 0.3px solid #000;
+          border: 1px solid #000;
           padding: 2px 4px;
           vertical-align: middle;
           font-size: 9pt;
@@ -411,10 +411,10 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '0px' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '0.3px solid #000', padding: '2px', fontSize: '9px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '9px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
-                <td style={{ fontSize: '7.5pt', textAlign: 'justify', border: '0.3px solid #000', padding: '1px' }}>
+                <td style={{ fontSize: '7.5pt', textAlign: 'justify', border: '1px solid #000', padding: '1px' }}>
                   Sistemática de conduta médica está condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
                 </td>
               </tr>
@@ -424,12 +424,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>PN/Ronda: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 70px)' }} value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>PN/Ronda: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 70px)' }} value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Cargo: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 45px)' }} value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Setor/Empresa: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 95px)' }} value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Cargo: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 45px)' }} value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Setor/Empresa: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 95px)' }} value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -439,13 +439,13 @@ ${html}
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
                   {index === 0 && (
-                    <td rowSpan={perguntas.length} style={{ border: '0.3px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '10px' }}>
+                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', writingMode: 'vertical-rl', transform: 'rotate(180deg)', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '10px' }}>
                       ENTREVISTA MÉDICA
                     </td>
                   )}
-                  <td style={{ border: '0.3px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>{pergunta}</td>
+                  <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>{pergunta}</td>
                   <td 
-                    style={{ border: '0.3px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     data-resposta={`${formIndex}-${index}`}
@@ -453,7 +453,7 @@ ${html}
                     SIM <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(formIndex, index, 'sim')} />
                   </td>
                   <td 
-                    style={{ border: '0.3px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                   >
@@ -467,10 +467,10 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.3px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '8pt' }}>Observação:</td>
+                <td style={{ border: '1px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '8pt' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.3px solid #000', padding: '2px', height: 'auto', minHeight: '30px' }}>
+                <td style={{ border: '1px solid #000', padding: '2px', height: 'auto', minHeight: '30px' }}>
                   <textarea 
                     className="form-textarea" 
                     rows={2} 
@@ -486,12 +486,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PESO: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>ALTURA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>IMC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
-                <td style={{ border: '0.3px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FR: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PESO: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>ALTURA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>IMC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FR: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -510,14 +510,14 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '0.3px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>
+                    <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
                         onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)} 
                       /> {atividade}
                     </td>
-                    <td style={{ border: '0.3px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
+                    <td style={{ border: '1px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -526,7 +526,7 @@ ${html}
                         disabled={isNA}
                       /> Liberado
                     </td>
-                    <td style={{ border: '0.3px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
+                    <td style={{ border: '1px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
@@ -535,7 +535,7 @@ ${html}
                         disabled={isNA}
                       /> Não Liberado
                     </td>
-                    <td style={{ border: '0.3px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
+                    <td style={{ border: '1px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
                       <input 
                         type="radio" 
                         name={`ativ${formIndex}-${index}`} 
