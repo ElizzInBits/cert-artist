@@ -314,7 +314,7 @@ ${html}
         table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 4px;
+          margin-top: 6px;
         }
         td {
           border: 1px solid #000;
