@@ -459,23 +459,23 @@ ${html}
                       <div>A</div>
                     </td>
                   )}
-                  <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '7pt' }}>{pergunta}</td>
+                  <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '8pt' }}>{pergunta}</td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '8pt', cursor: 'pointer' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     data-resposta={`${formIndex}-${index}`}
                     onClick={() => updateResposta(formIndex, index, 'sim')}
                   >
-                    SIM ( {formData.respostas[index] === 'sim' ? 'X' : ' '} )
+                    SIM <span style={{ fontSize: '12pt' }}>({formData.respostas[index] === 'sim' ? 'X' : ' '})</span>
                   </td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '8pt', cursor: 'pointer' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     onClick={() => updateResposta(formIndex, index, 'nao')}
                   >
-                    NÃO ( {formData.respostas[index] === 'nao' ? 'X' : ' '} )
+                    NÃO <span style={{ fontSize: '12pt' }}>({formData.respostas[index] === 'nao' ? 'X' : ' '})</span>
                   </td>
                 </tr>
               ))}
@@ -503,14 +503,14 @@ ${html}
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
-              <tr style={{ height: '50px' }}>
+              <tr style={{ height: '60px' }}>
                 <td style={{ border: '1px solid #000', borderRight: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>PESO: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></div>
-                  <div style={{ marginTop: '2px' }}>FC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
+                  <div style={{ marginTop: '6px' }}>FC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
                 </td>
                 <td style={{ border: '1px solid #000', borderRight: 'none', borderLeft: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>ALTURA: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></div>
-                  <div style={{ marginTop: '2px' }}>FR: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></div>
+                  <div style={{ marginTop: '6px' }}>FR: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></div>
                 </td>
                 <td style={{ border: '1px solid #000', borderRight: 'none', borderLeft: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>IMC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></div>
@@ -536,31 +536,31 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '7pt' }}>
+                    <td style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '7pt', lineHeight: '1.1' }}>
                       <span 
                         onClick={() => handleCheckboxAtividade(formIndex, index, !isChecked)}
-                        style={{ cursor: 'pointer', userSelect: 'none', fontSize: '12pt', display: 'inline-block', marginRight: '4px' }}
+                        style={{ cursor: 'pointer', userSelect: 'none', fontSize: '12pt', display: 'inline-block', marginRight: '4px', verticalAlign: 'middle' }}
                       >
                         {isChecked ? '☒' : '☐'}
                       </span> {atividade}
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'liberado')}
                     >
-                      <span style={{ fontSize: '12pt' }}>{formData.atividades[index] === 'liberado' ? '☒' : '☐'}</span> Liberado
+                      <span style={{ fontSize: '12pt', verticalAlign: 'middle' }}>{formData.atividades[index] === 'liberado' ? '☒' : '☐'}</span> Liberado
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'nao_liberado')}
                     >
-                      <span style={{ fontSize: '12pt' }}>{formData.atividades[index] === 'nao_liberado' ? '☒' : '☐'}</span> Não Liberado
+                      <span style={{ fontSize: '12pt', verticalAlign: 'middle' }}>{formData.atividades[index] === 'nao_liberado' ? '☒' : '☐'}</span> Não Liberado
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
                       onClick={() => handleRadioAtividade(formIndex, index, 'na')}
                     >
-                      <span style={{ fontSize: '12pt' }}>{isNA ? '☒' : '☐'}</span> N/A
+                      <span style={{ fontSize: '12pt', verticalAlign: 'middle' }}>{isNA ? '☒' : '☐'}</span> N/A
                     </td>
                   </tr>
                 );
