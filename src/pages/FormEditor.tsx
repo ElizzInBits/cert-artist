@@ -503,7 +503,7 @@ ${html}
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
             <tbody>
-              <tr style={{ height: '36px' }}>
+              <tr style={{ height: '50px' }}>
                 <td style={{ border: '1px solid #000', borderRight: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>PESO: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></div>
                   <div style={{ marginTop: '2px' }}>FC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
@@ -536,7 +536,7 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '7pt' }}>
+                    <td style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '7pt' }}>
                       <span 
                         onClick={() => handleCheckboxAtividade(formIndex, index, !isChecked)}
                         style={{ cursor: 'pointer', userSelect: 'none', fontSize: '12pt', display: 'inline-block', marginRight: '4px' }}
@@ -545,19 +545,19 @@ ${html}
                       </span> {atividade}
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'liberado')}
                     >
                       <span style={{ fontSize: '12pt' }}>{formData.atividades[index] === 'liberado' ? '☒' : '☐'}</span> Liberado
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'nao_liberado')}
                     >
                       <span style={{ fontSize: '12pt' }}>{formData.atividades[index] === 'nao_liberado' ? '☒' : '☐'}</span> Não Liberado
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      style={{ border: '1px solid #000', borderTop: 'none', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => handleRadioAtividade(formIndex, index, 'na')}
                     >
                       <span style={{ fontSize: '12pt' }}>{isNA ? '☒' : '☐'}</span> N/A
