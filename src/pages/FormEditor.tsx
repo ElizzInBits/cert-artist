@@ -272,8 +272,12 @@ ${html}
           }
           .print-container > div {
             border: none !important;
-            padding: 5mm !important;
+            padding: 0 !important;
             margin: 0 !important;
+            border-radius: 0 !important;
+          }
+          .print-page {
+            padding: 5mm !important;
           }
         }
         @media screen {
@@ -361,7 +365,7 @@ ${html}
       <div className="container mx-auto py-8">
         <div className="print-container" id="form-content" style={{ fontFamily: '\'Arial MT\', Arial, sans-serif', fontSize: '9pt' }}>
           {forms.map((formData, formIndex) => (
-            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '10px', borderRadius: '8px', pageBreakInside: 'avoid' }}>
+            <div key={formIndex} style={{ pageBreakAfter: formIndex < forms.length - 1 ? 'always' : 'auto', marginBottom: formIndex < forms.length - 1 ? '50px' : '0', position: 'relative', border: '1px solid #e5e7eb', padding: '10px', borderRadius: '8px', pageBreakInside: 'avoid' }} className="print-page">
           
           <div className="no-print" style={{ position: 'absolute', top: '10px', left: '10px', display: 'flex', gap: '8px', alignItems: 'center', zIndex: 9999, background: 'white', padding: '4px 8px', borderRadius: '4px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
             <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#6b7280' }}>Documento {formIndex + 1}</span>
@@ -549,7 +553,7 @@ ${html}
             <div style={{ fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span>Assinatura do Médico Examinador:</span>
               {formData.assinatura ? (
-                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '100px' }} />
+                <img src={filipeAssinatura} alt="Assinatura" style={{ height: '120px' }} />
               ) : (
                 <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '200px' }}></span>
               )}
