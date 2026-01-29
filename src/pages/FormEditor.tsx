@@ -459,9 +459,9 @@ ${html}
                       <div>A</div>
                     </td>
                   )}
-                  <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '7pt' }}>{pergunta}</td>
+                  <td style={{ border: '1px solid #000', padding: '0px 3px', fontSize: '7pt', lineHeight: '1.1' }}>{pergunta}</td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer', padding: '0px 2px', lineHeight: '1.1' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     data-resposta={`${formIndex}-${index}`}
@@ -470,7 +470,7 @@ ${html}
                     SIM <span style={{ fontSize: '10pt' }}>({formData.respostas[index] === 'sim' ? 'X' : ' '})</span>
                   </td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer', padding: '0px 2px', lineHeight: '1.1' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     onClick={() => updateResposta(formIndex, index, 'nao')}
@@ -506,11 +506,11 @@ ${html}
               <tr style={{ height: '60px' }}>
                 <td style={{ border: '1px solid #000', borderRight: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>PESO: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></div>
-                  <div style={{ marginTop: '10px' }}>FC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
+                  <div style={{ marginTop: '12px' }}>FC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
                 </td>
                 <td style={{ border: '1px solid #000', borderRight: 'none', borderLeft: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>ALTURA: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></div>
-                  <div style={{ marginTop: '10px' }}>FR: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></div>
+                  <div style={{ marginTop: '12px' }}>FR: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></div>
                 </td>
                 <td style={{ border: '1px solid #000', borderRight: 'none', borderLeft: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>IMC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></div>
