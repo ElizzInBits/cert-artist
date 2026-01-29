@@ -244,8 +244,8 @@ ${html}
     <div className="min-h-screen" style={{ background: 'white' }}>
       <style>{`
         @page {
-          size: A4;
-          margin: 3mm 8mm 8mm 8mm;
+          size: A4 portrait;
+          margin: 10mm;
         }
         @media print {
           * {
@@ -296,10 +296,13 @@ ${html}
           border: none;
           outline: none;
           background: transparent;
-          font-size: 9pt;
+          font-size: 8pt;
           font-family: 'Arial MT', Arial, sans-serif;
           width: 100%;
-          resize: none;
+          resize: vertical;
+          line-height: 1.3;
+          overflow-wrap: break-word;
+          word-wrap: break-word;
         }
         table {
           width: 100%;
@@ -457,16 +460,16 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold' }}>Observação:</td>
+                <td style={{ border: '0.5px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '8pt' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '0.5px solid #000', padding: '2px 4px', height: '25px' }}>
+                <td style={{ border: '0.5px solid #000', padding: '4px', height: 'auto', minHeight: '50px' }}>
                   <textarea 
                     className="form-textarea" 
-                    rows={1} 
+                    rows={3} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '20px' }}
+                    style={{ minHeight: '45px', fontSize: '8pt', lineHeight: '1.3' }}
                   />
                 </td>
               </tr>
