@@ -314,7 +314,7 @@ ${html}
         table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 0px;
+          margin-top: 2px;
         }
         td {
           border: 1px solid #000;
@@ -405,7 +405,7 @@ ${html}
           
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '4px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
             <div style={{ fontWeight: 'bold', fontSize: '14pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
-            <img src={vallourecLogo} alt="Vallourec" style={{ height: '26px', marginLeft: 'auto' }} />
+            <img src={vallourecLogo} alt="Vallourec" style={{ height: '30px', marginLeft: 'auto' }} />
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '3px' }}>
