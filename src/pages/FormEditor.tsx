@@ -454,21 +454,23 @@ ${html}
                       ENTREVISTA MÉDICA
                     </td>
                   )}
-                  <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>{pergunta}</td>
+                  <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '7pt' }}>{pergunta}</td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     data-resposta={`${formIndex}-${index}`}
+                    onClick={() => updateResposta(formIndex, index, 'sim')}
                   >
-                    SIM <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'sim'} onChange={() => updateResposta(formIndex, index, 'sim')} />
+                    SIM ( {formData.respostas[index] === 'sim' ? 'X' : ' '} )
                   </td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', padding: '2px', cursor: 'pointer' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
+                    onClick={() => updateResposta(formIndex, index, 'nao')}
                   >
-                    NÃO <input type="radio" name={`q${formIndex}-${index}`} checked={formData.respostas[index] === 'nao'} onChange={() => updateResposta(formIndex, index, 'nao')} />
+                    NÃO ( {formData.respostas[index] === 'nao' ? 'X' : ' '} )
                   </td>
                 </tr>
               ))}
@@ -494,15 +496,15 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
             <tbody>
-              <tr>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PESO: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>ALTURA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>IMC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>PA: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FC: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt' }}>FR: <input className="form-input" style={{ fontSize: '8pt' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
+              <tr style={{ height: '14px' }}>
+                <td style={{ border: '1px solid #000', padding: '0 3px', fontSize: '7.5pt', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>PESO: <input className="form-input" style={{ width: '45px', fontSize: '7.5pt', lineHeight: '1', display: 'inline-block' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '0 3px', fontSize: '7.5pt', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>ALTURA: <input className="form-input" style={{ width: '45px', fontSize: '7.5pt', lineHeight: '1', display: 'inline-block' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '0 3px', fontSize: '7.5pt', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>IMC: <input className="form-input" style={{ width: '45px', fontSize: '7.5pt', lineHeight: '1', display: 'inline-block' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '0 3px', fontSize: '7.5pt', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>PA: <input className="form-input" style={{ width: '45px', fontSize: '7.5pt', lineHeight: '1', display: 'inline-block' }} value={formData.pa} onChange={(e) => updateField(formIndex, 'pa', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '0 3px', fontSize: '7.5pt', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>FC: <input className="form-input" style={{ width: '45px', fontSize: '7.5pt', lineHeight: '1', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '0 3px', fontSize: '7.5pt', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>FR: <input className="form-input" style={{ width: '45px', fontSize: '7.5pt', lineHeight: '1', display: 'inline-block' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -521,38 +523,30 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '8.5pt' }}>
+                    <td style={{ border: '1px solid #000', padding: '1px 3px', fontSize: '7pt' }}>
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
                         onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)} 
                       /> {atividade}
                     </td>
-                    <td style={{ border: '1px solid #000', width: '75px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
-                      <input 
-                        type="radio" 
-                        name={`ativ${formIndex}-${index}`} 
-                        checked={formData.atividades[index] === 'liberado'} 
-                        onChange={() => handleRadioAtividade(formIndex, index, 'liberado')}
-                        disabled={isNA}
-                      /> Liberado
+                    <td 
+                      style={{ border: '1px solid #000', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'liberado')}
+                    >
+                      Liberado ( {formData.atividades[index] === 'liberado' ? 'X' : ' '} )
                     </td>
-                    <td style={{ border: '1px solid #000', width: '90px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
-                      <input 
-                        type="radio" 
-                        name={`ativ${formIndex}-${index}`} 
-                        checked={formData.atividades[index] === 'nao_liberado'} 
-                        onChange={() => handleRadioAtividade(formIndex, index, 'nao_liberado')}
-                        disabled={isNA}
-                      /> Não Liberado
+                    <td 
+                      style={{ border: '1px solid #000', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'nao_liberado')}
+                    >
+                      Não Liberado ( {formData.atividades[index] === 'nao_liberado' ? 'X' : ' '} )
                     </td>
-                    <td style={{ border: '1px solid #000', width: '60px', textAlign: 'center', padding: '1px', fontSize: '8.5pt' }}>
-                      <input 
-                        type="radio" 
-                        name={`ativ${formIndex}-${index}`} 
-                        checked={isNA} 
-                        onChange={() => handleRadioAtividade(formIndex, index, 'na')} 
-                      /> N/A
+                    <td 
+                      style={{ border: '1px solid #000', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
+                      onClick={() => handleRadioAtividade(formIndex, index, 'na')}
+                    >
+                      N/A ( {isNA ? 'X' : ' '} )
                     </td>
                   </tr>
                 );
