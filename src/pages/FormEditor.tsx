@@ -245,11 +245,11 @@ ${html}
       <style>{`
         @page {
           size: A4 portrait;
-          margin: 10mm;
+          margin: 0;
         }
         @media print {
           @page {
-            margin: 10mm;
+            margin: 0;
           }
           * {
             -webkit-print-color-adjust: exact;
@@ -272,7 +272,7 @@ ${html}
           }
           .print-container > div {
             border: none !important;
-            padding: 0 !important;
+            padding: 8mm !important;
             margin: 0 !important;
           }
         }
@@ -283,7 +283,7 @@ ${html}
           .print-container {
             width: 210mm;
             margin: 0 auto;
-            padding: 8mm;
+            padding: 0;
             background: transparent;
           }
         }
