@@ -411,10 +411,10 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '0px' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '9px' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '14 pt' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
-                <td style={{ fontSize: '7.5pt', textAlign: 'justify', border: '1px solid #000', padding: '1px' }}>
+                <td style={{ fontSize: '10 pt', textAlign: 'justify', border: '1px solid #000', padding: '1px' }}>
                   Sistemática de conduta médica está condicionada ao PCMSO e estabelecerá exames complementares indicados conforme a necessidade, pelo Médico coordenador ou examinador.
                 </td>
               </tr>
