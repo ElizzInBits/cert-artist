@@ -506,11 +506,11 @@ ${html}
               <tr style={{ height: '60px' }}>
                 <td style={{ border: '1px solid #000', borderRight: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>PESO: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></div>
-                  <div style={{ marginTop: '6px' }}>FC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
+                  <div style={{ marginTop: '10px' }}>FC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
                 </td>
                 <td style={{ border: '1px solid #000', borderRight: 'none', borderLeft: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>ALTURA: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.altura} onChange={(e) => updateField(formIndex, 'altura', e.target.value)} /></div>
-                  <div style={{ marginTop: '6px' }}>FR: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></div>
+                  <div style={{ marginTop: '10px' }}>FR: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fr} onChange={(e) => updateField(formIndex, 'fr', e.target.value)} /></div>
                 </td>
                 <td style={{ border: '1px solid #000', borderRight: 'none', borderLeft: 'none', padding: '2px 4px', fontSize: '7pt', width: '25%', verticalAlign: 'top' }}>
                   <div>IMC: <input className="form-input" style={{ fontSize: '7pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.imc} onChange={(e) => updateField(formIndex, 'imc', e.target.value)} /></div>
@@ -579,7 +579,7 @@ ${html}
               ) : (
                 <span style={{ borderBottom: '1px solid #000', display: 'inline-block', width: '200px', marginBottom: '2px' }}></span>
               )}
-              <span style={{ marginLeft: '15px', marginBottom: '2px' }}>Data: <input className="form-input" style={{ width: '80px', display: 'inline-block', borderBottom: '1px solid #000', fontSize: '9pt' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
+              <span style={{ marginLeft: '15px', marginBottom: '2px' }}>Data: <input className="form-input" style={{ width: '100px', display: 'inline-block', borderBottom: '1px solid #000', fontSize: '9pt', textAlign: 'center', padding: '0 4px' }} value={formData.data} onChange={(e) => updateField(formIndex, 'data', e.target.value)} /></span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '2px', fontSize: '8pt', fontFamily: '\'Arial MT\', Arial, sans-serif' }}>
