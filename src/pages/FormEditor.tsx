@@ -248,6 +248,9 @@ ${html}
           margin: 10mm;
         }
         @media print {
+          @page {
+            margin: 10mm;
+          }
           * {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
