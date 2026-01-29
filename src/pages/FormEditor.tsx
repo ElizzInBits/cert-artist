@@ -524,26 +524,27 @@ ${html}
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
-                        onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)} 
+                        onChange={(e) => handleCheckboxAtividade(formIndex, index, e.target.checked)}
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
                       /> {atividade}
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'liberado')}
                     >
-                      Liberado {formData.atividades[index] === 'liberado' ? '☑' : '☐'}
+                      Liberado ( {formData.atividades[index] === 'liberado' ? 'X' : ' '} )
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'nao_liberado')}
                     >
-                      Não Liberado {formData.atividades[index] === 'nao_liberado' ? '☑' : '☐'}
+                      Não Liberado ( {formData.atividades[index] === 'nao_liberado' ? 'X' : ' '} )
                     </td>
                     <td 
                       style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }}
                       onClick={() => handleRadioAtividade(formIndex, index, 'na')}
                     >
-                      N/A {isNA ? '☑' : '☐'}
+                      N/A ( {isNA ? 'X' : ' '} )
                     </td>
                   </tr>
                 );
