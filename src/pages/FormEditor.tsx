@@ -451,7 +451,7 @@ ${html}
                     data-resposta={`${formIndex}-${index}`}
                     onClick={() => updateResposta(formIndex, index, 'sim')}
                   >
-                    SIM {formData.respostas[index] === 'sim' ? '☑' : '☐'}
+                    SIM ( {formData.respostas[index] === 'sim' ? 'X' : ' '} )
                   </td>
                   <td 
                     style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '7pt', cursor: 'pointer' }} 
@@ -459,7 +459,7 @@ ${html}
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     onClick={() => updateResposta(formIndex, index, 'nao')}
                   >
-                    NÃO {formData.respostas[index] === 'nao' ? '☑' : '☐'}
+                    NÃO ( {formData.respostas[index] === 'nao' ? 'X' : ' '} )
                   </td>
                 </tr>
               ))}
