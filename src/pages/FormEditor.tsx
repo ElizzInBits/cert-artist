@@ -421,7 +421,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap', width: '60%' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
@@ -434,7 +434,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
