@@ -404,14 +404,14 @@ ${html}
           </div>
           
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '4px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
-            <div style={{ fontWeight: 'bold', fontSize: '14pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
+            <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '30px', marginLeft: 'auto' }} />
           </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '3px' }}>
             <tbody>
               <tr>
-                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '14 pt' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '16 pt' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
               </tr>
               <tr>
                 <td style={{ fontSize: '10 pt', textAlign: 'justify', border: '1px solid #000', padding: '1px' }}>
@@ -482,10 +482,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
-            <tbody>
-              <tr>
-                <td style={{ border: '1px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
               </tr>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '4px', height: '60px', verticalAlign: 'top' }}>
@@ -501,10 +498,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
-            <tbody>
-              <tr style={{ height: '60px' }}>
-                <td style={{ border: '1px solid #000', borderRight: 'none', padding: '2px 4px', fontSize: '9pt', width: '25%', verticalAlign: 'top' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
                   <div>PESO: <input className="form-input" style={{ fontSize: '9pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></div>
                   <div style={{ marginTop: '12px' }}>FC: <input className="form-input" style={{ fontSize: '9pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
                 </td>
@@ -522,9 +516,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '6px' }}>
-            <tbody>
-              {atividades.map((atividade, index) => {
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
                 const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
                 const isNA = formData.atividades[index] === 'na' || formData.atividades[index] === undefined;
                 
