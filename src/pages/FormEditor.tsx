@@ -421,7 +421,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap', width: '60%' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
@@ -434,12 +434,12 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
                   {index === 0 && (
-                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '10px', padding: '4px 2px', lineHeight: '1.2' }}>
+                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '14px', padding: '4px 2px', lineHeight: '1.2' }}>
                       <div>E</div>
                       <div>N</div>
                       <div>T</div>
