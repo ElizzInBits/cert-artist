@@ -424,12 +424,12 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '4px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>PN/Ronda: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 70px)' }} value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap', width: '60%' }}>Nome: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 40px)' }} value={formData.nome} onChange={(e) => updateField(formIndex, 'nome', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap', width: '40%' }}>PN/Ronda: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 70px)' }} value={formData.pn} onChange={(e) => updateField(formIndex, 'pn', e.target.value)} /></td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Cargo: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 45px)' }} value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
-                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap' }}>Setor/Empresa: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 95px)' }} value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap', width: '60%' }}>Cargo: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 45px)' }} value={formData.cargo} onChange={(e) => updateField(formIndex, 'cargo', e.target.value)} /></td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', height: '16px', fontSize: '8pt', whiteSpace: 'nowrap', width: '40%' }}>Setor/Empresa: <input className="form-input" style={{ fontSize: '8pt', display: 'inline', width: 'calc(100% - 95px)' }} value={formData.setor} onChange={(e) => updateField(formIndex, 'setor', e.target.value)} /></td>
               </tr>
             </tbody>
           </table>
@@ -536,7 +536,7 @@ ${html}
                     data-atividade={`${formIndex}-${index}`}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '9pt', lineHeight: '1.1' }}>
+                    <td style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', padding: '1px 3px', fontSize: '8pt', lineHeight: '1.1' }}>
                       <span 
                         onClick={() => handleCheckboxAtividade(formIndex, index, !isChecked)}
                         style={{ cursor: 'pointer', userSelect: 'none', fontSize: '12pt', display: 'inline-block', marginRight: '4px', verticalAlign: 'middle' }}
@@ -545,19 +545,19 @@ ${html}
                       </span> {atividade}
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '9pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
+                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', width: '75px', textAlign: 'center', fontSize: '8pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'liberado')}
                     >
                       <span style={{ fontSize: '12pt', verticalAlign: 'middle' }}>{formData.atividades[index] === 'liberado' ? '☒' : '☐'}</span> Liberado
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '9pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
+                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', width: '90px', textAlign: 'center', fontSize: '8pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
                       onClick={() => !isNA && handleRadioAtividade(formIndex, index, 'nao_liberado')}
                     >
                       <span style={{ fontSize: '12pt', verticalAlign: 'middle' }}>{formData.atividades[index] === 'nao_liberado' ? '☒' : '☐'}</span> Não Liberado
                     </td>
                     <td 
-                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '9pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
+                      style={{ border: '1px solid #000', borderBottom: index === atividades.length - 1 ? '1px solid #000' : 'none', borderLeft: '1px solid #000', borderRight: '1px solid #000', borderTop: index === 0 ? '1px solid #000' : 'none', width: '60px', textAlign: 'center', fontSize: '8pt', cursor: 'pointer', lineHeight: '1.1', padding: '1px 2px' }}
                       onClick={() => handleRadioAtividade(formIndex, index, 'na')}
                     >
                       <span style={{ fontSize: '12pt', verticalAlign: 'middle' }}>{isNA ? '☒' : '☐'}</span> N/A
