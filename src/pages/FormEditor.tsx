@@ -314,7 +314,7 @@ ${html}
         table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 8px;
+          margin-top: 12px;
         }
         td {
           border: 1px solid #000;
@@ -482,7 +482,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
@@ -501,7 +501,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               <tr style={{ height: '60px' }}>
                 <td style={{ border: '1px solid #000', borderRight: 'none', padding: '2px 4px', fontSize: '9pt', width: '25%', verticalAlign: 'top' }}>
@@ -522,7 +522,7 @@ ${html}
             </tbody>
           </table>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               {atividades.map((atividade, index) => {
                 const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
