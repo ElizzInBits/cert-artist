@@ -488,13 +488,13 @@ ${html}
                 <td style={{ border: '1px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '4px', height: '60px', verticalAlign: 'top' }}>
+                <td style={{ border: '1px solid #000', padding: '4px', height: '80px', verticalAlign: 'top' }}>
                   <textarea 
                     className="form-textarea" 
                     rows={3} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '50px', fontSize: '9pt', lineHeight: '1.2' }}
+                    style={{ minHeight: '70px', fontSize: '9pt', lineHeight: '1.2' }}
                   />
                 </td>
               </tr>
