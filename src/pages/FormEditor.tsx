@@ -459,9 +459,9 @@ ${html}
                       <div>A</div>
                     </td>
                   )}
-                  <td style={{ border: '1px solid #000', padding: '4px 5px', fontSize: '9pt', lineHeight: '1.1' }}>{pergunta}</td>
+                  <td style={{ border: '1px solid #000', padding: '3px 5px', fontSize: '9pt', lineHeight: '1.1' }}>{pergunta}</td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '9pt', cursor: 'pointer', padding: '4px 4px', lineHeight: '1.1' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '9pt', cursor: 'pointer', padding: '3px 4px', lineHeight: '1.1' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     data-resposta={`${formIndex}-${index}`}
@@ -470,7 +470,7 @@ ${html}
                     SIM <span style={{ fontSize: '10pt' }}>({formData.respostas[index] === 'sim' ? 'X' : ' '})</span>
                   </td>
                   <td 
-                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '9pt', cursor: 'pointer', padding: '4px 4px', lineHeight: '1.1' }} 
+                    style={{ border: '1px solid #000', width: '65px', textAlign: 'center', fontSize: '9pt', cursor: 'pointer', padding: '3px 4px', lineHeight: '1.1' }} 
                     tabIndex={0} 
                     onKeyDown={(e) => handleKeyDown(e, formIndex, 'resposta', index)}
                     onClick={() => updateResposta(formIndex, index, 'nao')}
@@ -485,10 +485,10 @@ ${html}
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '12px' }}>
             <tbody>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
+                <td style={{ border: '1px solid #000', padding: '1px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '4px', height: '80px', verticalAlign: 'top' }}>
+                <td style={{ border: '1px solid #000', padding: '3px', height: '80px', verticalAlign: 'top' }}>
                   <textarea 
                     className="form-textarea" 
                     rows={3} 
