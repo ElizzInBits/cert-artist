@@ -483,6 +483,9 @@ ${html}
           </table>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+            <tbody>
+              <tr>
+                <td style={{ border: '1px solid #000', padding: '2px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
               </tr>
               <tr>
                 <td style={{ border: '1px solid #000', padding: '4px', height: '60px', verticalAlign: 'top' }}>
@@ -499,6 +502,9 @@ ${html}
           </table>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+            <tbody>
+              <tr style={{ height: '60px' }}>
+                <td style={{ border: '1px solid #000', borderRight: 'none', padding: '2px 4px', fontSize: '9pt', width: '25%', verticalAlign: 'top' }}>
                   <div>PESO: <input className="form-input" style={{ fontSize: '9pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.peso} onChange={(e) => updateField(formIndex, 'peso', e.target.value)} /></div>
                   <div style={{ marginTop: '12px' }}>FC: <input className="form-input" style={{ fontSize: '9pt', lineHeight: '1', width: '60px', display: 'inline-block' }} value={formData.fc} onChange={(e) => updateField(formIndex, 'fc', e.target.value)} /></div>
                 </td>
@@ -517,6 +523,8 @@ ${html}
           </table>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '8px' }}>
+            <tbody>
+              {atividades.map((atividade, index) => {
                 const isChecked = formData.atividades[index] !== 'na' && formData.atividades[index] !== undefined;
                 const isNA = formData.atividades[index] === 'na' || formData.atividades[index] === undefined;
                 
