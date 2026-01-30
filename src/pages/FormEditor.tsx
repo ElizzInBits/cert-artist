@@ -439,7 +439,7 @@ ${html}
               {perguntas.map((pergunta, index) => (
                 <tr key={index}>
                   {index === 0 && (
-                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', textAlign: 'center', fontWeight: 'bold', width: '24px', fontSize: '14px', padding: '4px 2px', lineHeight: '1.2' }}>
+                    <td rowSpan={perguntas.length} style={{ border: '1px solid #000', textAlign: 'center', fontWeight: 'normal', width: '24px', fontSize: '14px', padding: '4px 2px', lineHeight: '1.2' }}>
                       <div>E</div>
                       <div>N</div>
                       <div>T</div>
