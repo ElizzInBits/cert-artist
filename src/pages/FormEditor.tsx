@@ -403,7 +403,7 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2px', marginTop: '8px', pageBreakInside: 'avoid', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2px', marginTop: '4px', pageBreakInside: 'avoid', position: 'relative' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '30px', marginLeft: 'auto' }} />
           </div>
