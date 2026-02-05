@@ -403,12 +403,12 @@ ${html}
             )}
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '6px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2px', marginTop: '0px', pageBreakInside: 'avoid', position: 'relative' }}>
             <div style={{ fontWeight: 'bold', fontSize: '16pt', fontFamily: 'Arial, sans-serif', textDecoration: 'underline', textAlign: 'center', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>MEDICINA DO TRABALHO</div>
             <img src={vallourecLogo} alt="Vallourec" style={{ height: '30px', marginLeft: 'auto' }} />
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '5px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '2px' }}>
             <tbody>
               <tr>
                 <td style={{ textAlign: 'center', fontWeight: 'bold', border: '1px solid #000', padding: '2px', fontSize: '16 pt' }}>AVALIAÇÃO DE ATIVIDADES CRÍTICAS</td>
@@ -488,13 +488,13 @@ ${html}
                 <td style={{ border: '1px solid #000', padding: '1px 4px', fontWeight: 'bold', fontSize: '9pt' }}>Observação:</td>
               </tr>
               <tr>
-                <td style={{ border: '1px solid #000', padding: '3px', height: '80px', verticalAlign: 'top' }}>
+                <td style={{ border: '1px solid #000', padding: '3px', height: '50px', verticalAlign: 'top' }}>
                   <textarea 
                     className="form-textarea" 
-                    rows={3} 
+                    rows={2} 
                     value={formData.observacao} 
                     onChange={(e) => updateField(formIndex, 'observacao', e.target.value)}
-                    style={{ minHeight: '70px', fontSize: '9pt', lineHeight: '1.2' }}
+                    style={{ minHeight: '40px', fontSize: '9pt', lineHeight: '1.2' }}
                   />
                 </td>
               </tr>
